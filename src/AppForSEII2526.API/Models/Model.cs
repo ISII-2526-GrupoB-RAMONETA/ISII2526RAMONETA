@@ -1,13 +1,6 @@
-﻿using System;
-
-public class Model
+﻿namespace AppForSEII2526.API.Models
 {
-	public Model(string name)
-	{
-		Name = name;
+    public class Model
+    {
     }
-
-	public int Id { get; set; }
-	public string Name { get; set; }
-
 }

@@ -1,8 +1,6 @@
-﻿using System;
-
-public class PurchaseItem
+﻿namespace AppForSEII2526.API.Models
 {
-	public PurchaseItem()
-	{
-	}
+    public class PurchaseItem
+    {
+    }
 }
