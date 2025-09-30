@@ -2,5 +2,9 @@
 {
     public class PurchaseItem
     {
+        public PurchaseItem()
+        {
+
+        }
     }
 }
