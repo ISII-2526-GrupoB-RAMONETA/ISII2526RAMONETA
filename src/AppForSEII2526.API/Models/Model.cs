@@ -1,13 +1,8 @@
-using System;
-
-public class Model
+task1-crear-modelo-clase-para-comprar-coches
+namespace AppForSEII2526.API.Models
 {
-    public Model(string name)
+    public class Model
     {
-        Name = name;
     }
-
-    public int Id { get; set; }
-    public string Name { get; set; }
-
 }
+
