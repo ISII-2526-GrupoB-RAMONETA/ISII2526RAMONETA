@@ -7,5 +7,30 @@ namespace AppForSEII2526.API.Models
         {
 
         }
+        public Car(string carClass, string color, string description, string manufacturer, decimal purchasingPrice, int quantityForPurchasing, int quantityForRenting, decimal rentalItems, decimal rentingPrice)
+        {
+            CarClass = carClass;
+            Color = color;
+            Description = description;
+            Manufacturer = manufacturer;
+            PurchasingPrice = purchasingPrice;
+            QuantityForPurchasing = quantityForPurchasing;
+            QuantityForRenting = quantityForRenting;
+            RentalItems = rentalItems;
+            RentingPrice = rentingPrice;
+        }
+
+
+        public int Id { get; set; }
+        public string CarClass { get; set; }
+        public string Color { get; set; }
+        public string Description { get; set; }
+        public string Manufacturer { get; set; }
+        public decimal PurchasingPrice { get; set; }
+        public int QuantityForPurchasing { get; set; }
+        public int QuantityForRenting { get; set; }
+        public decimal RentalItems { get; set; }
+        public decimal RentingPrice { get; set; }
+
     }
 }
