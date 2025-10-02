@@ -7,7 +7,7 @@ namespace AppForSEII2526.API.Models
         {
 
         }
-        public Car(string carClass, string color, string description, string manufacturer, decimal purchasingPrice, int quantityForPurchasing, int quantityForRenting, decimal rentalItems, decimal rentingPrice)
+        public Car(string carClass, string color, string description, string manufacturer, decimal purchasingPrice, int quantityForPurchasing, int quantityForRenting, decimal rentalItems, decimal rentingPrice, decimal reviewItems, decimal engDisplacement,string  fueltype,string maintenanceTypes,decimal purchaseItems,decimal rimSize)
         {
             CarClass = carClass;
             Color = color;
@@ -18,6 +18,13 @@ namespace AppForSEII2526.API.Models
             QuantityForRenting = quantityForRenting;
             RentalItems = rentalItems;
             RentingPrice = rentingPrice;
+            ReviewItems = reviewItems;
+
+            EngDisplacement = engDisplacement;
+            Fueltype = fueltype;
+            MaintenanceTypes = maintenanceTypes;
+            PurchaseItems = purchaseItems;
+            RimSize = rimSize;
         }
 
 
@@ -31,6 +38,12 @@ namespace AppForSEII2526.API.Models
         public int QuantityForRenting { get; set; }
         public decimal RentalItems { get; set; }
         public decimal RentingPrice { get; set; }
+        public decimal ReviewItems { get; set; }
+        public decimal EngDisplacement { get; set; }
+        public string Fueltype { get; set; }
+        public string MaintenanceTypes { get; set; }
+        public decimal PurchaseItems { get; set; }
+        public decimal RimSize { get; set; }
 
     }
 }
