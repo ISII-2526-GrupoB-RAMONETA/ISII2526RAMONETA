@@ -19,13 +19,14 @@ namespace AppForSEII2526.API.Models
 
         }
 
-        public Purchase(int id, PaymentMethodTypes paymentMethod, DateTime purchasingDate, decimal purchasingPrice, bool deliveryCarDealer)
+        public Purchase(PaymentMethodTypes paymentMethod, DateTime purchasingDate, decimal purchasingPrice, bool deliveryCarDealer, string name, string surname)
         {
-            Id = id;
             PaymentMethod = paymentMethod;
             PurchasingDate = purchasingDate;
             PurchasingPrice = purchasingPrice;
             DeliveryCarDealer = deliveryCarDealer;
+            Name = name;
+            Surname = surname;
         }
 
         public int Id { get; set; }
@@ -33,6 +34,9 @@ namespace AppForSEII2526.API.Models
         public DateTime PurchasingDate { get; set; }
         public decimal PurchasingPrice { get; set; }
         public bool DeliveryCarDealer { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+
 
     }
 
