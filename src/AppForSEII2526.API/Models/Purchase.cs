@@ -34,7 +34,7 @@ namespace AppForSEII2526.API.Models
         public decimal PurchasingPrice { get; set; }
         public bool DeliveryCarDealer { get; set; }
         
-
+        public IList<PurchaseItem> PurchaseItems { get; set; }
 
     }
 
