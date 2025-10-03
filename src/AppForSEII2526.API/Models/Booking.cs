@@ -2,18 +2,31 @@
 {
     public class Booking
     {
+
+        public enum PaymentMethodTypes
+        {//Metodos de pago}
+            Efectivo,
+            TarjetaCredito,
+            TarjetaDebito,
+            TransferenciaBancaria,
+            PagoMovil,
+            PayPal,
+            Criptomoneda,
+            Cheque
+
+        }
         public Booking()
         {
         }
 
-        public Booking(string clientAdress, string clientName, string clientPhoneNumber, string clientSurname, DateTime Date, string PaymentMethod)
+        public Booking(string clientAdress, string clientName, string clientPhoneNumber, string clientSurname, DateTime date, PaymentMethodTypes paymentMethod)
         {
-            clientAdress = clientAdress;
-            clientName = clientName;
-            clientPhoneNumber = clientPhoneNumber;
-            clientSurname = clientSurname;
-            Date = Date;
-            PaymentMethod = PaymentMethod;
+            ClientAdress = clientAdress;
+            ClientName = clientName;
+            ClientPhoneNumber = clientPhoneNumber;
+            ClientSurname = clientSurname;
+            Date = date;
+            PaymentMethod = paymentMethod;
         }
 
         public int Id { get; set; }
@@ -28,7 +41,7 @@
 
         public DateTime Date { get; set; }
 
-        public string PaymentMethod { get; set; }
+        public PaymentMethodTypes PaymentMethod { get; set; }
 
 
 

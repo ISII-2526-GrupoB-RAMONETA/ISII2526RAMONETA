@@ -8,9 +8,8 @@ namespace AppForSEII2526.API.Models
 
         }
 
-        public PurchaseItem(int carId, int purchaseId, int quantity)
+        public PurchaseItem(int purchaseId, int quantity)
         {
-            CarId = carId;
             PurchaseId = purchaseId;
             Quantity = quantity;
         }

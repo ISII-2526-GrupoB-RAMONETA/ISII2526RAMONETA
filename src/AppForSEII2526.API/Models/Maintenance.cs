@@ -6,10 +6,10 @@ namespace AppForSEII2526.API.Models
         {
         }
 
-        public Maintenance(string name,int NumberOfDays,float Price) { 
-        name = name;
-        NumberOfDays = NumberOfDays;
-        Price = Price;
+        public Maintenance(string name,int numberOfDays,float price) { 
+            Name = name;
+            NumberOfDays = NumberOfDays;
+            Price = price;
         }
 
         public int Id { get; set; }
