@@ -7,9 +7,9 @@
         {
         }
 
-        public MaintenanceType(string Type)
+        public MaintenanceType(string type)
         {
-            Type = Type;
+            Type = type;
         }
 
         public int Id { get; set; }

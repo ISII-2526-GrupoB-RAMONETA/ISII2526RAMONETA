@@ -7,15 +7,15 @@
         {
         }
 
-        public BookingItem(Booking Booking,string Comment,Maintenance Maintenance)
+        public BookingItem(Booking booking,string comment,Maintenance maintenance)
         {
-            Booking = Booking;
-            BookingID= Booking.Id;
+            Booking = booking;
+            BookingID= booking.Id;
 
-            Comment = Comment;
+            Comment = comment;
 
-            Maintenance = Maintenance;
-            MandID= Maintenance.Id;
+            Maintenance = maintenance;
+            MandID= maintenance.Id;
 
         }
 
