@@ -22,7 +22,7 @@ namespace AppForSEII2526.API.Models
             EngDisplacement = engDisplacement;
             Fueltype = fueltype;
             MaintenanceTypes = maintenanceTypes;
-            PurchaseItems = purchaseItems;
+            
             RimSize = rimSize;
         }
 
@@ -41,10 +41,11 @@ namespace AppForSEII2526.API.Models
         public decimal EngDisplacement { get; set; }
         public string Fueltype { get; set; }
         public string MaintenanceTypes { get; set; }
-        public decimal PurchaseItems { get; set; }
         public decimal RimSize { get; set; }
 
         public Model Model { get; set; }
 
-        }
+        public IList<PurchaseItem> PurchaseItems { get; set; }
+
+    }
 }
