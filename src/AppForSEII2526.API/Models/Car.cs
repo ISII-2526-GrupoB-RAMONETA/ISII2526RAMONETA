@@ -19,7 +19,6 @@ namespace AppForSEII2526.API.Models
             RentalItems = rentalItems;
             RentingPrice = rentingPrice;
             ReviewItems = reviewItems;
-
             EngDisplacement = engDisplacement;
             Fueltype = fueltype;
             MaintenanceTypes = maintenanceTypes;
@@ -45,5 +44,7 @@ namespace AppForSEII2526.API.Models
         public decimal PurchaseItems { get; set; }
         public decimal RimSize { get; set; }
 
-    }
+        public Model Model { get; set; }
+
+        }
 }
