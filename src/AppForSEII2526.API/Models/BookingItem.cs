@@ -21,14 +21,12 @@
 
         public int Id { get; set; }
 
-        public Booking Booking { get; set; }
-
         public int BookingID { get; set; }
-
+        public Booking Booking { get; set; }
+        
         public string Comment { get; set; }
 
-        public Maintenance Maintenance { get; set; }
-
         public int MandID { get; set; }
+        public Maintenance Maintenance { get; set; }
     }
 }
