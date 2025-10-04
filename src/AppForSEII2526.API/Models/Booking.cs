@@ -43,6 +43,8 @@
 
         public PaymentMethodTypes PaymentMethod { get; set; }
 
+        public IList<BookingItem> BookingItems { get; set; }
+
 
 
     }
