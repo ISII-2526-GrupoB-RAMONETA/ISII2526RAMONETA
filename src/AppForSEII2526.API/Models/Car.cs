@@ -46,6 +46,6 @@ namespace AppForSEII2526.API.Models
         public Model Model { get; set; }
 
         public IList<PurchaseItem> PurchaseItems { get; set; }
-        public IList<PurchaseItem> RentalItems { get; set; }
+        public IList<RentalItem> RentalItems { get; set; }
     }
 }
