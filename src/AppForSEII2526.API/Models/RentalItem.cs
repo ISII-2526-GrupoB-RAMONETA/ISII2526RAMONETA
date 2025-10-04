@@ -16,6 +16,7 @@
 
         public Car Car { get; set; }
         public int CarId { get; set; }
+        public Rental Rental { get; set; }
         public int RentalId { get; set; }
         public int Quantity { get; set; }
 
