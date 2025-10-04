@@ -41,7 +41,7 @@
         public DateTime Startdate { get; set; }
         public DateTime Enddate { get; set; }
 
-
+        public IList<RentalItem> RentalItems { get; set; }
     }
 
 }
