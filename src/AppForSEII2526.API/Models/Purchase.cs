@@ -34,7 +34,7 @@ namespace AppForSEII2526.API.Models
         [Display(Name = "Payment Method")]
         public PaymentMethodTypes PaymentMethod { get; set; }
 
-        
+
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime PurchasingDate { get; set; }
 
@@ -42,9 +42,7 @@ namespace AppForSEII2526.API.Models
         [Precision(10, 2)]
         public decimal PurchasingPrice { get; set; }
 
-        [DataType(System.ComponentModel.DataAnnotations.DataType.MultilineText)]
-        [Display(Name = "Delivery Car Dealer")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your address for delivery car")]
+        
         public bool DeliveryCarDealer { get; set; }
         
         public IList<PurchaseItem> PurchaseItems { get; set; }
