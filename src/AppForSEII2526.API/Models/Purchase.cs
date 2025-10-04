@@ -28,10 +28,21 @@ namespace AppForSEII2526.API.Models
             
         }
 
+        [Key]
         public int Id { get; set; }
+
+        [Display(Name = "Payment Method")]
         public PaymentMethodTypes PaymentMethod { get; set; }
+
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime PurchasingDate { get; set; }
+
+
+        [Precision(10, 2)]
         public decimal PurchasingPrice { get; set; }
+
+        
         public bool DeliveryCarDealer { get; set; }
         
         public IList<PurchaseItem> PurchaseItems { get; set; }
