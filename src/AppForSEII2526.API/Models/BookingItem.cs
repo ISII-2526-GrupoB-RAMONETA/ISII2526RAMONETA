@@ -25,8 +25,10 @@
 
         public int BookingID { get; set; }
 
-        public string Comment { get; set; }
 
+        [StringLength(300, ErrorMessage = "Comment cannot be longer than 300 characters.")]
+        public string Comment { get; set; }
+        
         public Maintenance Maintenance { get; set; }
 
         public int MandID { get; set; }
