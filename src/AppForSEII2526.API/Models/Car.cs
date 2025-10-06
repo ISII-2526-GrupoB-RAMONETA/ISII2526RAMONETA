@@ -81,9 +81,18 @@ namespace AppForSEII2526.API.Models
 
 
         //Alquilar coche
+        [Display(Name = "Engine displacement")]
+        [Range(50, int.MaxValue, ErrorMessage = "Engine displacement cannot be lower than 50 (cc).")]
         public decimal EngDisplacement { get; set; }
+
+        [StringLength(20, ErrorMessage = "Fuel type cannot be longer than 20 characters.")]
         public string Fueltype { get; set; }
+
+        [StringLength(200, ErrorMessage = "Maintenance types cannot be longer than 200 characters.")]
         public string MaintenanceTypes { get; set; }
+
+        [Display(Name = "Rim Size")]
+        [Range(6, int.MaxValue, ErrorMessage = "Rim size cannot be lower than 6 (inches)")]
         public decimal RimSize { get; set; }
 
 
