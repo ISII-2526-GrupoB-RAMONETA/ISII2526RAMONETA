@@ -31,16 +31,19 @@
 
         public int Id { get; set; }
 
+        [Display(Name = "Client Adress")]
         [StringLength(150, ErrorMessage = "Adress cannot be longer than 150 characters.")]
         public string ClientAdress { get; set; }
 
+        [Display(Name = "Client Name")]
         [StringLength(50, ErrorMessage = "Client Name cannot be longer than 50 characters.")]
         public string ClientName { get; set; }
 
-
+        [Display(Name = "Client Phone Number")]
         [StringLength(15, ErrorMessage = "Client PhoneNumber cannot be longer than 15 characters.")]
         public string ClientPhoneNumber { get; set; }
 
+        [Display(Name = "Client Surname")]
         [StringLength(50, ErrorMessage = "Client Surname cannot be longer than 50 characters.")]
         public string ClientSurname { get; set; }
 
