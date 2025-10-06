@@ -19,26 +19,34 @@
 
         }
 
-        public Rental(PaymentMethodTypes paymentMethod, DateTime rentingDate, decimal totalPrice, bool deliveryCarDealer, string name, string surname, DateTime startdate, DateTime enddate)
+        public Rental(PaymentMethodTypes paymentMethod, DateTime rentingDate, decimal totalPrice, bool deliveryCarDealer, DateTime startdate, DateTime enddate)
         {
             PaymentMethod = paymentMethod;
             RentingDate = rentingDate;
             TotalPrice = totalPrice;
             DeliveryCarDealer = deliveryCarDealer;
-            Name = name;
-            Surname = surname;
             Startdate = startdate;
             Enddate = enddate;
         }
 
+        [Key]
         public int Id { get; set; }
+
+        [Display(Name = "Payment Method")]
         public PaymentMethodTypes PaymentMethod { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime RentingDate { get; set; }
+
+        [Precision(10, 2)]
         public decimal TotalPrice { get; set; }
+
         public bool DeliveryCarDealer { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Startdate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Enddate { get; set; }
 
         public IList<RentalItem> RentalItems { get; set; }
