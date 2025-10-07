@@ -15,9 +15,12 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AACDAAAAAAAAgAAAAAAAAAAAAAAAAAABQAAABAAAQAA=</HashCode>
+      <HashCode>AAADAAAAAAAAgAAQAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
       <FileName>Models\Booking.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ApplicationUser" />
+    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="BookingItems" />
     </ShowAsCollectionAssociation>
@@ -35,14 +38,14 @@
   </Class>
   <Class Name="AppForSEII2526.API.Models.Maintenance">
     <Position X="9.5" Y="1.25" Width="2.25" />
-    <AssociationLine Name="BookingItems" Type="AppForSEII2526.API.Models.BookingItem">
-      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.11" Y="0.06" Height="0.182" Width="1.884" />
-      </MemberNameLabel>
-    </AssociationLine>
     <AssociationLine Name="MaintenanceTypes" Type="AppForSEII2526.API.Models.MaintenanceType">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.11" Y="0.06" Height="0.182" Width="2.917" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="BookingItems" Type="AppForSEII2526.API.Models.BookingItem">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.11" Y="0.06" Height="0.182" Width="1.884" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -50,8 +53,8 @@
       <FileName>Models\Maintenance.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="BookingItems" />
       <Property Name="MaintenanceTypes" />
+      <Property Name="BookingItems" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="AppForSEII2526.API.Models.MaintenanceType">
@@ -63,6 +66,16 @@
     <ShowAsAssociation>
       <Property Name="Maintenance" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="AppForSEII2526.API.Models.ApplicationUser">
+    <Position X="1.5" Y="5.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAgAAAAAAAAQAQABAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ApplicationUser.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Bookings" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
