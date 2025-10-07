@@ -18,18 +18,19 @@ public class ApplicationUser : IdentityUser {
     }
 
     [Display(Name = "Name")]
-    public string? Name
+    public string Name
     {
         get;
         set;
     }
 
     [Display(Name = "Surname")]
-    public string? Surname
+    public string Surname
     {
         get;
         set;
     }
 
+    public IList<Purchase> Purchases { get; set; }
 
 }

@@ -42,10 +42,11 @@ namespace AppForSEII2526.API.Models
         [Precision(10, 2)]
         public decimal PurchasingPrice { get; set; }
 
-        
         public bool DeliveryCarDealer { get; set; }
         
         public IList<PurchaseItem> PurchaseItems { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
 
     }
 
