@@ -8,13 +8,15 @@ public class ApplicationUser : IdentityUser {
     public ApplicationUser()
     {
     }
-    public ApplicationUser(string id, string name, string surname, string userName)
+    public ApplicationUser(string id, string name, string surname, string userName,string adress, string phoneNumber )
     {
         Id = id;
         Name = name;
         Surname = surname;
         UserName = userName;
         Email = userName;
+        Adress = adress;
+        PhoneNumber = phoneNumber;
     }
 
     [Display(Name = "Name")]
@@ -31,6 +33,21 @@ public class ApplicationUser : IdentityUser {
         set;
     }
 
+    public string Adress
+    {
+        get;
+        set;
+    }
+
+    [Display(Name = "Phone Number")]
+    public string PhoneNumber
+    {
+        get;
+        set;
+    }
+
     public IList<Purchase> Purchases { get; set; }
+
+    public IList<Booking> Bookings { get; set; }
 
 }
