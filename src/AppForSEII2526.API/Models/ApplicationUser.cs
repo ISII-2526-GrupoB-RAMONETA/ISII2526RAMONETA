@@ -32,7 +32,7 @@ public class ApplicationUser : IdentityUser {
         get;
         set;
     }
-
+  
     public string Address
     {
         get;
