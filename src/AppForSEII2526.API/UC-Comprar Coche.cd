@@ -15,6 +15,7 @@
     <Members>
       <Property Name="EngDisplacement" Hidden="true" />
       <Property Name="Fueltype" Hidden="true" />
+      <Property Name="MaintenanceTypes" Hidden="true" />
       <Property Name="RentalItems" Hidden="true" />
       <Property Name="RimSize" Hidden="true" />
     </Members>
