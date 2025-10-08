@@ -50,4 +50,6 @@ public class ApplicationUser : IdentityUser {
 
     public IList<Booking> Bookings { get; set; }
 
+    public IList<Rental> Rentals { get; set; }
+
 }

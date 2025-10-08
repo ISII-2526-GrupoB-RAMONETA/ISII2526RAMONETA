@@ -33,9 +33,12 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAADCAAAAAAAAAAAACAAgAAAAAAAQAAAAAAAAEAAAAE=</HashCode>
+      <HashCode>AAADCAAAAAAAAAAQACAAgAAAAAAAQAAAAAAAAEAAAAE=</HashCode>
       <FileName>Models\Rental.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ApplicationUser" />
+    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="RentalItems" />
     </ShowAsCollectionAssociation>
@@ -50,6 +53,21 @@
       <Property Name="Car" />
       <Property Name="Rental" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="AppForSEII2526.API.Models.ApplicationUser">
+    <Position X="14.5" Y="6.75" Width="3.25" />
+    <AssociationLine Name="Rentals" Type="AppForSEII2526.API.Models.Rental">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.675" Y="0.093" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAwAAAAAAAAgAAAAAAAAQAQABAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ApplicationUser.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Rentals" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
