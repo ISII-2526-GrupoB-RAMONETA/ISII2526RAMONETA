@@ -50,6 +50,8 @@
         public DateTime Enddate { get; set; }
 
         public IList<RentalItem> RentalItems { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
     }
 
 }
