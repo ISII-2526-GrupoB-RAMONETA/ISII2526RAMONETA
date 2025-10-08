@@ -8,14 +8,14 @@ public class ApplicationUser : IdentityUser {
     public ApplicationUser()
     {
     }
-    public ApplicationUser(string id, string name, string surname, string userName,string adress, string phoneNumber )
+    public ApplicationUser(string id, string name, string surname, string userName,string address, string phoneNumber )
     {
         Id = id;
         Name = name;
         Surname = surname;
         UserName = userName;
         Email = userName;
-        Adress = adress;
+        Address = address;
         PhoneNumber = phoneNumber;
     }
 
@@ -33,7 +33,7 @@ public class ApplicationUser : IdentityUser {
         set;
     }
 
-    public string Adress
+    public string Address
     {
         get;
         set;
