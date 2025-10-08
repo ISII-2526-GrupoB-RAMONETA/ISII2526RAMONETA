@@ -40,7 +40,7 @@ public class ApplicationUser : IdentityUser {
     }
 
     [Display(Name = "Phone Number")]
-    public string PhoneNumber
+    public string? PhoneNumber
     {
         get;
         set;
