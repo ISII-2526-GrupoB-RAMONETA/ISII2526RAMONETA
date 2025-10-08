@@ -1,5 +1,6 @@
 ﻿namespace AppForSEII2526.API.Models
 {
+    [PrimaryKey(nameof(BookingId), nameof(MantId))]
     public class BookingItem
     {
 
@@ -10,20 +11,19 @@
         public BookingItem(Booking booking,string comment,Maintenance maintenance)
         {
             Booking = booking;
-            BookingID= booking.Id;
+            BookingId= booking.Id;
 
             Comment = comment;
 
             Maintenance = maintenance;
-            MandID= maintenance.Id;
+            MantId= maintenance.Id;
 
         }
 
-        public int Id { get; set; }
 
         public Booking Booking { get; set; }
 
-        public int BookingID { get; set; }
+        public int BookingId { get; set; }
 
 
         [StringLength(300, ErrorMessage = "Comment cannot be longer than 300 characters.")]
@@ -31,6 +31,6 @@
         
         public Maintenance Maintenance { get; set; }
 
-        public int MandID { get; set; }
+        public int MantId { get; set; }
     }
 }
