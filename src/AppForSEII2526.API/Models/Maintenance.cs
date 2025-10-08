@@ -6,7 +6,7 @@ namespace AppForSEII2526.API.Models
         {
         }
 
-        public Maintenance(string name,int numberOfDays,float price) { 
+        public Maintenance(string name,int numberOfDays,decimal price) { 
             Name = name;
             NumberOfDays = numberOfDays;
             Price = price;
@@ -22,7 +22,7 @@ namespace AppForSEII2526.API.Models
         public int NumberOfDays { get; set; }
 
         [Precision(10, 2)]
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         public IList<MaintenanceType> MaintenanceTypes { get; set; }
 
