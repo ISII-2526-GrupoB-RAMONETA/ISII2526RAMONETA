@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppForSEII2526.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251008152659_CreateIdentitySchema")]
+    [Migration("20251014163600_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
         /// <inheritdoc />
@@ -132,7 +132,7 @@ namespace AppForSEII2526.API.Migrations
                     b.Property<int>("BookingId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MantId")
+                    b.Property<int>("MaintenanceId")
                         .HasColumnType("int");
 
                     b.Property<string>("Comment")
@@ -140,10 +140,7 @@ namespace AppForSEII2526.API.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<int>("MaintenanceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookingId", "MantId");
+                    b.HasKey("BookingId", "MaintenanceId");
 
                     b.HasIndex("MaintenanceId");
 
@@ -228,6 +225,9 @@ namespace AppForSEII2526.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("MaintenanceTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -242,6 +242,8 @@ namespace AppForSEII2526.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MaintenanceTypeId");
+
                     b.ToTable("Maintenances");
                 });
 
@@ -253,17 +255,12 @@ namespace AppForSEII2526.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("MaintenanceId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MaintenanceId");
 
                     b.ToTable("MaintenanceTypes");
                 });
@@ -569,15 +566,15 @@ namespace AppForSEII2526.API.Migrations
                     b.Navigation("Model");
                 });
 
-            modelBuilder.Entity("AppForSEII2526.API.Models.MaintenanceType", b =>
+            modelBuilder.Entity("AppForSEII2526.API.Models.Maintenance", b =>
                 {
-                    b.HasOne("AppForSEII2526.API.Models.Maintenance", "Maintenance")
-                        .WithMany("MaintenanceTypes")
-                        .HasForeignKey("MaintenanceId")
+                    b.HasOne("AppForSEII2526.API.Models.MaintenanceType", "MaintenanceType")
+                        .WithMany("Maintenances")
+                        .HasForeignKey("MaintenanceTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Maintenance");
+                    b.Navigation("MaintenanceType");
                 });
 
             modelBuilder.Entity("AppForSEII2526.API.Models.Purchase", b =>
@@ -715,8 +712,11 @@ namespace AppForSEII2526.API.Migrations
             modelBuilder.Entity("AppForSEII2526.API.Models.Maintenance", b =>
                 {
                     b.Navigation("BookingItems");
+                });
 
-                    b.Navigation("MaintenanceTypes");
+            modelBuilder.Entity("AppForSEII2526.API.Models.MaintenanceType", b =>
+                {
+                    b.Navigation("Maintenances");
                 });
 
             modelBuilder.Entity("AppForSEII2526.API.Models.Model", b =>

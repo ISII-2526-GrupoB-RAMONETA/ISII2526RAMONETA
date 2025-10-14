@@ -1,6 +1,6 @@
 ﻿namespace AppForSEII2526.API.Models
 {
-    [PrimaryKey(nameof(BookingId), nameof(MantId))]
+    [PrimaryKey(nameof(BookingId), nameof(MaintenanceId))]
     public class BookingItem
     {
 
@@ -16,7 +16,7 @@
             Comment = comment;
 
             Maintenance = maintenance;
-            MantId= maintenance.Id;
+            MaintenanceId = maintenance.Id;
 
         }
 
@@ -31,6 +31,6 @@
         
         public Maintenance Maintenance { get; set; }
 
-        public int MantId { get; set; }
+        public int MaintenanceId { get; set; }
     }
 }

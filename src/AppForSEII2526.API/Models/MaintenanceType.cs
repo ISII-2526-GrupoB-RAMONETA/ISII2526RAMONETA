@@ -17,6 +17,7 @@
         [StringLength(50, ErrorMessage = "Type cannot be longer than 50 characters.")]
         public string Type { get; set; }
 
-        public Maintenance Maintenance { get; set; }
+        //public Maintenance Maintenance { get; set; }
+        public IList<Maintenance> Maintenances { get; set; }
     }
 }

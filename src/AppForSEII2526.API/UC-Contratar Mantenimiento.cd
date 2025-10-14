@@ -28,7 +28,7 @@
   <Class Name="AppForSEII2526.API.Models.BookingItem">
     <Position X="4.75" Y="1.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAEAAAIAAAAAAAAAAAAAABAIAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAEAAAIAAAAAAAAAAAAAABAAAAgAAACAAAAAAA=</HashCode>
       <FileName>Models\BookingItem.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -38,22 +38,19 @@
   </Class>
   <Class Name="AppForSEII2526.API.Models.Maintenance">
     <Position X="9.5" Y="1.25" Width="2.25" />
-    <AssociationLine Name="MaintenanceTypes" Type="AppForSEII2526.API.Models.MaintenanceType">
-      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.11" Y="0.06" Height="0.182" Width="2.917" />
-      </MemberNameLabel>
-    </AssociationLine>
     <AssociationLine Name="BookingItems" Type="AppForSEII2526.API.Models.BookingItem">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.11" Y="0.06" Height="0.182" Width="1.884" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAQAAgCAAAAAAAAQAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <HashCode>AAACAAAAAQQAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAI=</HashCode>
       <FileName>Models\Maintenance.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MaintenanceType" />
+    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="MaintenanceTypes" />
       <Property Name="BookingItems" />
     </ShowAsCollectionAssociation>
   </Class>
@@ -63,14 +60,14 @@
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQACAAAAAAA=</HashCode>
       <FileName>Models\MaintenanceType.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Maintenance" />
-    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Maintenances" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="AppForSEII2526.API.Models.ApplicationUser">
     <Position X="1.5" Y="5.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAgAAAAAAAAQAQABAgAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAwAAAAAAAAgAAAAAAAAQAQABAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Models\ApplicationUser.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>

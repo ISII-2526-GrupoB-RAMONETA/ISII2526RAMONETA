@@ -54,18 +54,16 @@ namespace AppForSEII2526.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Maintenances",
+                name: "MaintenanceTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    NumberOfDays = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false)
+                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Maintenances", x => x.Id);
+                    table.PrimaryKey("PK_MaintenanceTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -257,21 +255,23 @@ namespace AppForSEII2526.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MaintenanceTypes",
+                name: "Maintenances",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    MaintenanceId = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    NumberOfDays = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    MaintenanceTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MaintenanceTypes", x => x.Id);
+                    table.PrimaryKey("PK_Maintenances", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MaintenanceTypes_Maintenances_MaintenanceId",
-                        column: x => x.MaintenanceId,
-                        principalTable: "Maintenances",
+                        name: "FK_Maintenances_MaintenanceTypes_MaintenanceTypeId",
+                        column: x => x.MaintenanceTypeId,
+                        principalTable: "MaintenanceTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -313,13 +313,12 @@ namespace AppForSEII2526.API.Migrations
                 columns: table => new
                 {
                     BookingId = table.Column<int>(type: "int", nullable: false),
-                    MantId = table.Column<int>(type: "int", nullable: false),
-                    Comment = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    MaintenanceId = table.Column<int>(type: "int", nullable: false)
+                    MaintenanceId = table.Column<int>(type: "int", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookingItems", x => new { x.BookingId, x.MantId });
+                    table.PrimaryKey("PK_BookingItems", x => new { x.BookingId, x.MaintenanceId });
                     table.ForeignKey(
                         name: "FK_BookingItems_Bookings_BookingId",
                         column: x => x.BookingId,
@@ -439,9 +438,9 @@ namespace AppForSEII2526.API.Migrations
                 column: "ModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MaintenanceTypes_MaintenanceId",
-                table: "MaintenanceTypes",
-                column: "MaintenanceId");
+                name: "IX_Maintenances_MaintenanceTypeId",
+                table: "Maintenances",
+                column: "MaintenanceTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Models_Name",
@@ -492,9 +491,6 @@ namespace AppForSEII2526.API.Migrations
                 name: "BookingItems");
 
             migrationBuilder.DropTable(
-                name: "MaintenanceTypes");
-
-            migrationBuilder.DropTable(
                 name: "PurchaseItems");
 
             migrationBuilder.DropTable(
@@ -517,6 +513,9 @@ namespace AppForSEII2526.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Rentals");
+
+            migrationBuilder.DropTable(
+                name: "MaintenanceTypes");
 
             migrationBuilder.DropTable(
                 name: "Models");
