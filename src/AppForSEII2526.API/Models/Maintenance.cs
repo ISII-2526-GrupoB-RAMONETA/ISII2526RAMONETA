@@ -24,7 +24,8 @@ namespace AppForSEII2526.API.Models
         [Precision(10, 2)]
         public decimal Price { get; set; }
 
-        public IList<MaintenanceType> MaintenanceTypes { get; set; }
+        //public IList<MaintenanceType> MaintenanceTypes { get; set; }
+        public MaintenanceType MaintenanceType { get; set; }
 
         public IList<BookingItem> BookingItems { get; set; }
 
