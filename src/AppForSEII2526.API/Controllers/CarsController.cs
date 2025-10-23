@@ -70,6 +70,21 @@ namespace AppForSEII2526.API.Controllers
 
         }
 
+
+
+
+        [HttpGet]
+        [Route("[action]")]
+        [ProducesResponseType(typeof(IList<CarForPurchaseDTO>), (int)HttpStatusCode.OK)]
+
+        public async Task<ActionResult> GetCoches_FILTRO_COLOR_DTO(string? filtroColor, string? modelo)
+        {
+            var cars = await _context.Cars.Include(c => c.Model).Where(c => ((c.Color.Contains(filtroColor)) || (filtroColor == null))
+                        && ((c.Model.Name.Equals(modelo)) || (modelo == null))).Select(c => new CarForPurchaseDTO(c.Id, c.Model.Name, c.Color, c.Fueltype, c.Manufacturer, c.PurchasingPrice)).ToListAsync();
+            return Ok(cars);
+
+        }
+
     }
 
     }
@@ -82,16 +97,5 @@ namespace AppForSEII2526.API.Controllers
         //    var coches= await _context.Cars.Where(c=>)
         //}
 
-        [HttpGet]
-        [Route("[action]")]
-        [ProducesResponseType(typeof(IList<CarForPurchaseDTO>), (int)HttpStatusCode.OK)]
+    
 
-        public async Task<ActionResult> GetCoches_FILTRO_COLOR_DTO(string? filtroColor, string? modelo)
-        {
-            var cars= await _context.Cars.Include(c=>c.Model).Where(c=>((c.Color.Contains(filtroColor)) || (filtroColor==null))
-                        && ((c.Model.Name.Equals(modelo)) || (modelo==null))).Select(c=>new CarForPurchaseDTO(c.Id,c.Model.Name, c.Color,c.Fueltype, c.Manufacturer, c.PurchasingPrice)).ToListAsync();
-            return Ok(cars);
-
-        }
-    }
-}
