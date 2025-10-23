@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppForSEII2526.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251014163600_CreateIdentitySchema")]
+    [Migration("20251023091720_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
         /// <inheritdoc />
