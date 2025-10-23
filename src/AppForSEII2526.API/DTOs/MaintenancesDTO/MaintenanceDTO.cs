@@ -9,11 +9,17 @@
 
         public string Type { get; set; }
 
-        public MaintenanceDTO(int id, string name, string type)
+        public decimal Price { get; set; }
+
+        public int NumberOfDays { get; set; }
+
+        public MaintenanceDTO(int id, string name, string type, decimal price, int days)
         {
             Id = id;
             Name = name;
             Type = type;
+            Price = price;
+            NumberOfDays = days;
         }
     }
 }
