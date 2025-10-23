@@ -3,18 +3,18 @@
     public class Booking
     {
 
-        public enum PaymentMethodTypes
-        {//Metodos de pago}
-            Efectivo,
-            TarjetaCredito,
-            TarjetaDebito,
-            TransferenciaBancaria,
-            PagoMovil,
-            PayPal,
-            Criptomoneda,
-            Cheque
+        //public enum PaymentMethodTypes
+        //{//Metodos de pago}
+        //    Efectivo,
+        //    TarjetaCredito,
+        //    TarjetaDebito,
+        //    TransferenciaBancaria,
+        //    PagoMovil,
+        //    PayPal,
+        //    Criptomoneda,
+        //    Cheque
 
-        }
+        //}
         public Booking()
         {
         }

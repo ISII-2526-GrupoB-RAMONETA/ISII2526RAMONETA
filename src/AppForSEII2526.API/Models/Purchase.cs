@@ -1,19 +1,21 @@
 namespace AppForSEII2526.API.Models
 {
+
+    public enum PaymentMethodTypes
+    {//Metodos de pago}
+        Efectivo,
+        TarjetaCredito,
+        TarjetaDebito,
+        TransferenciaBancaria,
+        PagoMovil,
+        PayPal,
+        Criptomoneda,
+        Cheque
+
+    }
     public class Purchase
     {
-        public enum PaymentMethodTypes
-        {//Metodos de pago}
-            Efectivo,
-            TarjetaCredito,
-            TarjetaDebito,
-            TransferenciaBancaria,
-            PagoMovil,
-            PayPal,
-            Criptomoneda,
-            Cheque
-
-        }
+        
         public Purchase()
         {
 
