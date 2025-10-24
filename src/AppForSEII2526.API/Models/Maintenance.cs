@@ -6,10 +6,11 @@ namespace AppForSEII2526.API.Models
         {
         }
 
-        public Maintenance(string name,int numberOfDays,decimal price) { 
+        public Maintenance(string name,int numberOfDays,decimal price,MaintenanceType maintenanceType) { 
             Name = name;
             NumberOfDays = numberOfDays;
             Price = price;
+            MaintenanceType = maintenanceType;
         }
 
         public int Id { get; set; }
