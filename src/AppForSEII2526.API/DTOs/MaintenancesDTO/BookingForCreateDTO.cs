@@ -19,7 +19,7 @@ namespace AppForSEII2526.API.DTOs.MaintenancesDTO
         {
             get
             {
-                return BookingItems.Sum(ri => ri.Price * ri.NumberOfDays);
+                return BookingItems.Sum(ri => ri.Price);
             }
         }
 
