@@ -2,12 +2,22 @@
 {
     public class PurchaseForCreateDTO
     {
-        public PurchaseForCreateDTO(string customerUserName,string customerNameSurname,string deliveryAddress,IList<PurchaseItemDTO> purchaseItems)
+        public PurchaseForCreateDTO(string Name, string Surname, string Address, IList<PurchaseItemDTO> purchaseItems)
         {
-            CustomerUserName = customerUserName ?? throw new ArgumentNullException(nameof(customerUserName));
-            CustomerNameSurname = customerNameSurname ?? throw new ArgumentNullException(nameof(customerNameSurname));
-            DeliveryAddress = deliveryAddress ?? throw new ArgumentNullException(nameof(deliveryAddress));
+            Name = Name ?? throw new ArgumentNullException(nameof(Name));
+            Surname = Surname ?? throw new ArgumentNullException(nameof(Surname));
+            Address = Address ?? throw new ArgumentNullException(nameof(Address));
             PurchaseItems = purchaseItems ?? throw new ArgumentNullException(nameof(purchaseItems));
+        }
+
+        public PurchaseForCreateDTO(string name,string surname,string address,IList<PurchaseItemDTO> purchaseItems,PaymentMethodTypes paymentMethod)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(Name));
+            Surname = surname ?? throw new ArgumentNullException(nameof(Surname));
+            Address = address ?? throw new ArgumentNullException(nameof(Address));
+            PaymentMethod = paymentMethod;
+            PurchaseItems = purchaseItems ?? throw new ArgumentNullException(nameof(purchaseItems));
+
         }
 
         public PurchaseForCreateDTO()
@@ -15,13 +25,17 @@
             PurchaseItems = new List<PurchaseItemDTO>();
         }
 
-        public string CustomerUserName { get; set; }
+        public string Name { get; set; }
 
-        public string CustomerNameSurname { get; set; }
+        public string Surname { get; set; }
 
-        public string DeliveryAddress { get; set; }
+        public string Address { get; set; }
+
+        public PaymentMethodTypes PaymentMethod { get; set; }
 
         public IList<PurchaseItemDTO> PurchaseItems { get; set; }
+
+        public DateTime PurchaseDate { get; set; }
 
 
     }

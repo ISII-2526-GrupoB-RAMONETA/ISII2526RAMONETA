@@ -1,4 +1,5 @@
 ﻿using AppForSEII2526.API.DTOs.PurchasesDTO;
+using AppForSEII2526.API.DTOs.RentalDTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,8 @@ namespace AppForSEII2526.API.Controllers
             _context = context;
             _logger = logger;
         }
+
+        //DETAILS PURCHASE
 
         [HttpGet]
         [Route("[action]")]
@@ -36,11 +39,11 @@ namespace AppForSEII2526.API.Controllers
                     .Include(p => p.PurchaseItems)
                      .ThenInclude(pi => pi.Car)
                         .ThenInclude(c => c.Model)
-                .Select(p => new PurchaseDetailDTO(p.Id, p.PurchasingDate,p.ApplicationUser.Name, p.ApplicationUser.Surname, p.ApplicationUser.Address,
-                    p.PurchaseItems.Select(pi => new PurchaseItemDTO(pi.Car.Id,pi.Car.Model.Name,pi.Car.PurchasingPrice,pi.Car.Color,pi.Car.QuantityForPurchasing)).ToList<PurchaseItemDTO>())).FirstOrDefaultAsync();
+                .Select(p => new PurchaseDetailDTO(p.Id, p.PurchasingDate, p.ApplicationUser.Name, p.ApplicationUser.Surname, p.ApplicationUser.Address,
+                    p.PurchaseItems.Select(pi => new PurchaseItemDTO(pi.Car.Id, pi.Car.Model.Name, pi.Car.PurchasingPrice, pi.Car.Color, pi.Car.QuantityForPurchasing)).ToList<PurchaseItemDTO>())).FirstOrDefaultAsync();
 
             if (purchase == null)
-                {
+            {
                 _logger.LogError($"Error: Purchase with id {id} does not exist");
                 return NotFound();
             }
@@ -48,5 +51,83 @@ namespace AppForSEII2526.API.Controllers
             return Ok(purchase);
 
         }
+
+        //POST PURCHASE
+        [HttpPost]
+        [Route("[action]")]
+        [ProducesResponseType(typeof(PurchaseDetailDTO), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
+        public async Task<ActionResult> CreatePurchase(PurchaseForCreateDTO purchaseForCreate)
+        {
+            if (purchaseForCreate.PurchaseItems.Count == 0)
+            {
+                ModelState.AddModelError("PurchaseItems", "Error! You must include at least one car to be purchased");
+            }
+
+            var user = _context.ApplicationUsers.FirstOrDefault(au => au.Name == purchaseForCreate.Name);
+            if (user == null)
+                ModelState.AddModelError("PurchaseApplicationUser", "Error! UserName is not registered");
+
+            if (ModelState.ErrorCount > 0)
+                return BadRequest(new ValidationProblemDetails(ModelState));
+
+            var carModels = purchaseForCreate.PurchaseItems.Select(pi => pi.Model).ToList<string>(); //guardar modelos
+
+            var cars = _context.Cars.Include(c => c.PurchaseItems)
+                .ThenInclude(pi => pi.Purchase)
+                    .Where(c => carModels.Contains(c.Model.Name))
+                        .Select(c => new
+                        {
+                            //coger atributos de la bbdd creada para comprobar las condiciones
+                            c.Id,
+                            c.Model,
+                            c.QuantityForPurchasing,
+                            c.PurchasingPrice,
+
+                        }).ToList();
+
+            Purchase purchase = new Purchase((AppForSEII2526.API.Models.PaymentMethodTypes)purchaseForCreate.PaymentMethod,
+                                            new List<PurchaseItem>(),user);
+
+            foreach (var item in purchaseForCreate.PurchaseItems)
+            {
+                var car = cars.FirstOrDefault(c => c.Model.Name == item.Model);
+
+                if (car == null)
+                {
+                    ModelState.AddModelError("PurchaseItems", $"Error! Car Model '{item.Model}' is not available for being purchased from the database");
+                }
+                else
+                {
+                    purchase.PurchaseItems.Add(new PurchaseItem(car.Id,purchase.Id,item.Quantity));
+                    item.PurchasingPrice = car.PurchasingPrice;
+                }
+            }
+
+            if (ModelState.ErrorCount > 0)
+            {
+                return BadRequest(new ValidationProblemDetails(ModelState));
+            }
+
+            _context.Add(purchase);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                ModelState.AddModelError("Purchase", $"Error! There was an error while saving your purchase, please, try again later");
+                return Conflict("Error" + ex.Message);
+            }
+
+            var purchaseDetail = new PurchaseDetailDTO(purchase.Id, purchase.PurchasingDate,purchase.ApplicationUser.Name,purchase.ApplicationUser.Surname,purchase.ApplicationUser.Address,
+                                 purchaseForCreate.PurchaseItems);
+
+            return CreatedAtAction("GetPurchase", new { id = purchase.Id }, purchaseDetail);
+        }
+
     }
 }
