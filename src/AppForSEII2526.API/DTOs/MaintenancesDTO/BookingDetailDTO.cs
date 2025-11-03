@@ -6,9 +6,9 @@
 
         public DateTime Date { get; set; }
 
-        public BookingDetailDTO(int id, DateTime date, string customerUserName, string customerNameSurname,
+        public BookingDetailDTO(int id, DateTime date, string customerUserName,string customerName, string customerSurname,
             string address, PaymentMethodTypes paymentMethod, IList<BookingItemDTO> bookingItems)
-        : base(customerUserName, customerNameSurname, address,
+        : base(customerUserName,customerName, customerSurname, address,
               paymentMethod,
               bookingItems
               )

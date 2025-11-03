@@ -38,5 +38,35 @@
 
         public ApplicationUser ApplicationUser { get; set; }
 
+        public Booking(DateTime date, PaymentMethodTypes paymentMethod, IList<BookingItem> bookingItems, ApplicationUser applicationUser)
+        {
+            
+            Date = date;
+            PaymentMethod = paymentMethod;
+            BookingItems = bookingItems;
+            ApplicationUser = applicationUser;
+        }
+
+
+
+        //public string CustomerUserName { get; set; }
+
+        //public string CustomerNameSurname { get; set; }
+
+        //public string Address { get; set; }
+
+        //public string? PhoneNumber { get; set; }
+
+        //public Booking(DateTime date, PaymentMethodTypes paymentMethod, IList<BookingItem> bookingItems, ApplicationUser applicationUser, string customerUserName, string customerNameSurname, string address, string? phonenumber) : this(date, paymentMethod)
+        //{
+        //    BookingItems = bookingItems;
+        //    ApplicationUser = applicationUser;
+        //    CustomerUserName = customerUserName;
+        //    CustomerNameSurname = customerNameSurname;
+        //    Address = address;
+        //    PhoneNumber = phonenumber;
+        //}
+
+
     }
 }
