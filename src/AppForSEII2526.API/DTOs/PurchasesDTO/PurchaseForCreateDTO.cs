@@ -1,12 +1,14 @@
-﻿namespace AppForSEII2526.API.DTOs.PurchasesDTO
+﻿using AppForSEII2526.API.Models;
+
+namespace AppForSEII2526.API.DTOs.PurchasesDTO
 {
     public class PurchaseForCreateDTO
     {
-        public PurchaseForCreateDTO(string Name, string Surname, string Address, IList<PurchaseItemDTO> purchaseItems)
+        public PurchaseForCreateDTO(string name, string surname, string address, IList<PurchaseItemDTO> purchaseItems)
         {
-            Name = Name ?? throw new ArgumentNullException(nameof(Name));
-            Surname = Surname ?? throw new ArgumentNullException(nameof(Surname));
-            Address = Address ?? throw new ArgumentNullException(nameof(Address));
+            Name = name ?? throw new ArgumentNullException(nameof(Name));
+            Surname = surname ?? throw new ArgumentNullException(nameof(Surname));
+            Address = address ?? throw new ArgumentNullException(nameof(Address));
             PurchaseItems = purchaseItems ?? throw new ArgumentNullException(nameof(purchaseItems));
         }
 

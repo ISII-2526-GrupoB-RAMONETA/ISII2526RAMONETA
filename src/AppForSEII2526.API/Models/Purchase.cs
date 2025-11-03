@@ -21,20 +21,22 @@ namespace AppForSEII2526.API.Models
 
         }
 
-        public Purchase(PaymentMethodTypes paymentMethod, DateTime purchasingDate, decimal purchasingPrice, ApplicationUser applicationUser)
+        public Purchase(PaymentMethodTypes paymentMethod, DateTime purchasingDate, ApplicationUser applicationUser,List<PurchaseItem> purchaseItems)
         {
             PaymentMethod = paymentMethod;
             PurchasingDate = purchasingDate;
-            PurchasingPrice = purchasingPrice;
-            ApplicationUser = applicationUser;
-        }
-
-        public Purchase(PaymentMethodTypes paymentMethod, List<PurchaseItem> purchaseItems,ApplicationUser applicationUser)
-        {
-            PaymentMethod = paymentMethod;
             ApplicationUser = applicationUser;
             PurchaseItems = new List<PurchaseItem>();
+            DeliveryCarDealer = true;
         }
+
+
+        //public Purchase(PaymentMethodTypes paymentMethod, List<PurchaseItem> purchaseItems,ApplicationUser applicationUser)
+        //{
+        //    PaymentMethod = paymentMethod;
+        //    ApplicationUser = applicationUser;
+        //    PurchaseItems = new List<PurchaseItem>();
+        //}
 
         [Key]
         public int Id { get; set; }

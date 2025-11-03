@@ -53,6 +53,7 @@ namespace AppForSEII2526.API.Controllers
         }
 
         //POST PURCHASE
+        ////POST PURCHASE
         [HttpPost]
         [Route("[action]")]
         [ProducesResponseType(typeof(PurchaseDetailDTO), (int)HttpStatusCode.Created)]
@@ -83,12 +84,12 @@ namespace AppForSEII2526.API.Controllers
                             c.Id,
                             c.Model,
                             c.QuantityForPurchasing,
-                            c.PurchasingPrice,
+                            c.PurchasingPrice
 
                         }).ToList();
 
-            Purchase purchase = new Purchase((AppForSEII2526.API.Models.PaymentMethodTypes)purchaseForCreate.PaymentMethod,
-                                            new List<PurchaseItem>(),user);
+            Purchase purchase = new Purchase((AppForSEII2526.API.Models.PaymentMethodTypes)purchaseForCreate.PaymentMethod,purchaseForCreate.PurchaseDate,
+                                            user,new List<PurchaseItem>());
 
             foreach (var item in purchaseForCreate.PurchaseItems)
             {
@@ -100,8 +101,18 @@ namespace AppForSEII2526.API.Controllers
                 }
                 else
                 {
-                    purchase.PurchaseItems.Add(new PurchaseItem(car.Id,purchase.Id,item.Quantity));
-                    item.PurchasingPrice = car.PurchasingPrice;
+                    if (car.QuantityForPurchasing < item.Quantity)
+                    {
+                        // Si no hay stock, añadimos un error
+                        ModelState.AddModelError("PurchaseItems", $"Error! Not enough stock for Car Model '{item.Model}'. Available: {car.QuantityForPurchasing}, Requested: {item.Quantity}");
+                    }
+                    else
+                    {
+                        purchase.PurchaseItems.Add(new PurchaseItem(car.Id, purchase.Id, item.Quantity));
+                        item.PurchasingPrice = car.PurchasingPrice;
+                        var carEntity = _context.Cars.Find(car.Id);
+                        if (carEntity != null) carEntity.QuantityForPurchasing -= item.Quantity;
+                    }
                 }
             }
 
@@ -110,6 +121,11 @@ namespace AppForSEII2526.API.Controllers
                 return BadRequest(new ValidationProblemDetails(ModelState));
             }
 
+            decimal totalCost = purchaseForCreate.PurchaseItems.Sum(
+                pi => pi.PurchasingPrice * pi.Quantity
+            );
+
+            purchase.PurchasingPrice = totalCost;
             _context.Add(purchase);
 
             try
@@ -123,7 +139,7 @@ namespace AppForSEII2526.API.Controllers
                 return Conflict("Error" + ex.Message);
             }
 
-            var purchaseDetail = new PurchaseDetailDTO(purchase.Id, purchase.PurchasingDate,purchase.ApplicationUser.Name,purchase.ApplicationUser.Surname,purchase.ApplicationUser.Address,
+            var purchaseDetail = new PurchaseDetailDTO(purchase.Id, purchase.PurchasingDate, purchase.ApplicationUser.Name, purchase.ApplicationUser.Surname, purchase.ApplicationUser.Address,
                                  purchaseForCreate.PurchaseItems);
 
             return CreatedAtAction("GetPurchase", new { id = purchase.Id }, purchaseDetail);
