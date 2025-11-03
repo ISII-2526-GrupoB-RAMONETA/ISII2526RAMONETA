@@ -2,15 +2,16 @@
 {
     public class RentalDetailDTO : RentalForCreateDTO
     {
-        public RentalDetailDTO(int id, DateTime rentalDate, string customerUserName, string customerNameSurname,
-            string deliveryAddress, PaymentMethodTypes paymentMethod, DateTime startdate,DateTime enddate, decimal totalPrice, IList<RentalItemDTO> rentalItems)
+        public RentalDetailDTO(int id, DateTime rentalDate, string customerUserName, string customerName, string customerSurname,
+            string deliveryAddress, bool deliveryCarDealer, PaymentMethodTypes paymentMethod, DateTime startdate,DateTime enddate, decimal totalPrice, IList<RentalItemDTO> rentalItems)
             : base(customerUserName,
-                   customerNameSurname,
+                   customerName,
+                   customerSurname,
                    deliveryAddress,
                    paymentMethod,
+                   deliveryCarDealer,
                    startdate,
                    enddate,
-                   totalPrice,
                    rentalItems)
         {
             Id = id;

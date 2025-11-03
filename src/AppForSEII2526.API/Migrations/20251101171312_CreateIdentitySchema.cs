@@ -236,11 +236,11 @@ namespace AppForSEII2526.API.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PaymentMethod = table.Column<int>(type: "int", nullable: false),
-                    RentingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     DeliveryCarDealer = table.Column<bool>(type: "bit", nullable: false),
-                    Startdate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Enddate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RentalDateFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RentalDateTo = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RentalDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -364,7 +364,9 @@ namespace AppForSEII2526.API.Migrations
                 {
                     CarId = table.Column<int>(type: "int", nullable: false),
                     RentalId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PriceForRenting = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
