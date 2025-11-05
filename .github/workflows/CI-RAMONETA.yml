@@ -40,7 +40,7 @@ jobs:
     - name: Run unit tests with report
       run: dotnet test ${{ env.UT }}
     - name: Upload test results
-      uses: actions/upload-artifcat@v4
+      uses: actions/upload-artifact@v4
       with:
         name: TestResults
         path: ./test/APPForSEII2526.UT/TestResults/TestResults.trx
