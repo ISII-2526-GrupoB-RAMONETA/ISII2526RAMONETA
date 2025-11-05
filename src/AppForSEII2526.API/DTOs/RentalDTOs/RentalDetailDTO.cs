@@ -3,7 +3,7 @@
     public class RentalDetailDTO : RentalForCreateDTO
     {
         public RentalDetailDTO(int id, DateTime rentalDate, string customerUserName, string customerName, string customerSurname,
-            string deliveryAddress, bool deliveryCarDealer, PaymentMethodTypes paymentMethod, DateTime startdate,DateTime enddate, decimal totalPrice, IList<RentalItemDTO> rentalItems)
+            string deliveryAddress, bool deliveryCarDealer, PaymentMethodTypes paymentMethod, DateTime startdate,DateTime enddate, IList<RentalItemDTO> rentalItems)
             : base(customerUserName,
                    customerName,
                    customerSurname,
@@ -21,18 +21,18 @@
 
         public DateTime RentalDate { get; set; }
 
-        //public override bool Equals(object? obj)
-        //{
-        //    return obj is RentalDetailDTO dTO &&
-        //           base.Equals(obj) &&
-        //           TotalPrice == dTO.TotalPrice &&
-        //           Id == dTO.Id &&
-        //           CompareDate(RentalDate, dTO.RentalDate);
-        //}
+        public override bool Equals(object? obj)
+        {
+            return obj is RentalDetailDTO dTO &&
+                   base.Equals(obj) &&
+                   TotalPrice == dTO.TotalPrice &&
+                   Id == dTO.Id &&
+                   CompareDate(RentalDate, dTO.RentalDate);
+        }
 
-        //public override int GetHashCode()
-        //{
-        //    return HashCode.Combine(base.GetHashCode(), Id, RentalDate);
-        //}
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode(), Id, RentalDate);
+        }
     }
 }

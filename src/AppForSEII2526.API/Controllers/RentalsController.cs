@@ -42,7 +42,7 @@ namespace AppForSEII2526.API.Controllers
                             //.ThenInclude(Rental => Rental.)
 
                 .Select(r => new RentalDetailDTO(r.Id, r.RentalDate, r.ApplicationUser.UserName,r.ApplicationUser.Name, r.ApplicationUser.Surname, r.ApplicationUser.Address,r.DeliveryCarDealer,
-                (PaymentMethodTypes)r.PaymentMethod, r.RentalDateFrom, r.RentalDateTo, r.TotalPrice, r.RentalItems
+                (PaymentMethodTypes)r.PaymentMethod, r.RentalDateFrom, r.RentalDateTo, r.RentalItems
                 .Select(ri => new RentalItemDTO(ri.Car.Id, ri.Car.Model.Name, ri.Car.Manufacturer,ri.Car.RentingPrice,ri.Quantity,ri.Description)).ToList<RentalItemDTO>()))
                 .FirstOrDefaultAsync();
 
@@ -102,7 +102,7 @@ public async Task<ActionResult> CreateRental(RentalForCreateDTO rentalForCreate)
                         
                         rentalForCreate.RentalDateFrom, rentalForCreate.RentalDateTo, new List<RentalItem>());
 
-            rental.TotalPrice = 0;
+    rental.TotalPrice = 0;
     var numDays = (rental.RentalDateTo - rental.RentalDateFrom).TotalDays;
 
 
@@ -148,7 +148,7 @@ public async Task<ActionResult> CreateRental(RentalForCreateDTO rentalForCreate)
     //it returns rentalDetail
     var rentalDetail = new RentalDetailDTO(rental.Id, rental.RentalDate, rental.ApplicationUser.UserName, rental.ApplicationUser.Name, rental.ApplicationUser.Surname,rental.ApplicationUser.Address,
         rentalForCreate.DeliveryCarDealer,rentalForCreate.PaymentMethod,
-        rental.RentalDateFrom, rental.RentalDateTo, rental.TotalPrice,
+        rental.RentalDateFrom, rental.RentalDateTo,
         rentalForCreate.RentalItems);
 
     return CreatedAtAction("GetRental", new { id = rental.Id }, rentalDetail);

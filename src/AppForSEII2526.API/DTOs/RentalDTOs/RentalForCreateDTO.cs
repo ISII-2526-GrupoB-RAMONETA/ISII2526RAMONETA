@@ -1,4 +1,5 @@
 ﻿using AppForSEII2526.API.Models;
+using System.ComponentModel;
 
 namespace AppForSEII2526.API.DTOs.RentalDTO
 {
@@ -53,7 +54,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
         [Required]
         public PaymentMethodTypes PaymentMethod { get; set; }
         public bool DeliveryCarDealer { get; set; }
-        public decimal TotalPrice { get; set; }
+        //public decimal TotalPrice { get; set; }
 
         private int NumberOfDays
         {
@@ -63,15 +64,15 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
             }
         }
 
-        //[Display(Name = "Total Price")]
-        //[JsonPropertyName("TotalPrice")]
-        //public double TotalPrice
-        //{
-        //    get
-        //    {
-        //        return RentalItems.Sum(ri => ri.PriceForRenting * NumberOfDays);
-        //    }
-        //}
+        [Display(Name = "Total Price")]
+        [JsonPropertyName("TotalPrice")]
+        public decimal TotalPrice
+        {
+            get
+            {
+                return RentalItems.Sum(ri => ri.PriceForRenting * NumberOfDays*ri.Quantity);
+            }
+        }
 
         protected bool CompareDate(DateTime date1, DateTime date2)
         {

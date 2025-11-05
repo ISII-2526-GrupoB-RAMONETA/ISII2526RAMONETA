@@ -10,10 +10,10 @@
 
         public decimal PriceForRenting { get; set; }
 
-        public int? Quantity { get; set; }
+        public int Quantity { get; set; }
         public string? Description { get; set; }
 
-        public RentalItemDTO(int carId, string model, string manufacturer, decimal priceForRenting,int? quantity, string? description)
+        public RentalItemDTO(int carId, string model, string manufacturer, decimal priceForRenting,int quantity, string? description)
         {
             CarId = carId;
             Model = model;
