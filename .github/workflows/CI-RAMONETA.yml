@@ -14,10 +14,10 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      API: .src/APPForSEII2526.API/AppForSEII2526.API.csproj
-      WEB: .src/APPForSEII2526.Web/AppForSEII2526.Web.csproj
-      UT: .src/APPForSEII2526.UT/AppForSEII2526.UT.csproj
-      UIT: .src/APPForSEII2526.UIT/AppForSEII2526.UIT.csproj
+      API: .src/AppForSEII2526.API/AppForSEII2526.API.csproj
+      WEB: .src/AppForSEII2526.Web/AppForSEII2526.Web.csproj
+      UT: .src/AppForSEII2526.UT/AppForSEII2526.UT.csproj
+      UIT: .src/AppForSEII2526.UIT/AppForSEII2526.UIT.csproj
     
     steps:
     - uses: actions/checkout@v4
