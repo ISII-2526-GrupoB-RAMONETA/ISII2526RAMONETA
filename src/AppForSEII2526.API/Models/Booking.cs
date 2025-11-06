@@ -23,6 +23,7 @@
         {
             Date = date;
             PaymentMethod = paymentMethod;
+            
         }
 
         public int Id { get; set; }
@@ -37,6 +38,9 @@
         public IList<BookingItem> BookingItems { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
+        public decimal TotalPrice { get; set; }
+
+        public int TotalNumberOfDays { get; set; }
 
         public Booking(DateTime date, PaymentMethodTypes paymentMethod, IList<BookingItem> bookingItems, ApplicationUser applicationUser)
         {
@@ -45,9 +49,10 @@
             PaymentMethod = paymentMethod;
             BookingItems = bookingItems;
             ApplicationUser = applicationUser;
+            
         }
 
-
+       
 
         //public string CustomerUserName { get; set; }
 

@@ -10,6 +10,7 @@
 
         public decimal Price { get; set; }
 
+        [Required]
         public string Comment { get; set; }
 
         public string Type { get; set; }

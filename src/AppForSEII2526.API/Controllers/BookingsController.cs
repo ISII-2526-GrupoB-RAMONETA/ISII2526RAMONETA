@@ -44,7 +44,7 @@ namespace AppForSEII2526.API.Controllers
                             .ThenInclude(maintenance => maintenance.MaintenanceType)
 
                 .Select(b => new BookingDetailDTO(b.Id, b.Date, b.ApplicationUser.UserName,b.ApplicationUser.Name, b.ApplicationUser.Surname, b.ApplicationUser.Address,
-                (PaymentMethodTypes)b.PaymentMethod, b.BookingItems
+                (PaymentMethodTypes)b.PaymentMethod, b.ApplicationUser.PhoneNumber, b.BookingItems
                 .Select(bi => new BookingItemDTO(bi.Maintenance.Id, bi.Maintenance.Name, bi.Maintenance.NumberOfDays, bi.Maintenance.Price, bi.Comment, bi.Maintenance.MaintenanceType.Type)).ToList<BookingItemDTO>()))
                 .FirstOrDefaultAsync();
 
@@ -82,7 +82,6 @@ namespace AppForSEII2526.API.Controllers
             var maintenances = _context.Maintenances.Include(m => m.BookingItems)
                 .ThenInclude(bi => bi.Booking)
                 .Where(m => maintenanceNames.Contains(m.Name))
-
                 .Select(m => new
                 {
                     m.Id,
@@ -109,14 +108,18 @@ namespace AppForSEII2526.API.Controllers
                 else
                 {
                     booking.BookingItems.Add(new BookingItem(maintenance.Id, booking, item.Comment));
+                    booking.TotalPrice += maintenance.Price;
+                    booking.TotalNumberOfDays += maintenance.NumberOfDays;
 
-                    
 
                 }
 
                 
 
             }
+            
+
+
 
 
             if (ModelState.ErrorCount > 0)
@@ -139,7 +142,7 @@ namespace AppForSEII2526.API.Controllers
             }
 
             var bookingDetail = new BookingDetailDTO(booking.Id, booking.Date, booking.ApplicationUser.UserName,booking.ApplicationUser.Name, booking.ApplicationUser.Surname,
-                booking.ApplicationUser.Address, bookingForCreate.PaymentMethod, bookingForCreate.BookingItems);
+                booking.ApplicationUser.Address, bookingForCreate.PaymentMethod,booking.ApplicationUser.PhoneNumber, bookingForCreate.BookingItems);
     
 
             return CreatedAtAction("GetBooking", new { id = booking.Id }, bookingDetail);
