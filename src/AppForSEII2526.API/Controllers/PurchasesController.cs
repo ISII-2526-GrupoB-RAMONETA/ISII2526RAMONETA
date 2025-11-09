@@ -53,7 +53,6 @@ namespace AppForSEII2526.API.Controllers
         }
 
         //POST PURCHASE
-        ////POST PURCHASE
         [HttpPost]
         [Route("[action]")]
         [ProducesResponseType(typeof(PurchaseDetailDTO), (int)HttpStatusCode.Created)]
@@ -84,8 +83,8 @@ namespace AppForSEII2526.API.Controllers
                             c.Id,
                             c.Model,
                             c.QuantityForPurchasing,
-                            c.PurchasingPrice
-
+                            c.PurchasingPrice,
+                            NumberOfPurchasedItems=c.PurchaseItems.Sum(pi=>pi.Quantity)
                         }).ToList();
 
             Purchase purchase = new Purchase((AppForSEII2526.API.Models.PaymentMethodTypes)purchaseForCreate.PaymentMethod,purchaseForCreate.PurchaseDate,
@@ -95,24 +94,36 @@ namespace AppForSEII2526.API.Controllers
             {
                 var car = cars.FirstOrDefault(c => c.Model.Name == item.Model);
 
-                if (car == null)
+                if (car == null || (car.NumberOfPurchasedItems >= car.QuantityForPurchasing))
                 {
                     ModelState.AddModelError("PurchaseItems", $"Error! Car Model '{item.Model}' is not available for being purchased from the database");
                 }
                 else
                 {
-                    if (car.QuantityForPurchasing < item.Quantity)
+                    int stock=car.QuantityForPurchasing-car.NumberOfPurchasedItems;
+                    if(item.Quantity > stock)
                     {
-                        // Si no hay stock, añadimos un error
-                        ModelState.AddModelError("PurchaseItems", $"Error! Not enough stock for Car Model '{item.Model}'. Available: {car.QuantityForPurchasing}, Requested: {item.Quantity}");
+                        ModelState.AddModelError("PurchaseItems", $"Error! Not enough stock for Car Model '{item.Model}'. Available: {stock}, Requested: {item.Quantity}");
                     }
                     else
                     {
                         purchase.PurchaseItems.Add(new PurchaseItem(car.Id, purchase.Id, item.Quantity));
                         item.PurchasingPrice = car.PurchasingPrice;
-                        var carEntity = _context.Cars.Find(car.Id);
-                        if (carEntity != null) carEntity.QuantityForPurchasing -= item.Quantity;
                     }
+                        
+
+                    //if (car.QuantityForPurchasing < item.Quantity)
+                    //{
+                    //    // Si no hay stock, añadimos un error
+                    //    ModelState.AddModelError("PurchaseItems", $"Error! Not enough stock for Car Model '{item.Model}'. Available: {car.QuantityForPurchasing}, Requested: {item.Quantity}");
+                    //}
+                    //else
+                    //{
+                    //    purchase.PurchaseItems.Add(new PurchaseItem(car.Id, purchase.Id, item.Quantity));
+                    //    item.PurchasingPrice = car.PurchasingPrice;
+                    //    var carEntity = _context.Cars.Find(car.Id);
+                    //    if (carEntity != null) carEntity.QuantityForPurchasing -= item.Quantity;
+                    //}
                 }
             }
 
