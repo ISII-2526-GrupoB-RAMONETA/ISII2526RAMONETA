@@ -10,13 +10,14 @@
 
         public decimal Price { get; set; }
 
+        [Required]
         public string Comment { get; set; }
 
         public string Type { get; set; }
 
-        public BookingItemDTO(int maintenaceId, string name, int numberOfDays, decimal price, string comment,string type)
+        public BookingItemDTO(int maintenanceId, string name, int numberOfDays, decimal price, string comment,string type)
         {
-            MaintenanceId = maintenaceId;
+            MaintenanceId = maintenanceId;
             Name = name;
             NumberOfDays = numberOfDays;
             Price = price;

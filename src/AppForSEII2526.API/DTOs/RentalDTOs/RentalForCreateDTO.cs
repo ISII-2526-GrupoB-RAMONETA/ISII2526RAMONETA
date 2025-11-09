@@ -1,19 +1,21 @@
 ﻿using AppForSEII2526.API.Models;
+using System.ComponentModel;
 
 namespace AppForSEII2526.API.DTOs.RentalDTO
 {
     public class RentalForCreateDTO
     {
-        public RentalForCreateDTO(string customerUserName, string customerNameSurname,
-            string deliveryAddress, PaymentMethodTypes paymentMethod, DateTime startdate, DateTime enddate, decimal totalPrice, IList<RentalItemDTO> rentalItems)
+        public RentalForCreateDTO(string customerUserName, string customerName, string customerSurname,
+            string deliveryAddress, PaymentMethodTypes paymentMethod, bool deliveryCarDealer, DateTime rentalDateFrom, DateTime rentalDateTo, IList<RentalItemDTO> rentalItems)
         {
-            CustomerUserName = customerUserName ?? throw new ArgumentNullException(nameof(customerUserName));
-            CustomerNameSurname = customerNameSurname;
+            CustomerUserName = customerUserName;
+            CustomerName = customerName;
+            CustomerSurname = customerSurname;
             DeliveryAddress = deliveryAddress;
             PaymentMethod = paymentMethod;
-            RentalDateFrom = startdate;
-            RentalDateTo = enddate;
-            TotalPrice = totalPrice;
+            DeliveryCarDealer = deliveryCarDealer;
+            RentalDateFrom = rentalDateFrom;
+            RentalDateTo = rentalDateTo;
             RentalItems = rentalItems;
         }
 
@@ -37,15 +39,22 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
         [Required]
         public string CustomerUserName { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Name and Surname")]
-        [StringLength(50, MinimumLength = 10, ErrorMessage = "Name and Surname must have at least 10 characters")]
-        public string CustomerNameSurname { get; set; }
+
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Name")]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "Name and Surname must have at least 5 characters")]
+        public string CustomerName { get; set; }
+
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Surname")]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "Name and Surname must have at least 5 characters")]
+        public string CustomerSurname { get; set; }
 
         public IList<RentalItemDTO> RentalItems { get; set; }
         [Required]
         public PaymentMethodTypes PaymentMethod { get; set; }
-
-        public decimal TotalPrice { get; set; }
+        public bool DeliveryCarDealer { get; set; }
+        //public decimal TotalPrice { get; set; }
 
         private int NumberOfDays
         {
@@ -55,15 +64,15 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
             }
         }
 
-        //[Display(Name = "Total Price")]
-        //[JsonPropertyName("TotalPrice")]
-        //public double TotalPrice
-        //{
-        //    get
-        //    {
-        //        return RentalItems.Sum(ri => ri.PriceForRenting * NumberOfDays);
-        //    }
-        //}
+        [Display(Name = "Total Price")]
+        [JsonPropertyName("TotalPrice")]
+        public decimal TotalPrice
+        {
+            get
+            {
+                return RentalItems.Sum(ri => ri.PriceForRenting * NumberOfDays*ri.Quantity);
+            }
+        }
 
         protected bool CompareDate(DateTime date1, DateTime date2)
         {
@@ -77,7 +86,8 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
                    CompareDate(RentalDateTo, dTO.RentalDateTo) &&
                    DeliveryAddress == dTO.DeliveryAddress &&
                    CustomerUserName == dTO.CustomerUserName &&
-                   CustomerNameSurname == dTO.CustomerNameSurname &&
+                   CustomerName == dTO.CustomerName &&
+                   CustomerSurname == dTO.CustomerSurname &&
                    RentalItems.SequenceEqual(dTO.RentalItems) &&
                    PaymentMethod == dTO.PaymentMethod &&
                    TotalPrice == dTO.TotalPrice;

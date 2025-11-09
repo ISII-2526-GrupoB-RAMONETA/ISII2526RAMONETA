@@ -110,20 +110,7 @@ namespace AppForSEII2526.API.Controllers
                         purchase.PurchaseItems.Add(new PurchaseItem(car.Id, purchase.Id, item.Quantity));
                         item.PurchasingPrice = car.PurchasingPrice;
                     }
-                        
-
-                    //if (car.QuantityForPurchasing < item.Quantity)
-                    //{
-                    //    // Si no hay stock, añadimos un error
-                    //    ModelState.AddModelError("PurchaseItems", $"Error! Not enough stock for Car Model '{item.Model}'. Available: {car.QuantityForPurchasing}, Requested: {item.Quantity}");
-                    //}
-                    //else
-                    //{
-                    //    purchase.PurchaseItems.Add(new PurchaseItem(car.Id, purchase.Id, item.Quantity));
-                    //    item.PurchasingPrice = car.PurchasingPrice;
-                    //    var carEntity = _context.Cars.Find(car.Id);
-                    //    if (carEntity != null) carEntity.QuantityForPurchasing -= item.Quantity;
-                    //}
+                   
                 }
             }
 

@@ -348,16 +348,16 @@ namespace AppForSEII2526.API.Migrations
                     b.Property<bool>("DeliveryCarDealer")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("Enddate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("RentingDate")
+                    b.Property<DateTime>("RentalDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Startdate")
+                    b.Property<DateTime>("RentalDateFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RentalDateTo")
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("TotalPrice")
@@ -378,6 +378,12 @@ namespace AppForSEII2526.API.Migrations
 
                     b.Property<int>("RentalId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PriceForRenting")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -623,7 +629,7 @@ namespace AppForSEII2526.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AppForSEII2526.API.Models.Rental", "Rental")
+                    b.HasOne("AppForSEII2526.API.Models.Rental", "Rent")
                         .WithMany("RentalItems")
                         .HasForeignKey("RentalId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -631,7 +637,7 @@ namespace AppForSEII2526.API.Migrations
 
                     b.Navigation("Car");
 
-                    b.Navigation("Rental");
+                    b.Navigation("Rent");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

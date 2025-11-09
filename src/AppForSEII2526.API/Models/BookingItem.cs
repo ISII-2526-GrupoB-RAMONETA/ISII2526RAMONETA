@@ -20,6 +20,16 @@
 
         }
 
+        public BookingItem(int maintenanceId, Booking booking, string comment)
+        {
+            MaintenanceId = maintenanceId;
+            Booking = booking;
+            BookingId = booking.Id;
+            Comment = comment;
+            
+        }
+
+
 
         public Booking Booking { get; set; }
 
