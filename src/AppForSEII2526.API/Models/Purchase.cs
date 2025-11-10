@@ -30,6 +30,12 @@ namespace AppForSEII2526.API.Models
             
         }
 
+        public Purchase(int id, PaymentMethodTypes paymentMethod, DateTime purchasingDate, decimal purchasingPrice, bool deliveryCarDealer, IList<PurchaseItem> purchaseItems, ApplicationUser applicationUser) : this(id, paymentMethod, purchasingDate, purchasingPrice, deliveryCarDealer)
+        {
+            PurchaseItems = purchaseItems;
+            ApplicationUser = applicationUser;
+        }
+
         [Key]
         public int Id { get; set; }
 

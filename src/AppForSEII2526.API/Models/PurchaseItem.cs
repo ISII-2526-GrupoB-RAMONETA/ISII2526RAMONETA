@@ -15,8 +15,15 @@ namespace AppForSEII2526.API.Models
             Quantity = quantity;
         }
 
+        public PurchaseItem(Car car, int carId, Purchase purchase, int purchaseId, int quantity)
+        {
+            Car = car;
+            CarId = carId;
+            Purchase = purchase;
+            PurchaseId = purchaseId;
+            Quantity = quantity;
+        }
 
-        
         public Car Car { get; set; }
         public int CarId { get; set; }
 
