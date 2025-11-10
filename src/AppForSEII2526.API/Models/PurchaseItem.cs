@@ -4,9 +4,11 @@ namespace AppForSEII2526.API.Models
     public class PurchaseItem
     {
          
-        public PurchaseItem()
+        public PurchaseItem(int carId,int purchaseId,int quantity)
         {
-
+            CarId= carId;
+            PurchaseId = purchaseId;
+            Quantity = quantity;
         }
 
         public PurchaseItem(int purchaseId, int quantity)
