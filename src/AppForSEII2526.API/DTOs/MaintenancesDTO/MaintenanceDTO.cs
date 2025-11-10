@@ -21,6 +21,16 @@
             Price = price;
             NumberOfDays = days;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is MaintenanceDTO dTO &&
+                   Id == dTO.Id &&
+                   Name == dTO.Name &&
+                   Type == dTO.Type &&
+                   Price == dTO.Price &&
+                   NumberOfDays == dTO.NumberOfDays;
+        }
     }
 }
     
