@@ -59,7 +59,7 @@ namespace AppForSEII2526.API.Controllers
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<MaintenanceDTO>), (int)HttpStatusCode.OK)]
 
-        public async Task<ActionResult> GetMaintenances_filtro(string? maintenanceName, string? maintenanceType)
+        public async Task<ActionResult> GetMaintenancesFiltro(string? maintenanceName, string? maintenanceType)
         {
             var maintenances = await _context.Maintenances
                 .Include(m=>m.MaintenanceType)
