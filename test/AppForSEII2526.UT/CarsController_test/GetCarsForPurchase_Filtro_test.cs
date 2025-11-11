@@ -43,11 +43,11 @@ namespace AppForSEII2526.UT.CarsController_test
 
             var purchases = new List<Purchase>
             {
-                new Purchase(1, PaymentMethodTypes.Efectivo, new DateTime(2025, 1, 15), 2500000.00m, true),
-                new Purchase(2, PaymentMethodTypes.Efectivo, new DateTime(2025, 2, 12), 4800000.00m, true),
-                new Purchase(3, PaymentMethodTypes.TarjetaCredito, new DateTime(2025, 3, 10), 3600000.00m, false),
-                new Purchase(4, PaymentMethodTypes.TransferenciaBancaria, new DateTime(2025, 4, 5), 1900000.00m, false),
-                new Purchase(5, PaymentMethodTypes.Efectivo, new DateTime(2025, 5, 15), 6200000.00m, true)
+                new Purchase(1, PaymentMethodTypes.Efectivo, new DateTime(2025, 1, 15), 2500000.00m, true, new List<PurchaseItem>(), users[0]),
+                new Purchase(2, PaymentMethodTypes.Efectivo, new DateTime(2025, 2, 12), 4800000.00m, true, new List<PurchaseItem>(), users[1]),
+                new Purchase(3, PaymentMethodTypes.TarjetaCredito, new DateTime(2025, 3, 10), 3600000.00m, false, new List<PurchaseItem>(), users[2]),
+                new Purchase(4, PaymentMethodTypes.TransferenciaBancaria, new DateTime(2025, 4, 5), 1900000.00m, false, new List<PurchaseItem>(), users[3]),
+                new Purchase(5, PaymentMethodTypes.Efectivo, new DateTime(2025, 5, 15), 6200000.00m, true, new List<PurchaseItem>(), users[0])
             };
 
             // Asignar usuarios a compras
