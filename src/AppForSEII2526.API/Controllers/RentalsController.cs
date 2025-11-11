@@ -98,11 +98,11 @@ public async Task<ActionResult> CreateRental(RentalForCreateDTO rentalForCreate)
         .ToList();
 
 
-    Rental rental = new Rental((AppForSEII2526.API.Models.PaymentMethodTypes)rentalForCreate.PaymentMethod, DateTime.Now, rentalForCreate.TotalPrice,rentalForCreate.DeliveryCarDealer,
+    Rental rental = new Rental(rentalForCreate.PaymentMethod, DateTime.Now, rentalForCreate.TotalPrice,rentalForCreate.DeliveryCarDealer,
                         
                         rentalForCreate.RentalDateFrom, rentalForCreate.RentalDateTo, new List<RentalItem>());
 
-    rental.TotalPrice = 0;
+            rental.TotalPrice = 0;
     var numDays = (rental.RentalDateTo - rental.RentalDateFrom).TotalDays;
 
 

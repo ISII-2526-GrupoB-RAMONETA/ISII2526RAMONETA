@@ -1,9 +1,9 @@
-﻿
+﻿using System;
+
 namespace AppForSEII2526.API.DTOs.CarsDTO
 {
     public class CarForRentalDTO
     {
-        private Model model;
 
         public CarForRentalDTO(int id, string color, string fueltype, string manufacturer, decimal rentingPrice, string model)
         {
@@ -26,5 +26,16 @@ namespace AppForSEII2526.API.DTOs.CarsDTO
         public decimal RentingPrice { get; set; }
 
         public string Model { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is CarForRentalDTO dTO &&
+                   Id == dTO.Id &&
+                   Color == dTO.Color &&
+                   Model == dTO.Model &&
+                   Fueltype == dTO.Fueltype &&
+                   Manufacturer == dTO.Manufacturer &&
+                   RentingPrice == dTO.RentingPrice;
+        }
     }
 }

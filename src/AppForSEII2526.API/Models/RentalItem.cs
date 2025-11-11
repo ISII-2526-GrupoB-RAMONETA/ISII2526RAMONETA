@@ -24,6 +24,7 @@
         {
             CarId = carId;
             Rent = rental;
+            RentalId = rental?.Id ?? 0;
             PriceForRenting = priceForRenting;
         }
 
