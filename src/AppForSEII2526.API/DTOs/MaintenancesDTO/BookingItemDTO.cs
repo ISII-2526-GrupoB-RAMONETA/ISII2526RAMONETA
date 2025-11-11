@@ -1,4 +1,5 @@
-﻿namespace AppForSEII2526.API.DTOs.MaintenancesDTO
+﻿
+namespace AppForSEII2526.API.DTOs.MaintenancesDTO
 {
     public class BookingItemDTO
     {
@@ -23,6 +24,22 @@
             Price = price;
             Comment = comment;
             Type=type;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is BookingItemDTO dTO &&
+                   MaintenanceId == dTO.MaintenanceId &&
+                   Name == dTO.Name &&
+                   NumberOfDays == dTO.NumberOfDays &&
+                   Price == dTO.Price &&
+                   Comment == dTO.Comment &&
+                   Type == dTO.Type;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(MaintenanceId, Name, NumberOfDays, Price, Comment, Type);
         }
     }
 }
