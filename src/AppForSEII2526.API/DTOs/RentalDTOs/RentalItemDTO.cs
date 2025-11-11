@@ -8,17 +8,19 @@
 
         public string Manufacturer { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal PriceForRenting { get; set; }
 
         public int Quantity { get; set; }
+        public string? Description { get; set; }
 
-        public RentalItemDTO(int carId, string model, string manufacturer, decimal price, int quantity)
+        public RentalItemDTO(int carId, string model, string manufacturer, decimal priceForRenting,int quantity, string? description)
         {
             CarId = carId;
             Model = model;
             Manufacturer = manufacturer;
-            Price = price;
+            PriceForRenting = priceForRenting;
             Quantity = quantity;
+            Description = description;
         }
     }
 }

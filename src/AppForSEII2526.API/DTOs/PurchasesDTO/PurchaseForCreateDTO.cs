@@ -1,13 +1,26 @@
-﻿namespace AppForSEII2526.API.DTOs.PurchasesDTO
+﻿using AppForSEII2526.API.Models;
+
+namespace AppForSEII2526.API.DTOs.PurchasesDTO
 {
     public class PurchaseForCreateDTO
     {
-        public PurchaseForCreateDTO(string customerUserName,string customerNameSurname,string deliveryAddress,IList<PurchaseItemDTO> purchaseItems)
+        public PurchaseForCreateDTO(string name, string surname, string address, IList<PurchaseItemDTO> purchaseItems)
         {
-            CustomerUserName = customerUserName ?? throw new ArgumentNullException(nameof(customerUserName));
-            CustomerNameSurname = customerNameSurname ?? throw new ArgumentNullException(nameof(customerNameSurname));
-            DeliveryAddress = deliveryAddress ?? throw new ArgumentNullException(nameof(deliveryAddress));
+            Name = name ?? throw new ArgumentNullException(nameof(Name));
+            Surname = surname ?? throw new ArgumentNullException(nameof(Surname));
+            Address = address ?? throw new ArgumentNullException(nameof(Address));
             PurchaseItems = purchaseItems ?? throw new ArgumentNullException(nameof(purchaseItems));
+        }
+
+        public PurchaseForCreateDTO(string name,string surname,string address,IList<PurchaseItemDTO> purchaseItems,PaymentMethodTypes paymentMethod)
+        {
+            
+            Name = name ?? throw new ArgumentNullException(nameof(Name));
+            Surname = surname ?? throw new ArgumentNullException(nameof(Surname));
+            Address = address ?? throw new ArgumentNullException(nameof(Address));
+            PaymentMethod = paymentMethod;
+            PurchaseItems = purchaseItems ?? throw new ArgumentNullException(nameof(purchaseItems));
+
         }
 
         public PurchaseForCreateDTO()
@@ -15,13 +28,24 @@
             PurchaseItems = new List<PurchaseItemDTO>();
         }
 
-        public string CustomerUserName { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Name")]
+        public string Name { get; set; }
 
-        public string CustomerNameSurname { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Surname")]
+        public string Surname { get; set; }
 
-        public string DeliveryAddress { get; set; }
+        
+        public string Address { get; set; }
+
+        //[Required]
+        //public string Email { get; set; }
+
+        [Required]
+        public PaymentMethodTypes PaymentMethod { get; set; }
 
         public IList<PurchaseItemDTO> PurchaseItems { get; set; }
+
+        public DateTime PurchaseDate { get; set; }
 
 
     }
