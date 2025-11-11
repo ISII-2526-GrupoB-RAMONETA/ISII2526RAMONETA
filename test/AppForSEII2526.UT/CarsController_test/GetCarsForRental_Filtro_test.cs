@@ -28,19 +28,12 @@ namespace AppForSEII2526.UT.CarsController_test
 
             var cars = new List<Car>()
             {
-                new Car("Standard","Red", "Compact family sedan", "Toyota", 20000m, 100, 5, 40,2,6,"Gasoline","Oil change, tire rotation",16,1),
-                new Car("Premium","Black", "Luxury SUV", "BMW", 60000m, 50, 3, 80,3,8,"Diesel","Brake inspection, fluid check",20,2),
-                new Car("Economy","Red", "Compact hatchback", "Ford", 15000m, 150, 10, 30,1,4,"Gasoline","Battery check, air filter replacement",15,3),
-                new Car("Electric","White", "Electric sedan", "Tesla", 80000m, 30, 2, 100,4,10,"Electric","Tire rotation, brake inspection",0,1),
-                new Car("Hybrid","Blue", "Hybrid SUV", "Honda", 35000m, 80, 5, 50,2,7,"Hybrid","Oil change, fluid check",10,2)
+                new Car("Standard","Red", "Compact family sedan", "Toyota", 20000m, 100, 5, 40,2,6,"Gasoline","Oil change, tire rotation",16m,models[0]),
+                new Car("Premium","Black", "Luxury SUV", "BMW", 60000m, 50, 3, 80,3,8,"Diesel","Brake inspection, fluid check",20,models[1]),
+                new Car("Economy","Red", "Compact hatchback", "Ford", 15000m, 150, 10, 30,1,4,"Gasoline","Battery check, air filter replacement",15,models[2]),
+                new Car("Electric","White", "Electric sedan", "Tesla", 80000m, 30, 2, 100,4,10,"Electric","Tire rotation, brake inspection",0,models[0]),
+                new Car("Hybrid","Blue", "Hybrid SUV", "Honda", 35000m, 80, 5, 50,2,7,"Hybrid","Oil change, fluid check",10,models[1])
             };
-
-            // -> Aquí: asignar la relación Model explícitamente para evitar FK invalidas
-            cars[0].Model = models[0]; // Sedan
-            cars[1].Model = models[1]; // SUV
-            cars[2].Model = models[2]; // Hatchback
-            cars[3].Model = models[0]; // Sedan (electric)
-            cars[4].Model = models[1]; // SUV (hybrid)
 
             // Guardamos los coches para que tengan Ids válidos antes de referenciarlos en RentalItem
             _context.AddRange(cars);

@@ -7,7 +7,11 @@ namespace AppForSEII2526.API.Models
         {
 
         }
-        public Car(string carClass, string color, string description, string manufacturer, decimal purchasingPrice, int quantityForPurchasing, int quantityForRenting, decimal rentingPrice, decimal reviewItems, decimal engDisplacement,string  fueltype,string maintenanceTypes,decimal purchaseItems,decimal rimSize)
+        public Car(string carClass, string color, string description, string manufacturer,
+                   decimal purchasingPrice, int quantityForPurchasing, int quantityForRenting,
+                   decimal rentingPrice, decimal reviewItems, decimal engDisplacement,
+                   string fueltype, string maintenanceTypes, decimal rimSize,
+                   Model model) // 
         {
             //Comprar coche
             CarClass = carClass;
@@ -19,13 +23,17 @@ namespace AppForSEII2526.API.Models
             QuantityForRenting = quantityForRenting;
             RentingPrice = rentingPrice;
             ReviewItems = reviewItems;
-            
+
+
             //Alquilar coche
             EngDisplacement = engDisplacement;
             Fueltype = fueltype;
             MaintenanceTypes = maintenanceTypes;
-            
+
             RimSize = rimSize;
+
+            //Relación con Model
+            Model = model; // <-- AÑADIDO
         }
 
         [Key]
