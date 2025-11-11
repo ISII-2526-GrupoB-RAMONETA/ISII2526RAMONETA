@@ -26,6 +26,14 @@
             
         }
 
+        public Booking(DateTime date, PaymentMethodTypes paymentMethod, ApplicationUser user, IList<BookingItem> bookingItems)
+        {
+            Date = date;
+            PaymentMethod = paymentMethod;
+            ApplicationUser = user;
+            BookingItems = bookingItems;
+        }
+
         public int Id { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
