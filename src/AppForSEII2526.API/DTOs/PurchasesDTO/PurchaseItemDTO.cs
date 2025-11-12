@@ -1,4 +1,5 @@
-﻿namespace AppForSEII2526.API.DTOs.PurchasesDTO
+﻿
+namespace AppForSEII2526.API.DTOs.PurchasesDTO
 {
     public class PurchaseItemDTO
     {
@@ -36,5 +37,20 @@
 
         public string Description { get; set; }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is PurchaseItemDTO dTO &&
+                   CarID == dTO.CarID &&
+                   Model == dTO.Model &&
+                   PurchasingPrice == dTO.PurchasingPrice &&
+                   Color == dTO.Color &&
+                   Quantity == dTO.Quantity &&
+                   Description == dTO.Description;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(CarID, Model, PurchasingPrice, Color, Quantity, Description);
+        }
     }
 }
