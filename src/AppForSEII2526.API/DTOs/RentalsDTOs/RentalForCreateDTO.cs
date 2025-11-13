@@ -40,7 +40,6 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
         public string CustomerUserName { get; set; }
 
 
-
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Name")]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "Name and Surname must have at least 5 characters")]
         public string CustomerName { get; set; }
@@ -51,26 +50,33 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
         public string CustomerSurname { get; set; }
 
         public IList<RentalItemDTO> RentalItems { get; set; }
+
+        public decimal TotalPrice
+        {
+            get
+            {
+                var days = NumberOfDays;
+                if (days <= 0 || RentalItems == null || RentalItems.Count == 0)
+                    return 0m;
+
+                return RentalItems.Sum(ri => ri.PriceForRenting * ri.Quantity * (decimal)days);
+            }
+        }
+
         [Required]
         public PaymentMethodTypes PaymentMethod { get; set; }
         public bool DeliveryCarDealer { get; set; }
+        public DateTime RentalDate { get; set; }
+
         //public decimal TotalPrice { get; set; }
 
         private int NumberOfDays
         {
             get
             {
-                return (RentalDateTo - RentalDateFrom).Days;
-            }
-        }
-
-        [Display(Name = "Total Price")]
-        [JsonPropertyName("TotalPrice")]
-        public decimal TotalPrice
-        {
-            get
-            {
-                return RentalItems.Sum(ri => ri.PriceForRenting * NumberOfDays*ri.Quantity);
+                // Usar TotalDays para incluir fracciones si las hubiera; truncar a int y garantizar >= 0
+                var days = (int)(RentalDateTo - RentalDateFrom).TotalDays;
+                return Math.Max(0, days);
             }
         }
 
@@ -89,8 +95,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
                    CustomerName == dTO.CustomerName &&
                    CustomerSurname == dTO.CustomerSurname &&
                    RentalItems.SequenceEqual(dTO.RentalItems) &&
-                   PaymentMethod == dTO.PaymentMethod &&
-                   TotalPrice == dTO.TotalPrice;
+                   PaymentMethod == dTO.PaymentMethod;
         }
     }
 }

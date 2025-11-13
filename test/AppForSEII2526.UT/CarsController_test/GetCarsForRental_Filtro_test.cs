@@ -43,14 +43,14 @@ namespace AppForSEII2526.UT.CarsController_test
             _context.Add(user);
             _context.SaveChanges();
 
-            var rental = new Rental(user, DateTime.Now, PaymentMethodTypes.Efectivo,
+            var rental = new Rental(user, PaymentMethodTypes.Efectivo, DateTime.Now, true,
                 DateTime.Now.AddDays(1), DateTime.Now.AddDays(5), new List<RentalItem>());
 
             _context.Add(rental);
             _context.SaveChanges();
 
             // Ahora que los coches existen y tienen Ids, creamos el RentalItem apuntando a un Car real
-            var rentalItem = new RentalItem(cars[0].Id, rental, 2, "Need a reliable car for family trip");
+            var rentalItem = new RentalItem(cars[0], rental, 2);
             rental.RentalItems.Add(rentalItem);
 
             _context.Add(rentalItem);

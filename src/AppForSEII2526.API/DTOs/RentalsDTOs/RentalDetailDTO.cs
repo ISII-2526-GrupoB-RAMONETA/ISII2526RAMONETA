@@ -3,15 +3,15 @@
     public class RentalDetailDTO : RentalForCreateDTO
     {
         public RentalDetailDTO(int id, DateTime rentalDate, string customerUserName, string customerName, string customerSurname,
-            string deliveryAddress, bool deliveryCarDealer, PaymentMethodTypes paymentMethod, DateTime startdate,DateTime enddate, IList<RentalItemDTO> rentalItems)
+            string deliveryAddress, bool deliveryCarDealer, PaymentMethodTypes paymentMethod, DateTime rentalDateFrom, DateTime rentalDateTo, IList<RentalItemDTO> rentalItems)
             : base(customerUserName,
                    customerName,
                    customerSurname,
                    deliveryAddress,
                    paymentMethod,
                    deliveryCarDealer,
-                   startdate,
-                   enddate,
+                   rentalDateFrom,
+                   rentalDateTo,
                    rentalItems)
         {
             Id = id;
@@ -25,7 +25,6 @@
         {
             return obj is RentalDetailDTO dTO &&
                    base.Equals(obj) &&
-                   TotalPrice == dTO.TotalPrice &&
                    Id == dTO.Id &&
                    CompareDate(RentalDate, dTO.RentalDate);
         }
