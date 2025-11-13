@@ -21,13 +21,21 @@ namespace AppForSEII2526.API.Models
 
         }
 
-        public Purchase(int id, PaymentMethodTypes paymentMethod, DateTime purchasingDate, decimal purchasingPrice, bool deliveryCarDealer)
+        public Purchase(PaymentMethodTypes paymentMethod, DateTime purchasingDate, ApplicationUser applicationUser,List<PurchaseItem> purchaseItems)
         {
             PaymentMethod = paymentMethod;
             PurchasingDate = purchasingDate;
+            ApplicationUser = applicationUser;
+            PurchaseItems = new List<PurchaseItem>();
+            DeliveryCarDealer = true;
+        }
+
+        public Purchase(int id, PaymentMethodTypes paymentMethod, DateTime purchasingDate, decimal purchasingPrice, bool deliveryCarDealer, IList<PurchaseItem> purchaseItems, ApplicationUser applicationUser): this(paymentMethod, purchasingDate, applicationUser, purchaseItems.ToList())
+        {
+            Id = id;
             PurchasingPrice = purchasingPrice;
             DeliveryCarDealer = deliveryCarDealer;
-            
+            // PurchaseItems y ApplicationUser ya se asignan en el constructor base
         }
 
         [Key]

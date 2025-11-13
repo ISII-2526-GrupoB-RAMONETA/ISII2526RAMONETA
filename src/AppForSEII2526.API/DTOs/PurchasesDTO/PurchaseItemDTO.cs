@@ -2,6 +2,19 @@
 {
     public class PurchaseItemDTO
     {
+        public PurchaseItemDTO()
+        {
+        }   
+        public PurchaseItemDTO(int carID, string model, decimal purchasingPrice, string color, int quantity,string description)
+        {
+            CarID = carID;
+            Model = model;
+            PurchasingPrice = purchasingPrice;
+            Color = color;
+            Quantity = quantity;
+            Description = description;
+        }
+
         public PurchaseItemDTO(int carID, string model, decimal purchasingPrice, string color, int quantity)
         {
             CarID = carID;
@@ -21,6 +34,7 @@
 
         public int Quantity { get; set; }
 
+        public string Description { get; set; }
 
     }
 }
