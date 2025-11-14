@@ -73,5 +73,38 @@ namespace AppForSEII2526.API.DTOs.MaintenancesDTO
         }
 
 
+        protected bool CompareDate(DateTime date1, DateTime date2)
+        {
+            return (date1.Subtract(date2) < new TimeSpan(0, 1, 0));
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is BookingForCreateDTO dTO &&
+                   CustomerUserName == dTO.CustomerUserName &&
+                   CustomerName == dTO.CustomerName &&
+                   CustomerSurname == dTO.CustomerSurname &&
+                   Address == dTO.Address &&
+                   PaymentMethod == dTO.PaymentMethod &&
+                   PhoneNumber == dTO.PhoneNumber &&
+                   BookingItems.SequenceEqual(dTO.BookingItems) &&
+                   TotalPrice == dTO.TotalPrice &&
+                   TotalNumberOfDays == dTO.TotalNumberOfDays;
+        }
+
+        public override int GetHashCode()
+        {
+            HashCode hash = new HashCode();
+            hash.Add(CustomerUserName);
+            hash.Add(CustomerName);
+            hash.Add(CustomerSurname);
+            hash.Add(Address);
+            hash.Add(PaymentMethod);
+            hash.Add(PhoneNumber);
+            hash.Add(BookingItems);
+            hash.Add(TotalPrice);
+            hash.Add(TotalNumberOfDays);
+            return hash.ToHashCode();
+        }
     }
 }

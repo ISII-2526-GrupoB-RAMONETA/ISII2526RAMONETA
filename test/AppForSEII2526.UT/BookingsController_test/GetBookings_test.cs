@@ -27,11 +27,11 @@ namespace AppForSEII2526.UT.BookingsController_test
 
             ApplicationUser user = new ApplicationUser("1", "Pablo", "Ramón Palarea", "pablo.ramon@uclm.es", "Val general", "622");
 
-            var booking = new Booking(DateTime.Today, PaymentMethodTypes.Efectivo, user, new List<BookingItem>());
+            var booking = new Booking(DateTime.Now, PaymentMethodTypes.Efectivo, user, new List<BookingItem>());
 
             booking.BookingItems.Add(new BookingItem(booking, "Air filter cleaned, dust and debris removed", maintenances[0]));
 
-            _context.Add(user);
+            _context.ApplicationUsers.Add(user);
             _context.AddRange(types);
             _context.AddRange(maintenances);
             _context.AddRange(booking);
@@ -71,7 +71,7 @@ namespace AppForSEII2526.UT.BookingsController_test
 
             var controller = new BookingsController(_context, logger);
 
-            var expectedBooking = new BookingDetailDTO(1, DateTime.Today, "pablo.ramon@uclm.es", "Pablo", "Ramón Palarea", "Val general",
+            var expectedBooking = new BookingDetailDTO(1, DateTime.Now, "pablo.ramon@uclm.es", "Pablo", "Ramón Palarea", "Val general",
                 PaymentMethodTypes.Efectivo, "622", new List<BookingItemDTO>());
             expectedBooking.BookingItems.Add(new BookingItemDTO(1, "Air filter cleaning", 3, 80m, "Air filter cleaned, dust and debris removed", "Preventive"));
 
