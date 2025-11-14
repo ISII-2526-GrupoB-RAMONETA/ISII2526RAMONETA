@@ -36,7 +36,7 @@ namespace AppForSEII2526.API.DTOs.MaintenancesDTO
                    TotalPrice == dTO.TotalPrice &&
                    TotalNumberOfDays == dTO.TotalNumberOfDays &&
                    Id == dTO.Id &&
-                   Date == dTO.Date;
+                   CompareDate(Date, dTO.Date);
         }
 
         public override int GetHashCode()

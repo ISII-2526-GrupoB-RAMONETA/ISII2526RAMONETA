@@ -31,7 +31,7 @@ namespace AppForSEII2526.API.Controllers
         {
             if (_context.Bookings == null)
             {
-                _logger.LogError("Error: Rentals table does not exist");
+                _logger.LogError("Error: Bookings table does not exist");
                 return NotFound();
             }
 
