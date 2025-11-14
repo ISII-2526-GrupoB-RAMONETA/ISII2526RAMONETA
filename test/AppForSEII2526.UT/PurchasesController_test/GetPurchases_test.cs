@@ -70,7 +70,7 @@ namespace AppForSEII2526.UT.PurchasesController_test
             ILogger<PurchasesController> logger = mock.Object;
             var controller = new PurchasesController(_context, logger);
 
-            var expectedPurchase = new PurchaseDetailDTO(1, new DateTime(2025, 1, 15),"Elena","Pretel","Avenida España, 2", PaymentMethodTypes.TarjetaCredito,new List<PurchaseItemDTO>());
+            var expectedPurchase = new PurchaseDetailDTO(1, new DateTime(2025, 1, 15),"Elena","Pretel","Avenida España, 2", "elena@uclm.es", PaymentMethodTypes.TarjetaCredito,new List<PurchaseItemDTO>());
             expectedPurchase.PurchaseItems.Add(new PurchaseItemDTO(1, "Sedan", 2500000.00m, "Red", 1));
 
             //Act

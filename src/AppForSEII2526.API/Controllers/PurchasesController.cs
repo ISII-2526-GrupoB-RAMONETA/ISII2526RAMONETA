@@ -39,7 +39,7 @@ namespace AppForSEII2526.API.Controllers
                     .Include(p => p.PurchaseItems)
                      .ThenInclude(pi => pi.Car)
                         .ThenInclude(c => c.Model)
-                .Select(p => new PurchaseDetailDTO(p.Id, p.PurchasingDate, p.ApplicationUser.Name, p.ApplicationUser.Surname, p.ApplicationUser.Address,(PaymentMethodTypes)p.PaymentMethod,
+                .Select(p => new PurchaseDetailDTO(p.Id, p.PurchasingDate, p.ApplicationUser.Name, p.ApplicationUser.Surname, p.ApplicationUser.Address,p.ApplicationUser.UserName,(PaymentMethodTypes)p.PaymentMethod,
                     p.PurchaseItems.Select(pi => new PurchaseItemDTO(pi.Car.Id, pi.Car.Model.Name, pi.Car.PurchasingPrice, pi.Car.Color, pi.Quantity)).ToList<PurchaseItemDTO>())).FirstOrDefaultAsync();
 
             if (purchase == null)
@@ -65,7 +65,7 @@ namespace AppForSEII2526.API.Controllers
                 ModelState.AddModelError("PurchaseItems", "Error! You must include at least one car to be purchased");
             }
 
-            var user = _context.ApplicationUsers.FirstOrDefault(au => au.Name == purchaseForCreate.Name);
+            var user = _context.ApplicationUsers.FirstOrDefault(au => au.UserName == purchaseForCreate.UserName);
             if (user == null)
                 ModelState.AddModelError("PurchaseApplicationUser", "Error! UserName is not registered");
 
@@ -137,7 +137,7 @@ namespace AppForSEII2526.API.Controllers
                 return Conflict("Error" + ex.Message);
             }
 
-            var purchaseDetail = new PurchaseDetailDTO(purchase.Id, purchase.PurchasingDate, purchase.ApplicationUser.Name, purchase.ApplicationUser.Surname, purchase.ApplicationUser.Address,
+            var purchaseDetail = new PurchaseDetailDTO(purchase.Id, purchase.PurchasingDate, purchase.ApplicationUser.Name, purchase.ApplicationUser.Surname, purchase.ApplicationUser.Address,purchase.ApplicationUser.UserName,
                                  purchase.PaymentMethod,purchaseForCreate.PurchaseItems);
 
             return CreatedAtAction("GetPurchase", new { id = purchase.Id }, purchaseDetail);
