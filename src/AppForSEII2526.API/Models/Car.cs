@@ -30,8 +30,8 @@ namespace AppForSEII2526.API.Models
             MaintenanceTypes = maintenanceTypes;
             RimSize = rimSize;
 
-            //Relación con Model
-            Model = model; // <-- AÑADIDO
+            //RelaciÃ³n con Model
+            Model = model; // <-- AÃ‘ADIDO
         }
 
         [Key]
@@ -102,7 +102,7 @@ namespace AppForSEII2526.API.Models
         public decimal RimSize { get; set; }
 
 
-        //Relación con Model
+        //RelaciÃ³n con Model
         public Model Model { get; set; }
 
         public IList<PurchaseItem> PurchaseItems { get; set; }

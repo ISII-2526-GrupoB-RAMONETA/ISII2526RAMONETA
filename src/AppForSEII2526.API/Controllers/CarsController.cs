@@ -62,7 +62,7 @@ namespace AppForSEII2526.API.Controllers
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<CarForRentalDTO>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult> GetCoches_FILTRO_PRECIO_DTO(decimal? precio, string? modelo)
+        public async Task<ActionResult> GetCarsForRental_Filtro(decimal? precio, string? modelo)
         {
             var cars = await _context.Cars.Include(c => c.Model).Where(c => ((c.RentingPrice<precio) || (precio == null))
                         && ((c.Model.Name.Equals(modelo)) || (modelo == null))).Select(c => new CarForRentalDTO(c.Id, c.Color, c.Fueltype, c.Manufacturer, c.RentingPrice, c.Model.Name)).ToListAsync();
