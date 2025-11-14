@@ -385,12 +385,6 @@ namespace AppForSEII2526.API.Migrations
                     b.Property<int>("RentalId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("PriceForRenting")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -635,7 +629,7 @@ namespace AppForSEII2526.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AppForSEII2526.API.Models.Rental", "Rent")
+                    b.HasOne("AppForSEII2526.API.Models.Rental", "Rental")
                         .WithMany("RentalItems")
                         .HasForeignKey("RentalId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -643,7 +637,7 @@ namespace AppForSEII2526.API.Migrations
 
                     b.Navigation("Car");
 
-                    b.Navigation("Rent");
+                    b.Navigation("Rental");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
