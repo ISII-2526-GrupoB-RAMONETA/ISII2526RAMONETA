@@ -94,7 +94,7 @@ namespace AppForSEII2526.UT.RentalsController_test
             ILogger<RentalsController> logger = mock.Object;
             var controller = new RentalsController(_context, logger);
 
-            var testdatefrom = DateTime.Now.AddDays(2); //en rentalDetailDTO
+            var testdatefrom = DateTime.Now.AddDays(2);
             var testdateto = DateTime.Now.AddDays(5);
 
 
@@ -102,8 +102,6 @@ namespace AppForSEII2526.UT.RentalsController_test
                         "Paseo Cervantes,8", true, PaymentMethodTypes.Efectivo,
                         testdatefrom, testdateto,
                         new List<RentalItemDTO>());
-
-            var expectedPrice = (decimal)(testdateto - testdatefrom).TotalDays * 2 * 40; //2=testquantity
 
             expectedRental.RentalItems.Add(new RentalItemDTO(1, "Sedan", "Toyota", 40, 2));
 
@@ -114,20 +112,7 @@ namespace AppForSEII2526.UT.RentalsController_test
             //we check that the response type is OK and obtain the rental
             var okResult = Assert.IsType<OkObjectResult>(result);
             var rentalDTOActual = Assert.IsType<RentalDetailDTO>(okResult.Value);
-
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                ReferenceHandler = ReferenceHandler.IgnoreCycles
-            };
-
-            var expectedJson = JsonSerializer.Serialize(expectedRental, options);
-            var actualJson = JsonSerializer.Serialize(rentalDTOActual, options);
-
-            // Escribimos la representación completa en la salida del test
-            Console.WriteLine("Expected RentalDetailDTO:\n" + expectedJson);
-            Console.WriteLine("Actual   RentalDetailDTO:\n" + actualJson);
-
+            var eq = expectedRental.Equals(rentalDTOActual);
             // ahora el assert original
             Assert.Equal(expectedRental, rentalDTOActual);
 
