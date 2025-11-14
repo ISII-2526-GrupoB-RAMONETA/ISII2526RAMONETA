@@ -33,17 +33,17 @@ namespace AppForSEII2526.UT.CarsController_test
             };
             var users = new List<ApplicationUser>()
             {
-                new ApplicationUser("1", "Elena", "Pretel", "elena.pretel", "Avenida España, 2", null),
-                new ApplicationUser("2", "Pablo", "Ramón", "pablo.ramon", "Val General, 12", null),
-                new ApplicationUser("3", "Pablo", "Ballestero", "pablo.ballestero", "Paseo Cervantes,8", null),
-                new ApplicationUser("4", "Tomás", "González", "tomas.gonzalez", "Blasco Ibáñez,4", null)
+                new ApplicationUser("1", "Elena", "Pretel", "elena@uclm.es", "Avenida España, 2", null),
+                new ApplicationUser("2", "Pablo", "Ramón", "pablo.ramon@uclm.es", "Val General, 12", null),
+                new ApplicationUser("3", "Pablo", "Ballestero", "pablo.ballestero@uclm.es", "Paseo Cervantes,8", null),
+                new ApplicationUser("4", "Tomás", "González", "tomas.gonzalez@uclm.es", "Blasco Ibáñez,4", null)
             };
-            ApplicationUser user = new ApplicationUser("1", "Elena", "Pretel", "elena.pretel", "Avenida España, 2", null);
+            
 
 
             var purchases = new List<Purchase>
             {
-                new Purchase(1, PaymentMethodTypes.Efectivo, new DateTime(2025, 1, 15), 2500000.00m, true, new List<PurchaseItem>(), users[0]),
+                new Purchase(1, PaymentMethodTypes.TarjetaCredito, new DateTime(2025, 1, 15), 2500000.00m, true, new List<PurchaseItem>(), users[0]),
                 new Purchase(2, PaymentMethodTypes.Efectivo, new DateTime(2025, 2, 12), 4800000.00m, true, new List<PurchaseItem>(), users[1]),
                 new Purchase(3, PaymentMethodTypes.TarjetaCredito, new DateTime(2025, 3, 10), 3600000.00m, false, new List<PurchaseItem>(), users[2]),
                 new Purchase(4, PaymentMethodTypes.TransferenciaBancaria, new DateTime(2025, 4, 5), 1900000.00m, false, new List<PurchaseItem>(), users[3]),
