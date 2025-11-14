@@ -90,12 +90,16 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
             return obj is RentalForCreateDTO dTO &&
                    CompareDate(RentalDateFrom, dTO.RentalDateFrom) &&
                    CompareDate(RentalDateTo, dTO.RentalDateTo) &&
+                   CompareDate(RentalDate, dTO.RentalDate) &&
                    DeliveryAddress == dTO.DeliveryAddress &&
                    CustomerUserName == dTO.CustomerUserName &&
                    CustomerName == dTO.CustomerName &&
                    CustomerSurname == dTO.CustomerSurname &&
                    RentalItems.SequenceEqual(dTO.RentalItems) &&
-                   PaymentMethod == dTO.PaymentMethod;
+                   PaymentMethod == dTO.PaymentMethod &&
+                   DeliveryCarDealer == dTO.DeliveryCarDealer &&
+                   TotalPrice == dTO.TotalPrice;
+
         }
     }
 }

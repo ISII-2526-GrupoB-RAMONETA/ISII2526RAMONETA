@@ -102,7 +102,7 @@ namespace AppForSEII2526.API.Controllers
                 .ToList();
 
 
-            Rental rental = new Rental(user,rentalForCreate.PaymentMethod, rentalForCreate.RentalDate, rentalForCreate.DeliveryCarDealer,
+            Rental rental = new Rental(user, rentalForCreate.PaymentMethod, rentalForCreate.RentalDate, rentalForCreate.DeliveryCarDealer,
                                 rentalForCreate.RentalDateFrom, rentalForCreate.RentalDateTo, new List<RentalItem>());
 
             rental.TotalPrice = 0;
@@ -114,14 +114,14 @@ namespace AppForSEII2526.API.Controllers
                 var car = cars.FirstOrDefault(m => m.Id == item.CarId); // Usa CarId en vez de carId
                 if (car == null)
                 {
-                    ModelState.AddModelError("RentalItems", $"Error! Car with id '{item.CarId}' is not available for being rented from the database");
+                    ModelState.AddModelError("RentalItems", $"Error! Car Model '{item.Model}' is not available for being rented from the database");
                     continue;
                 }
 
                 int stock = car.QuantityForRenting - car.NumberOfRentedItems;
                 if (stock <= 0)
                 {
-                    ModelState.AddModelError("RentalItems", $"Error! Car with id '{item.CarId}' has no available units for the selected dates. Stock: {stock}. car.QuantityForRenting: {car.QuantityForRenting}. car.NumberOfRentedItems: {car.NumberOfRentedItems}.");
+                    ModelState.AddModelError("RentalItems", $"Error! Car Model '{item.Model}' has no available units for the selected dates.");
                 }
                 else if (item.Quantity > stock)
                 {
@@ -137,7 +137,7 @@ namespace AppForSEII2526.API.Controllers
             // Reemplazado: evitar acceder a ri.Car (navegación null). Usar los DTOs ya rellenados.
             rental.TotalPrice = rentalForCreate.RentalItems.Sum(pi => pi.PriceForRenting * pi.Quantity * (decimal)numDays);
 
-                    //if there is any problem because of the available quantity of cars or because the car does not exist
+            //if there is any problem because of the available quantity of cars or because the car does not exist
             if (ModelState.ErrorCount > 0)
             {
                 return BadRequest(new ValidationProblemDetails(ModelState));
