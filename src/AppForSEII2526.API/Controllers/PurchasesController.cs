@@ -92,18 +92,18 @@ namespace AppForSEII2526.API.Controllers
 
             foreach (var item in purchaseForCreate.PurchaseItems)
             {
-                var car = cars.FirstOrDefault(c => c.Model.Name == item.Model);
+                var car = cars.FirstOrDefault(c => c.Id == item.CarID);
 
-                if (car == null || (car.NumberOfPurchasedItems >= car.QuantityForPurchasing))
+                if (car == null || (car.NumberOfPurchasedItems >= car.QuantityForPurchasing)) //No existe o está agotado
                 {
-                    ModelState.AddModelError("PurchaseItems", $"Error! Car Model '{item.Model}' is not available for being purchased from the database");
+                    ModelState.AddModelError("PurchaseItems", $"Error! Car Model with Id '{item.CarID}' is not available for being purchased from the database");
                 }
                 else
                 {
                     int stock=car.QuantityForPurchasing-car.NumberOfPurchasedItems;
-                    if(item.Quantity > stock)
+                    if(item.Quantity > stock) //No hay stock suficiente
                     {
-                        ModelState.AddModelError("PurchaseItems", $"Error! Not enough stock for Car Model '{item.Model}'. Available: {stock}, Requested: {item.Quantity}");
+                        ModelState.AddModelError("PurchaseItems", $"Error! Not enough stock for Car Id '{item.CarID}'. Available: {stock}, Requested: {item.Quantity}");
                     }
                     else
                     {
@@ -137,7 +137,7 @@ namespace AppForSEII2526.API.Controllers
                 return Conflict("Error" + ex.Message);
             }
 
-            var purchaseDetail = new PurchaseDetailDTO(purchase.Id, purchase.PurchasingDate, purchase.ApplicationUser.Name, purchase.ApplicationUser.Surname, purchase.ApplicationUser.Address,purchase.ApplicationUser.UserName,
+            var purchaseDetail = new PurchaseDetailDTO(purchase.Id, purchase.PurchasingDate, purchase.ApplicationUser.Name, purchase.ApplicationUser.Surname, purchase.ApplicationUser.UserName ,purchase.ApplicationUser.Address,
                                  purchase.PaymentMethod,purchaseForCreate.PurchaseItems);
 
             return CreatedAtAction("GetPurchase", new { id = purchase.Id }, purchaseDetail);

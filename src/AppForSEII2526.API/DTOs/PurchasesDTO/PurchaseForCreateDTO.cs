@@ -25,6 +25,17 @@ namespace AppForSEII2526.API.DTOs.PurchasesDTO
 
         }
 
+        public PurchaseForCreateDTO(string name, string surname, string userName, string address, IList<PurchaseItemDTO> purchaseItems, PaymentMethodTypes paymentMethod, DateTime purchaseDate)
+        {
+            Name = name;
+            Surname = surname;
+            UserName = userName;
+            Address = address;
+            PaymentMethod = paymentMethod;
+            PurchaseItems = purchaseItems;
+            PurchaseDate = purchaseDate;
+        }
+
         public PurchaseForCreateDTO()
         {
             PurchaseItems = new List<PurchaseItemDTO>();
@@ -49,6 +60,18 @@ namespace AppForSEII2526.API.DTOs.PurchasesDTO
 
         public DateTime PurchaseDate { get; set; }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is PurchaseForCreateDTO dTO &&
+                   Name == dTO.Name &&
+                   Surname == dTO.Surname &&
+                   UserName == dTO.UserName &&
+                   Address == dTO.Address &&
+                   PaymentMethod == dTO.PaymentMethod &&
+                   PurchaseItems.SequenceEqual(dTO.PurchaseItems) &&
+                   PurchaseDate == dTO.PurchaseDate;
+        }
 
+        
     }
 }

@@ -12,7 +12,7 @@ namespace AppForSEII2526.API.DTOs.PurchasesDTO
         }
 
         public PurchaseDetailDTO(int id, DateTime purchaseDate, string Name, string Surname, string UserName,string Address,PaymentMethodTypes paymentMethod,
-            IList<PurchaseItemDTO> purchaseItems) : base(Name, Surname, Address, UserName, purchaseItems, (PaymentMethodTypes)paymentMethod)
+            IList<PurchaseItemDTO> purchaseItems) : base(Name, Surname, UserName, Address, purchaseItems, (PaymentMethodTypes)paymentMethod)
         {
             Id = id;
             PurchaseDate = purchaseDate;
