@@ -11,6 +11,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
 
         public string Manufacturer { get; set; }
 
+        [Precision(10, 2)]
         public decimal PriceForRenting { get; set; }
 
         public int Quantity { get; set; }
