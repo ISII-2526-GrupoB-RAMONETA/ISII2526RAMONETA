@@ -39,7 +39,7 @@ namespace AppForSEII2526.API.Controllers
                     .Include(p => p.PurchaseItems)
                      .ThenInclude(pi => pi.Car)
                         .ThenInclude(c => c.Model)
-                .Select(p => new PurchaseDetailDTO(p.Id, p.PurchasingDate, p.ApplicationUser.Name, p.ApplicationUser.Surname, p.ApplicationUser.Address,(PaymentMethodTypes)p.PaymentMethod,
+                .Select(p => new PurchaseDetailDTO(p.Id, p.PurchasingDate, p.ApplicationUser.Name, p.ApplicationUser.Surname, p.ApplicationUser.Address,p.ApplicationUser.UserName,(PaymentMethodTypes)p.PaymentMethod,
                     p.PurchaseItems.Select(pi => new PurchaseItemDTO(pi.Car.Id, pi.Car.Model.Name, pi.Car.PurchasingPrice, pi.Car.Color, pi.Quantity)).ToList<PurchaseItemDTO>())).FirstOrDefaultAsync();
 
             if (purchase == null)
@@ -65,7 +65,7 @@ namespace AppForSEII2526.API.Controllers
                 ModelState.AddModelError("PurchaseItems", "Error! You must include at least one car to be purchased");
             }
 
-            var user = _context.ApplicationUsers.FirstOrDefault(au => au.Name == purchaseForCreate.Name);
+            var user = _context.ApplicationUsers.FirstOrDefault(au => au.UserName == purchaseForCreate.UserName);
             if (user == null)
                 ModelState.AddModelError("PurchaseApplicationUser", "Error! UserName is not registered");
 
@@ -92,18 +92,18 @@ namespace AppForSEII2526.API.Controllers
 
             foreach (var item in purchaseForCreate.PurchaseItems)
             {
-                var car = cars.FirstOrDefault(c => c.Model.Name == item.Model);
+                var car = cars.FirstOrDefault(c => c.Id == item.CarID);
 
-                if (car == null || (car.NumberOfPurchasedItems >= car.QuantityForPurchasing))
+                if (car == null || (car.NumberOfPurchasedItems >= car.QuantityForPurchasing)) //No existe o está agotado
                 {
-                    ModelState.AddModelError("PurchaseItems", $"Error! Car Model '{item.Model}' is not available for being purchased from the database");
+                    ModelState.AddModelError("PurchaseItems", $"Error! Car Model with Id '{item.CarID}' is not available for being purchased from the database");
                 }
                 else
                 {
                     int stock=car.QuantityForPurchasing-car.NumberOfPurchasedItems;
-                    if(item.Quantity > stock)
+                    if(item.Quantity > stock) //No hay stock suficiente
                     {
-                        ModelState.AddModelError("PurchaseItems", $"Error! Not enough stock for Car Model '{item.Model}'. Available: {stock}, Requested: {item.Quantity}");
+                        ModelState.AddModelError("PurchaseItems", $"Error! Not enough stock for Car Id '{item.CarID}'. Available: {stock}, Requested: {item.Quantity}");
                     }
                     else
                     {
@@ -137,7 +137,7 @@ namespace AppForSEII2526.API.Controllers
                 return Conflict("Error" + ex.Message);
             }
 
-            var purchaseDetail = new PurchaseDetailDTO(purchase.Id, purchase.PurchasingDate, purchase.ApplicationUser.Name, purchase.ApplicationUser.Surname, purchase.ApplicationUser.Address,
+            var purchaseDetail = new PurchaseDetailDTO(purchase.Id, purchase.PurchasingDate, purchase.ApplicationUser.Name, purchase.ApplicationUser.Surname, purchase.ApplicationUser.UserName ,purchase.ApplicationUser.Address,
                                  purchase.PaymentMethod,purchaseForCreate.PurchaseItems);
 
             return CreatedAtAction("GetPurchase", new { id = purchase.Id }, purchaseDetail);
