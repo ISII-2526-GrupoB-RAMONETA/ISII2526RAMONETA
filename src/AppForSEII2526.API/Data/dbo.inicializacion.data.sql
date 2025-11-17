@@ -25,13 +25,16 @@ INSERT INTO [dbo].[Purchases] ([Id], [PaymentMethod], [PurchasingDate], [Purchas
 INSERT INTO [dbo].[Purchases] ([Id], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [DeliveryCarDealer], [ApplicationUserId]) VALUES (3, 2, N'2025-03-10 00:00:00', CAST(3600000.00 AS Decimal(10, 2)), 2, N'3')
 INSERT INTO [dbo].[Purchases] ([Id], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [DeliveryCarDealer], [ApplicationUserId]) VALUES (4, 3, N'2025-04-05 00:00:00', CAST(1900000.00 AS Decimal(10, 2)), 3, N'4')
 INSERT INTO [dbo].[Purchases] ([Id], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [DeliveryCarDealer], [ApplicationUserId]) VALUES (5, 1, N'2025-05-15 00:00:00', CAST(6200000.00 AS Decimal(10, 2)), 1, N'1')
+INSERT INTO [dbo].[Purchases] ([Id], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [DeliveryCarDealer], [ApplicationUserId]) VALUES (6, 0, N'2025-11-11 00:00:00', CAST(5000000.00 AS Decimal(10, 2)), 2, N'4')
 SET IDENTITY_INSERT [dbo].[Purchases] OFF
 
 
-INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (1, 1, 1) 
-INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (2, 2, 1) 
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (1, 1, 3) 
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (1, 6, 2)
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (2, 2, 4) 
 INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (3, 3, 1) 
 INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (4, 4, 1)
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (5, 5, 1)
 
 SET IDENTITY_INSERT [dbo].[Rentals] ON
 INSERT INTO [dbo].[Rentals] ([Id], [PaymentMethod], [RentalDate], [TotalPrice], [DeliveryCarDealer], [RentalDateFrom], [RentalDateTo], [ApplicationUserId]) VALUES (1, 1, '2025-10-01 09:30:00', 150.00, 0, '2025-10-02 08:00:00', '2025-10-05 10:00:00', N'1')
