@@ -10,16 +10,17 @@
                    deliveryAddress,
                    paymentMethod,
                    deliveryCarDealer,
+                   rentalDate,
                    rentalDateFrom,
                    rentalDateTo,
                    rentalItems)
         {
             Id = id;
-            RentalDate = rentalDate;
+            //RentalDate = rentalDate;
         }
         public int Id { get; set; }
 
-        public DateTime RentalDate { get; set; }
+        //public DateTime RentalDate { get; set; }
 
         public override bool Equals(object? obj)
         {

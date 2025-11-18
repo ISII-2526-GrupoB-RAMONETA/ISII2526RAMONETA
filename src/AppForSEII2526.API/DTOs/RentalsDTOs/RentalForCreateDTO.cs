@@ -6,7 +6,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
     public class RentalForCreateDTO
     {
         public RentalForCreateDTO(string customerUserName, string customerName, string customerSurname,
-            string deliveryAddress, PaymentMethodTypes paymentMethod, bool deliveryCarDealer, DateTime rentalDateFrom, DateTime rentalDateTo, IList<RentalItemDTO> rentalItems)
+            string deliveryAddress, PaymentMethodTypes paymentMethod, bool deliveryCarDealer, DateTime rentalDate, DateTime rentalDateFrom, DateTime rentalDateTo, IList<RentalItemDTO> rentalItems)
         {
             CustomerUserName = customerUserName;
             CustomerName = customerName;
@@ -14,6 +14,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
             DeliveryAddress = deliveryAddress;
             PaymentMethod = paymentMethod;
             DeliveryCarDealer = deliveryCarDealer;
+            RentalDate = rentalDate;
             RentalDateFrom = rentalDateFrom;
             RentalDateTo = rentalDateTo;
             RentalItems = rentalItems;
@@ -51,6 +52,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTO
 
         public IList<RentalItemDTO> RentalItems { get; set; }
 
+        [Precision(10, 2)]
         public decimal TotalPrice
         {
             get

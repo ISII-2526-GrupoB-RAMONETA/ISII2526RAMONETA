@@ -65,7 +65,7 @@ namespace AppForSEII2526.API.Controllers
         public async Task<ActionResult> CreateRental(RentalForCreateDTO rentalForCreate)
         {
             //any validation defined in RentalForCreate is checked before running the method so they don't have to be checked again
-            if (rentalForCreate.RentalDateFrom <= DateTime.Today)
+            if (rentalForCreate.RentalDateFrom <= DateTime.Now)
                 ModelState.AddModelError("RentalDateFrom", "Error! Your rental date must start later than today");
 
             if (rentalForCreate.RentalDateFrom >= rentalForCreate.RentalDateTo)
