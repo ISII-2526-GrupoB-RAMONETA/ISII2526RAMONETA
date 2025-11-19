@@ -52,6 +52,7 @@ namespace AppForSEII2526.UT.BookingsController_test
 
         public static IEnumerable<object[]> TestCasesFor_CreateBooking()
         {
+            //Caso 1 -> Error porque no se incluye mantenimiento
             var bookingNoItem = new BookingForCreateDTO(_userName, _customerName, _customerSurname, _address, PaymentMethodTypes.Efectivo, _phoneNumber, new List<BookingItemDTO>());
 
             var bookingItems = new List<BookingItemDTO>()
@@ -60,12 +61,14 @@ namespace AppForSEII2526.UT.BookingsController_test
 
             };
 
+            // Caso 2 -> Error porque el usuario no está registrado
             var BookingApplicationUser = new BookingForCreateDTO("usuario.ejemplo@uclm.es", _customerName, _customerSurname, _address, PaymentMethodTypes.Efectivo, _phoneNumber, bookingItems);
 
+            // Caso 3 -> Error porque el mantenimiento no existe
             var bookingMaintenanceNotAvaible = new BookingForCreateDTO(_userName, _customerName, _customerSurname, _address,
                 PaymentMethodTypes.Efectivo, _phoneNumber, new List<BookingItemDTO>() {new BookingItemDTO(0, "Mantenimiento nulo",0,0,"0", "") });
 
-
+            // Se devuelven los 3 casos con sus mensajes esperados
             var allTests = new List<object[]>
             {
                 new object []{ bookingNoItem, "Error! You must include at least one maintenance to be booked", },
@@ -80,9 +83,9 @@ namespace AppForSEII2526.UT.BookingsController_test
 
         }
 
-        [Theory]
-        [Trait("LevelTesting", "Unit Testing")]
-        [Trait("Database", "WithoutFixture")]
+        [Theory] // Indica que este método se ejecutará varias veces (uno por cada caso)
+        [Trait("LevelTesting", "Unit Testing")] // Indica que es un test unitario
+        [Trait("Database", "WithoutFixture")] // Usa una BD en memoria
         [MemberData(nameof(TestCasesFor_CreateBooking))]
         public async Task CreateBooking_Error_test(BookingForCreateDTO bookingDTO, string errorExpected)
         {
@@ -90,9 +93,11 @@ namespace AppForSEII2526.UT.BookingsController_test
             var mock = new Mock<ILogger<BookingsController>>();
             ILogger<BookingsController> logger = mock.Object;
 
+            // Se instancia el controlador
             var controller = new BookingsController(_context, logger);
 
             //Act
+            // Se llama al método
             var result = await controller.CreateBooking(bookingDTO);
 
             //Assert
@@ -108,7 +113,7 @@ namespace AppForSEII2526.UT.BookingsController_test
 
         }
 
-        [Fact]
+        [Fact] 
         [Trait("LevelTesting", "Unit Testing")]
         [Trait("Database", "WithoutFixture")]
         public async Task CreateBooking_Success_test()
@@ -119,17 +124,18 @@ namespace AppForSEII2526.UT.BookingsController_test
 
             var controller = new BookingsController(_context, logger);
 
+            // DTO enviado al API para crear un booking correctamente
             var bookingDTO = new BookingForCreateDTO(_userName, _customerName, _customerSurname, _address, PaymentMethodTypes.Efectivo, _phoneNumber,
                 new List<BookingItemDTO>() { new BookingItemDTO(2, _maintenance1Name, 3, 80m, "Air filter cleaned, dust and debris removed", _maintenance1Type) });
 
-
+            // DTO esperado como resultado del método al crear la reserva
             var expectedBookingDetailDTO = new BookingDetailDTO(2, DateTime.Now, _userName, _customerName, _customerSurname, _address, PaymentMethodTypes.Efectivo,
                 _phoneNumber,
                 new List<BookingItemDTO>() { new BookingItemDTO(2, _maintenance1Name, 3, 80m, "Air filter cleaned, dust and debris removed", _maintenance1Type) });
 
 
             //Act
-            var result = await controller.CreateBooking(bookingDTO);
+            var result = await controller.CreateBooking(bookingDTO); // Se llama a la acción del controller
 
             //Assert
             //we check that the response type is BadRequest and obtain the error returned
