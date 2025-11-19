@@ -40,19 +40,21 @@ namespace AppForSEII2526.UT.BookingsController_test
 
         }
 
-
+        //Comprobar que al pedir un booking con id inexistente -> 404
         [Fact]
         [Trait("Database", "WithoutFixture")]
         [Trait("LevelTesting", "Unit Testing")]
         public async Task GetBooking_NotFound_test()
         {
             //Arrange
+            //Logger simulado con Mock
             var mock = new Mock<ILogger<BookingsController>>();
             ILogger<BookingsController> logger = mock.Object;
 
+            //Controlador con el contexto de prueba
             var controller = new BookingsController(_context, logger);
 
-            //Act
+            //Act -> se solicita un booking con id = 0, que no existe
             var result = await controller.GetBooking(0);
 
             //Assert
@@ -60,6 +62,7 @@ namespace AppForSEII2526.UT.BookingsController_test
             Assert.IsType<NotFoundResult>(result);
         }
 
+        //Comprobar que al pedir un booking existente → retorna 200 OK con el booking esperado
         [Fact]
         [Trait("LevelTesting", "Unit Testing")]
         [Trait("Database", "WithoutFixture")]
@@ -71,11 +74,12 @@ namespace AppForSEII2526.UT.BookingsController_test
 
             var controller = new BookingsController(_context, logger);
 
+            //Creamos el DTO esperado manualmente
             var expectedBooking = new BookingDetailDTO(1, DateTime.Now, "pablo.ramon@uclm.es", "Pablo", "Ramón Palarea", "Val general",
                 PaymentMethodTypes.Efectivo, "622", new List<BookingItemDTO>());
             expectedBooking.BookingItems.Add(new BookingItemDTO(1, "Air filter cleaning", 3, 80m, "Air filter cleaned, dust and debris removed", "Preventive"));
 
-            //Act
+            //Act -> recuperamos la reserva con id 1
             var result = await controller.GetBooking(1);
 
             //Assert
