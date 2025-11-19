@@ -69,12 +69,13 @@ namespace AppForSEII2526.UT.RentalsController_test
         public async Task GetRental_NotFound_test()
         {
             // Arrange
+            //Logger simulado con Mock
             var mock = new Mock<ILogger<RentalsController>>();
             ILogger<RentalsController> logger = mock.Object;
 
             var controller = new RentalsController(_context, logger);
 
-            // Act
+            //Act -> se solicita un rental con id = 0, que no existe
             var result = await controller.GetRental(0);
 
             //Assert
@@ -83,7 +84,7 @@ namespace AppForSEII2526.UT.RentalsController_test
 
         }
 
-
+        //Comprobar que al pedir un booking existente → retorna 200 OK con el booking esperado
         [Fact]
         [Trait("LevelTesting", "Unit Testing")]
         [Trait("Database", "WithoutFixture")]
@@ -105,7 +106,7 @@ namespace AppForSEII2526.UT.RentalsController_test
 
             expectedRental.RentalItems.Add(new RentalItemDTO(1, "Sedan", "Toyota", 40, 2));
 
-            // Act 
+            //Act -> recuperamos el alquiler con id 1
             var result = await controller.GetRental(1);
 
             //Assert

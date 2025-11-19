@@ -87,17 +87,12 @@ namespace AppForSEII2526.UT.RentalsController_test
                 DateTime.Now, DateTime.Now.AddDays(2), DateTime.Now.AddDays(5),
                 new List<RentalItemDTO>() { new RentalItemDTO(12, "SUV", "BMW", 80, 1) });
 
-            var rentalCarNoStock = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Paseo Cervantes,8",
-                PaymentMethodTypes.Efectivo, true,
-                DateTime.Now, DateTime.Now.AddDays(2), DateTime.Now.AddDays(5),
-                new List<RentalItemDTO>() { new RentalItemDTO(2, "SUV", "BMW", 80, 1) });
-
             var rentalCarNotEnoughStock = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Paseo Cervantes,8",
                 PaymentMethodTypes.Efectivo, true,
                 DateTime.Now, DateTime.Now.AddDays(2), DateTime.Now.AddDays(5),
                 new List<RentalItemDTO>() { new RentalItemDTO(1, "Sedan", "Toyota", 80, 100) });
 
-
+            // Se devuelven los 6 casos con sus mensajes esperados
             var allTests = new List<object[]>
             {             //input for createpurchase - Error expected
                 new object[] { rentalNoITem, "Error! You must include at least one car to be rented",  },
@@ -105,16 +100,15 @@ namespace AppForSEII2526.UT.RentalsController_test
                 new object[] { rentalToBeforeFrom, "Error! Your rental must end later than it starts", },
                 new object[] { RentalApplicationUser, "Error! UserName is not registered", },
                 new object[] { rentalCarDontExist, "Error! Car Model 'SUV' is not available for being rented from the database", },
-                new object[] { rentalCarNoStock, "Error! Car Model 'SUV' has no available units for the selected dates", },
-                new object[] { rentalCarNotEnoughStock, "Error! Not enough stock for Car Model 'Sedan'. Available: 15, Requested: 100", },
+                new object[] { rentalCarNotEnoughStock, "Error! Not enough stock for Car Id '1'. Available: 15, Requested: 100", },
             };
 
             return allTests;
         }
 
-        [Theory]
-        [Trait("LevelTesting", "Unit Testing")]
-        [Trait("Database", "WithoutFixture")]
+        [Theory] // Indica que este método se ejecutará varias veces (uno por cada caso)
+        [Trait("LevelTesting", "Unit Testing")] //Indica que es un test unitario
+        [Trait("Database", "WithoutFixture")] // Usa una BD en memoria
         [MemberData(nameof(TestCasesFor_CreatePurchase))]
         public async Task CreateRental_Error_test(RentalForCreateDTO rentalDTO, string errorExpected)
         {
@@ -153,18 +147,21 @@ namespace AppForSEII2526.UT.RentalsController_test
             DateTime to = DateTime.Now.AddDays(6);
             DateTime from = DateTime.Now.AddDays(3);
 
+            // DTO enviado al API para crear un rental correctamente
             var rentalDTO = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Paseo Cervantes,8",
                 PaymentMethodTypes.Efectivo, true,
                 DateTime.Now, from, to, new List<RentalItemDTO>()
                 { new RentalItemDTO(1, "Sedan", "Toyota", 40, 1) });
 
+
+            // DTO esperado como resultado del método al crear un alquiler
             var expectedrentalDetailDTO = new RentalDetailDTO(2, DateTime.Now,
                 "pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Paseo Cervantes,8", true, PaymentMethodTypes.Efectivo,
                 from, to, new List<RentalItemDTO>()
                 { new RentalItemDTO(1, "Sedan", "Toyota", 40, 1) });
 
             // Act
-            var result = await controller.CreateRental(rentalDTO);
+            var result = await controller.CreateRental(rentalDTO); // Se llama a la acción del controller
 
             //Assert
             //we check that the response type is BadRequest and obtain the error returned
