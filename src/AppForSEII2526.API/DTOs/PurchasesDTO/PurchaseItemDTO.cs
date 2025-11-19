@@ -37,6 +37,8 @@ namespace AppForSEII2526.API.DTOs.PurchasesDTO
 
         public string Description { get; set; }
 
+        public decimal TotalPrice => PurchasingPrice * Quantity;
+
         public override bool Equals(object? obj)
         {
             return obj is PurchaseItemDTO dTO &&
@@ -45,7 +47,8 @@ namespace AppForSEII2526.API.DTOs.PurchasesDTO
                    PurchasingPrice == dTO.PurchasingPrice &&
                    Color == dTO.Color &&
                    Quantity == dTO.Quantity &&
-                   Description == dTO.Description;
+                   Description == dTO.Description &&
+                   TotalPrice == dTO.TotalPrice;
         }
 
         public override int GetHashCode()
