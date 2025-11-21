@@ -82,6 +82,10 @@ namespace AppForSEII2526.API.Controllers
             if (user == null) //Si no exite el usuario salta el error
                 ModelState.AddModelError("BookingApplicationUser", "Error! UserName is not registered");
 
+            //Si es número de teléfono no es nulo y no empieza por +34 salta el error
+            if((bookingForCreate.PhoneNumber != null) && (!bookingForCreate.PhoneNumber.StartsWith("+34")))
+                ModelState.AddModelError("BookingApplicationUser", "Error! el teléfono debe empezar por +34");
+
             if (ModelState.ErrorCount > 0) //Si hay algun error se devuelve una BadRequest
                 return BadRequest(new ValidationProblemDetails(ModelState));
 

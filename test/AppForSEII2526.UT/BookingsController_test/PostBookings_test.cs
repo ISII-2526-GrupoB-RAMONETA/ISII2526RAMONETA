@@ -15,7 +15,7 @@ namespace AppForSEII2526.UT.BookingsController_test
         private const string _customerName = "Pablo";
         private const string _customerSurname = "Ramón Palarea";
         private const string _address = "Val general";
-        private const string _phoneNumber = "622";
+        private const string _phoneNumber = "+34 622";
 
         private const string _maintenance1Name = "Air filter cleaning";
         private const string _maintenance1Type = "Preventive";
@@ -68,13 +68,16 @@ namespace AppForSEII2526.UT.BookingsController_test
             var bookingMaintenanceNotAvaible = new BookingForCreateDTO(_userName, _customerName, _customerSurname, _address,
                 PaymentMethodTypes.Efectivo, _phoneNumber, new List<BookingItemDTO>() {new BookingItemDTO(0, "Mantenimiento nulo",0,0,"0", "") });
 
-            // Se devuelven los 3 casos con sus mensajes esperados
+            //Caso en el que el teléfono no empieza por +34
+            var bookingPhone = new BookingForCreateDTO(_userName, _customerName, _customerSurname, _address, PaymentMethodTypes.Efectivo, "777", bookingItems);
+
+            // Se devuelven los casos con sus mensajes esperados
             var allTests = new List<object[]>
             {
                 new object []{ bookingNoItem, "Error! You must include at least one maintenance to be booked", },
                 new object []{ BookingApplicationUser, "Error! UserName is not registered", },
                 new object []{ bookingMaintenanceNotAvaible, "Error! Maintenance named 'Mantenimiento nulo' is not available for being booked", },
-
+                new object []{ bookingPhone, "Error! el teléfono debe empezar por +34", },
 
             };
 
