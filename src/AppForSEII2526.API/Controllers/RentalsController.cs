@@ -87,6 +87,11 @@ namespace AppForSEII2526.API.Controllers
             if (user == null)
                 ModelState.AddModelError("RentalApplicationUser", "Error! UserName is not registered");
 
+
+            if (!rentalForCreate.DeliveryAddress.Contains("Calle"))
+                ModelState.AddModelError("RentaldeliveryAddress", "Error! La dirección de envío debe empezar por la palabra Calle");
+
+
             if (ModelState.ErrorCount > 0) //Si hay algun error se devuelve una BadRequest
                 return BadRequest(new ValidationProblemDetails(ModelState));
 

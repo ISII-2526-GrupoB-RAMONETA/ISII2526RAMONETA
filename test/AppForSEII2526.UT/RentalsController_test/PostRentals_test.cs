@@ -41,7 +41,7 @@ namespace AppForSEII2526.UT.RentalsController_test
             _context.AddRange(cars);
             _context.SaveChanges();
 
-            ApplicationUser user = new ApplicationUser("1", "Pablo", "Ballestero", "pablo.ballestero@uclm.es", "Paseo Cervantes,8", "633");
+            ApplicationUser user = new ApplicationUser("1", "Pablo", "Ballestero", "pablo.ballestero@uclm.es", "Calle Cervantes,8", "633");
             _context.Add(user);
             _context.SaveChanges();
 
@@ -65,32 +65,37 @@ namespace AppForSEII2526.UT.RentalsController_test
 
         public static IEnumerable<object[]> TestCasesFor_CreatePurchase()
         {
-            var rentalNoITem = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Paseo Cervantes,8",
+            var rentalNoITem = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Calle Cervantes,8",
                 PaymentMethodTypes.Efectivo, true, DateTime.Now, DateTime.Now.AddDays(2), DateTime.Now.AddDays(5), new List<RentalItemDTO>());
 
             var rentalItems = new List<RentalItemDTO>() { new RentalItemDTO(1, "Sedan", "Toyota", 40, 2) };
 
-            var rentalFromBeforeToday = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Paseo Cervantes,8",
+            var rentalFromBeforeToday = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Calle Cervantes,8",
                 PaymentMethodTypes.Efectivo, true,
                 DateTime.Now, DateTime.Now, DateTime.Now.AddDays(5), rentalItems);
 
-            var rentalToBeforeFrom = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Paseo Cervantes,8",
+            var rentalToBeforeFrom = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Calle Cervantes,8",
                 PaymentMethodTypes.Efectivo, true,
                 DateTime.Now, DateTime.Now.AddDays(5), DateTime.Now.AddDays(2), rentalItems);
 
-            var RentalApplicationUser = new RentalForCreateDTO("TengenToppaGurrenLagann", "Pablo", "Ballestero", "Paseo Cervantes,8",
+            var RentalApplicationUser = new RentalForCreateDTO("TengenToppaGurrenLagann", "Pablo", "Ballestero", "Calle Cervantes,8",
                 PaymentMethodTypes.Efectivo, true,
                 DateTime.Now, DateTime.Now.AddDays(2), DateTime.Now.AddDays(4), rentalItems);
 
-            var rentalCarDontExist = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Paseo Cervantes,8",
+            var rentalCarDontExist = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Calle Cervantes,8",
                 PaymentMethodTypes.Efectivo, true,
                 DateTime.Now, DateTime.Now.AddDays(2), DateTime.Now.AddDays(5),
                 new List<RentalItemDTO>() { new RentalItemDTO(12, "SUV", "BMW", 80, 1) });
 
-            var rentalCarNotEnoughStock = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Paseo Cervantes,8",
+            var rentalCarNotEnoughStock = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Calle Cervantes,8",
                 PaymentMethodTypes.Efectivo, true,
                 DateTime.Now, DateTime.Now.AddDays(2), DateTime.Now.AddDays(5),
                 new List<RentalItemDTO>() { new RentalItemDTO(1, "Sedan", "Toyota", 80, 100) });
+
+            var rentalCarNoCalle = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Paseo Cervantes,8",
+                PaymentMethodTypes.Efectivo, true,
+                DateTime.Now, DateTime.Now.AddDays(2), DateTime.Now.AddDays(5),
+                new List<RentalItemDTO>() { new RentalItemDTO(1, "Sedan", "Toyota", 80, 1) });
 
             // Se devuelven los 6 casos con sus mensajes esperados
             var allTests = new List<object[]>
@@ -101,6 +106,7 @@ namespace AppForSEII2526.UT.RentalsController_test
                 new object[] { RentalApplicationUser, "Error! UserName is not registered", },
                 new object[] { rentalCarDontExist, "Error! Car Model 'SUV' is not available for being rented from the database", },
                 new object[] { rentalCarNotEnoughStock, "Error! Not enough stock for Car Id '1'. Available: 15, Requested: 100", },
+                new object[] { rentalCarNoCalle, "Error! La dirección de envío debe empezar por la palabra Calle", },
             };
 
             return allTests;
@@ -148,7 +154,7 @@ namespace AppForSEII2526.UT.RentalsController_test
             DateTime from = DateTime.Now.AddDays(3);
 
             // DTO enviado al API para crear un rental correctamente
-            var rentalDTO = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Paseo Cervantes,8",
+            var rentalDTO = new RentalForCreateDTO("pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Calle Cervantes,8",
                 PaymentMethodTypes.Efectivo, true,
                 DateTime.Now, from, to, new List<RentalItemDTO>()
                 { new RentalItemDTO(1, "Sedan", "Toyota", 40, 1) });
@@ -156,7 +162,7 @@ namespace AppForSEII2526.UT.RentalsController_test
 
             // DTO esperado como resultado del método al crear un alquiler
             var expectedrentalDetailDTO = new RentalDetailDTO(2, DateTime.Now,
-                "pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Paseo Cervantes,8", true, PaymentMethodTypes.Efectivo,
+                "pablo.ballestero@uclm.es", "Pablo", "Ballestero", "Calle Cervantes,8", true, PaymentMethodTypes.Efectivo,
                 from, to, new List<RentalItemDTO>()
                 { new RentalItemDTO(1, "Sedan", "Toyota", 40, 1) });
 
