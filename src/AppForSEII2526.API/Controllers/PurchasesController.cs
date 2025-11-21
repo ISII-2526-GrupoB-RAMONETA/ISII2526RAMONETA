@@ -2,6 +2,7 @@
 using AppForSEII2526.API.DTOs.RentalDTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AppForSEII2526.API.Controllers
 {
@@ -111,6 +112,10 @@ namespace AppForSEII2526.API.Controllers
                         item.PurchasingPrice = car.PurchasingPrice;
                     }
                    
+                }
+                if(item.Description.IsNullOrEmpty() && item.Quantity == 2)
+                {
+                    ModelState.AddModelError("PurchaseItems",$"¡Error! Estás comprando demasiados coches sin descripción."); //error examen
                 }
             }
 
