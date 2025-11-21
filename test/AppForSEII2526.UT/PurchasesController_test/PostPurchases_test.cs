@@ -108,14 +108,17 @@ namespace AppForSEII2526.UT.PurchasesController_test
 
             var purchaseCarNotAvailable = new PurchaseForCreateDTO(_Name,_Surname,_userName,_address,new List<PurchaseItemDTO>() {new PurchaseItemDTO(1,_car1Model,20000m,_car1Color,1,"")},PaymentMethodTypes.Efectivo); //Error 3
 
-            var purchaseCarInsufficientStock = new PurchaseForCreateDTO(_Name,_Surname,_userName,_address,new List<PurchaseItemDTO>() {new PurchaseItemDTO(3,_car3Model,30000m,_car3Color,10,"")},PaymentMethodTypes.Efectivo); //Error 4
+            var purchaseCarInsufficientStock = new PurchaseForCreateDTO(_Name,_Surname,_userName,_address,new List<PurchaseItemDTO>() {new PurchaseItemDTO(3,_car3Model,30000m,_car3Color,10,"descripcion")},PaymentMethodTypes.Efectivo); //Error 4
 
+            var purchaseNoDescription = new PurchaseForCreateDTO(_Name, _Surname, _userName, _address, new List<PurchaseItemDTO>() { new PurchaseItemDTO(3,_car3Model,30000m,_car3Color,2,"")},PaymentMethodTypes.Efectivo); //Error examen
+            
             var allTests = new List<object[]>
             {
                 new object[] { purchaseNoItem, "Error! You must include at least one car to be purchased", },
                 new object[] { purchaseApplicationUser, "Error! UserName is not registered", },
                 new object[] { purchaseCarNotAvailable, "Error! Car Model with Id '1' is not available for being purchased from the database"},
                 new object[] { purchaseCarInsufficientStock, "Error! Not enough stock for Car Id '3'. Available: 5, Requested: 10"},
+                new object[] { purchaseNoDescription, "¡Error! Estás comprando demasiados coches sin descripción." }
             };
 
             return allTests;
