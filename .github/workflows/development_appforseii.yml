@@ -9,7 +9,7 @@ on:
       - development
 
     paths:
-      -  'src/AppForSEII2526.API**'
+      -  'src/AppForMovies.API**'
   workflow_dispatch:
 
 jobs:
@@ -82,3 +82,4 @@ jobs:
           package: .
 
           
+
