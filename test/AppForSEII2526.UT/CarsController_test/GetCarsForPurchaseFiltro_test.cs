@@ -10,9 +10,9 @@ using Xunit.Abstractions;
 
 namespace AppForSEII2526.UT.CarsController_test
 {
-    public class GetCarsForPurchase_Filtro_test : AppForSEII25264SqliteUT
+    public class GetCarsForPurchaseFiltro_test : AppForSEII25264SqliteUT
     {
-        public GetCarsForPurchase_Filtro_test()
+        public GetCarsForPurchaseFiltro_test()
         {
             var models = new List<Model>()
             {
@@ -82,7 +82,7 @@ namespace AppForSEII2526.UT.CarsController_test
             _context.SaveChanges();
         }
 
-        public static IEnumerable<object[]> TestCasesFor_GetCarsForPurchase_Filtro_OK()
+        public static IEnumerable<object[]> TestCasesFor_GetCarsForPurchaseFiltro_OK()
         {
             // 1. Definimos el "pool" completo de DTOs que esperamos
             // (La base de datos tiene 5 coches, así que definimos los 5)
@@ -141,7 +141,7 @@ namespace AppForSEII2526.UT.CarsController_test
         }
 
         [Theory]
-        [MemberData(nameof(TestCasesFor_GetCarsForPurchase_Filtro_OK))]
+        [MemberData(nameof(TestCasesFor_GetCarsForPurchaseFiltro_OK))]
         [Trait("Database", "WithoutFixture")]
         [Trait("LevelTesting", "Unit Testing")]
         public async Task GetCarsForPurchase_Filtro_OK_test(string? color, string? modelo, IList<CarForPurchaseDTO> expectedCars)
@@ -150,7 +150,7 @@ namespace AppForSEII2526.UT.CarsController_test
             var controller = new CarsController(_context, null);
 
             //Act
-            var result = await controller.GetCarsForPurchase_Filtro(color, modelo);
+            var result = await controller.GetCarsForPurchaseFiltro(color, modelo);
 
             //Assert
             //we check that the response type is OK 
