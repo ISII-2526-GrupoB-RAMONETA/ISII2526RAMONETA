@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace AppForSEII2526.UT.CarsController_test
 {
-    public class GetCarsForRental_Filtro_test : AppForSEII25264SqliteUT
+    public class GetCarsForRentalFiltro_test : AppForSEII25264SqliteUT
     {
-        public GetCarsForRental_Filtro_test()
+        public GetCarsForRentalFiltro_test()
         {
             var models = new List<Model>()
             {
@@ -59,7 +59,7 @@ namespace AppForSEII2526.UT.CarsController_test
 
 
 
-        public static IEnumerable<object[]> TestCasesFor_GetCoches_FILTRO_PRECIO_OK()
+        public static IEnumerable<object[]> TestCasesFor_GetCochesForRentalFiltro_OK()
         {
             var CarsForRentalDTO = new List<CarForRentalDTO>()
             {
@@ -101,7 +101,7 @@ namespace AppForSEII2526.UT.CarsController_test
         }
 
         [Theory]
-        [MemberData(nameof(TestCasesFor_GetCoches_FILTRO_PRECIO_OK))]
+        [MemberData(nameof(TestCasesFor_GetCochesForRentalFiltro_OK))]
         [Trait("Database", "WithoutFixture")]
         [Trait("LevelTesting", "Unit Testing")]
         public async Task GetCoches_FILTRO_PRECIO_OK_test(decimal? filterPrice, string? filterModel, IList<CarForRentalDTO> expectedCars)
@@ -110,7 +110,7 @@ namespace AppForSEII2526.UT.CarsController_test
             var controller = new CarsController(_context, null);
 
             // Act (usamos los parámetros del MemberData)
-            var result = await controller.GetCarsForRental_Filtro(filterPrice, filterModel);
+            var result = await controller.GetCarsForRentalFiltro(filterPrice, filterModel);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
