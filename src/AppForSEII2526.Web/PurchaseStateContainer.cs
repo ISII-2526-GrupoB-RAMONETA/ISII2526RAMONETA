@@ -1,6 +1,4 @@
-﻿using AppForSEII2526.API.DTOs;
-using AppForSEII2526.API.DTOs.PurchasesDTO;
-using AppForSEII2526.Web.API;
+﻿using AppForSEII2526.Web.API;
 
 namespace AppForSEII2526.Web
 {
