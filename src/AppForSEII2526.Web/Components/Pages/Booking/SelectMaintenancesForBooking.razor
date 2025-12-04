@@ -1,0 +1,168 @@
+﻿@page "/booking/selectmaintenancesforbooking"
+@using AppForSEII2526.Web.API
+@using Microsoft.AspNetCore.Authorization
+@inject AppForSEII2526APIClient apiclient
+@inject ILogger<SelectMaintenancesForBooking> logger
+@inject BookingStateContainer bookingState
+@inject NavigationManager navigation
+
+@attribute [Authorize]
+<h3>SelectMaintenancesForBooking</h3>
+
+<div class="container-fluid">
+    <div class="row alert alert-danger" role="alert" hidden="@hideErrors">
+        <p id="ErrorsShown">Errors: @errors</p>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Name</span>
+                        <input type="text" id="inputName" @bind=maintenanceName class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Type</span>
+                        <select class="form-select" aria-label="Default select" @bind="maintenanceTypeSelected" id="selectType">
+                            <option value="All" selected>All</option>
+                            @foreach (string typeName in typesNames)
+                            {
+                                <option value="@typeName" id="typeNameSelected_@typeName">@typeName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-primary" @onclick=@SearchMaintenances id="searchMaintenances">Search maintenances</button>
+                </div>
+            </div>
+            <div class="row">
+                @if (maintenances == null)
+                {
+                    <p>Loading maintenances....</p>
+                }
+                else
+                {
+                    <div class="mh-100 table-responsive">
+                        <table class="table table-condensed table-hover" id="TableOfMaintenances">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Number of Days</th>
+                                    <th>Price</th>
+                                    <th>Book</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var maintenance in maintenances)
+                                {
+                                    <tr id="MaintenanceData_@maintenance.Name">
+                                        <td>@maintenance.Name</td>
+                                        <td>@maintenance.Type</td>
+                                        <td>@maintenance.NumberOfDays</td>
+                                        <td>@maintenance.Price</td>
+                                        <td>
+                                            <button class="btn btn-outline-secondary" id="maintenanceToBook_@maintenance.Name" @onclick="@(() => AddMaintenance(maintenance))">Add</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                }
+            </div>
+        </div>
+        <div class="col-2" hidden="@hideBookingCart">
+            <div class="row">
+                <h3>Shopping Cart</h3>
+            </div>
+            @foreach (BookingItemDTO item in booking.BookingItems)
+            {
+                <div class="row">
+                    <button type="button" class="btn btn-light" id="removeMaintenance_@item.Name" @onclick="@(() => RemoveBookingItem(item))">x @item.Name - @item.Price€</button>
+                </div>
+            }
+            <div class="row">
+                <button type="button" class="btn btn-primary" id="purchaseMaintenanceButton" @onclick=@BookMaintenances>Book maintenances</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@code {
+    private string maintenanceTypeSelected;
+    private ICollection<string>? typesNames = new List<string>();
+    private bool hideBookingCart { get { return booking.BookingItems.Count == 0; } }
+    private ICollection<MaintenanceDTO> maintenances;
+    private bool hideErrors { get { return errors.Length == 0; } }
+    private string errors = "";
+    private string maintenanceName { get; set; }
+    private string maintenanceType { get; set; }
+
+
+
+    private BookingForCreateDTO booking => bookingState.Booking;
+
+    private bool hiddenBookingCart = true;
+
+    private void AddMaintenance(MaintenanceDTO maintenance)
+    {
+        bookingState.AddMaintenanceToBooking(maintenance);
+    }
+
+    private void RemoveBookingItem(BookingItemDTO item)
+    {
+        bookingState.RemoveBookingItemToBook(item);
+        if (booking.BookingItems.Count == 0) hiddenBookingCart = true;
+    }
+
+    public async void SearchMaintenances()
+    {
+        maintenanceType = maintenanceTypeSelected == "All" ? null : maintenanceTypeSelected;
+
+        try
+        {
+            maintenances = await apiclient.GetMaintenancesFiltroAsync(maintenanceName, maintenanceType);
+
+        }
+        catch (ApiException ex)
+        {
+            logger.LogError($"{DateTime.Now} Error: {ex}");
+            errors = "Error while connecting to the system";
+        }
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            typesNames = await apiclient.GetTypesAsync(null);
+        }
+        catch (ApiException ex)
+        {
+            if (typesNames == null) typesNames = new List<string>() { "All", };
+            logger.LogError("Error! There was an error while connecting to the GetTypesAsync service");
+        }
+
+        SearchMaintenances();
+         //return base.OnInitializedAsync();
+    }
+
+
+    private void BookMaintenances()
+    {
+        navigation.NavigateTo("/booking/createbooking");
+    }
+
+
+
+
+}
