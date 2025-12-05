@@ -10,7 +10,9 @@ namespace AppForSEII2526.API.Models
         PagoMovil,
         PayPal,
         Criptomoneda,
-        Cheque
+        Cheque,
+        GooglePay,
+        Visa
 
     }
     public class Purchase
