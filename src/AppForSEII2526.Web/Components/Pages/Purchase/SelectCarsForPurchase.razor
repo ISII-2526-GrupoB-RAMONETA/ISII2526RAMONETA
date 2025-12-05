@@ -1,0 +1,48 @@
+﻿@page "/purchase/selectcarsforpurchase"
+<h3>SelectCarsForPurchase</h3>
+<div class="container-fluid">
+    
+    <!-- Errores con hideErrors y con errors -->
+    <div class="row alert alert-danger" role="alert" hidden="@hideErrors">
+        <p id="ErrorsShown">Errors: @errors</p>
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Color</span>
+                        <input type="text" id="inputTitle" @bind=color class="form-control" placeholder="Color" aria-label="Color" aria-describedby="basic-addon1" >
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Model</span>
+                        <select class="form-select" aria-label="Default select" @bind="carModelSelected" id="selectModel">
+                            <option value="All" selected>All</option>
+                            @foreach (string model in models)
+                            {
+                                <option value="@model" id="genreNameSelected_@model">@model</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+        
+
+    </div>
+
+</div>
+@code {
+    private string carModelSelected;
+    private ICollection<string>? models = new List<string>();
+    private string errors = "";
+    private bool hideErrors { get { return errors.Length == 0; } }
+    private string color { get; set; }
+
+}

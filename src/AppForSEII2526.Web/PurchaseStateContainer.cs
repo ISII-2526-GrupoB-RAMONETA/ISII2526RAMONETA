@@ -4,7 +4,7 @@ namespace AppForSEII2526.Web
 {
     public class PurchaseStateContainer
     {
-        //creamos una instancia de Purchase cuando se crea una instancia de RentalState Container
+        //creamos una instancia de Purchase cuando se crea una instancia de PurchaseState Container
         public PurchaseForCreateDTO Purchase { get; private set; } = new PurchaseForCreateDTO()
         {
             PurchaseItems = new List<PurchaseItemDTO>()
