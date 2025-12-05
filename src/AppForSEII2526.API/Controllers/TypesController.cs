@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AppForSEII2526.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TypesController : ControllerBase
+    
+    public class TypesController : Controller
     {
         private readonly ApplicationDbContext _context;
         private ILogger _logger;
