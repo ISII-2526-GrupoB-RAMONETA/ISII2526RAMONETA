@@ -27,24 +27,24 @@ namespace AppForSEII2526.Web
 
 
 
-        public void AddCarToRental(RentalItemDTO rentalItem)
+        public void AddCarToRental(CarForRentalDTO car)
         {
 
-            var existingItem = Rental.RentalItems.FirstOrDefault(pi => pi.CarId == rentalItem.CarId);
+            var existingItem = Rental.RentalItems.FirstOrDefault(ri => ri.CarId == car.Id);
             //before adding a car we checked whether it has been already added
             if (existingItem == null)
                 //we add it if it is not in the list
                 Rental.RentalItems.Add(new RentalItemDTO()
                 {
-                    CarId = rentalItem.CarId,
-                    Model = rentalItem.Model,
-                    Manufacturer = rentalItem.Manufacturer,
-                    PriceForRenting = rentalItem.PriceForRenting,
-                    Quantity = rentalItem.Quantity,
+                    CarId = car.Id,
+                    Model = car.Model,
+                    Manufacturer = car.Manufacturer,
+                    PriceForRenting = car.RentingPrice,
+                    Quantity = 1
                 }
             );
             else
-                existingItem.Quantity += rentalItem.Quantity;
+                existingItem.Quantity += 1;
 
         }
 
