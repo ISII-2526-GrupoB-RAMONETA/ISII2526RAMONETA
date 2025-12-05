@@ -23,6 +23,15 @@
         "parameters": [
           {
             "name": "modelName",
+    "/GetTypes": {
+      "get": {
+        "tags": [
+          "Types"
+        ],
+        "operationId": "GetTypes",
+        "parameters": [
+          {
+            "name": "typeName",
             "in": "query",
             "schema": {
               "type": "string"
@@ -62,9 +71,6 @@
         }
       }
     },
-
-
-
     "/api/Bookings/GetBooking": {
       "get": {
         "tags": [
