@@ -18,8 +18,8 @@
             <div class="row">
                 <div class="col">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">CarId</span>
-                        <input type="text" id="inputCarId" @bind=carId class="form-control" placeholder="CarId" aria-label="CarId" aria-describedby="basic-addon1">
+                        <span class="input-group-text" id="basic-addon1">precio</span>
+                        <input type="text" id="inputprecio" @bind=precio class="form-control" placeholder="precio" aria-label="precio" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
@@ -168,7 +168,12 @@
         }
 
         try {
-            cars = await apiclient.GetCarsForRentalFiltroAsync(precio, carModel);
+            // Obtener los coches como CarForRentalDTO (usar directamente el resultado del cliente OpenAPI)
+            var carResults = await apiclient.GetCarsForRentalFiltroAsync(precio, carModel);
+
+            // Asignar directamente la lista de CarForRentalDTO devuelta por el cliente
+            cars = carResults.ToList();
+
             errors = "";
 
         }
