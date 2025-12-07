@@ -723,7 +723,7 @@
         }
       }
     },
-    "/api/Rentals/GetRental": {
+    "/api/Rental/GetRental": {
       "get": {
         "tags": [
           "Rentals"
@@ -783,7 +783,7 @@
         }
       }
     },
-    "/api/Rentals/CreateRental": {
+    "/api/Rental/CreateRental": {
       "post": {
         "tags": [
           "Rentals"
