@@ -1,4 +1,4 @@
-﻿@page "/purchase/selectcarsforpurchase"
+﻿@page "/purchases/selectcarsforpurchase"
 
 @using Microsoft.AspNetCore.Authorization
 @using AppForSEII2526.Web.API
@@ -128,7 +128,7 @@
         carModel = carModelSelected == "All" ? null : carModelSelected;
         try
         {
-            cars = await apiclient.GetCarsForPurchaseFiltroAsync(carModel, carColor);
+            cars = await apiclient.GetCarsForPurchaseFiltroAsync(carColor, carModel);
             errors = "";
         }
         catch (ApiException ex)
@@ -144,19 +144,21 @@
         try
         {
             models = await apiclient.GetModelsAsync(null);
-            apiclient.GetMaintenancesAsync();
         }
         catch (ApiException ex)
         {
             if (models == null) models = new List<string>() { "All", };
-            logger.LogError("Error! There was an error while connecting to the GetModelsAsync service");
+            logger.LogError($"CRITICAL ERROR en GetModelsAsync:");
+            logger.LogError($"Status Code: {ex.StatusCode}");
+            logger.LogError($"Response: {ex.Response}");
+            logger.LogError($"Message: {ex.Message}");
         }
         SearchCars();
     }
 
     private void PurchaseCars()
     {
-        navigation.NavigateTo("/purchase/createpurchase");
+        navigation.NavigateTo("/purchases/createpurchase");
     }
 
 }
