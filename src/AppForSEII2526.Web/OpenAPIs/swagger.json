@@ -14,102 +14,6 @@
     "version": "v1"
   },
   "paths": {
-    "/GetModels": {
-      "get": {
-        "tags": [
-          "Models"
-        ],
-        "operationId": "GetModels",
-        "parameters": [
-          {
-            "name": "modelName",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/GetTypes": {
-      "get": {
-        "tags": [
-          "Types"
-        ],
-        "operationId": "GetTypes",
-        "parameters": [
-          {
-            "name": "typeName",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/Bookings/GetBooking": {
       "get": {
         "tags": [
@@ -771,7 +675,7 @@
         }
       }
     },
-    "/api/Rental/GetRental": {
+    "/api/Rentals/GetRental": {
       "get": {
         "tags": [
           "Rentals"
@@ -831,7 +735,7 @@
         }
       }
     },
-    "/api/Rental/CreateRental": {
+    "/api/Rentals/CreateRental": {
       "post": {
         "tags": [
           "Rentals"
@@ -913,6 +817,54 @@
               "text/json": {
                 "schema": {
                   "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetTypes": {
+      "get": {
+        "tags": [
+          "Types"
+        ],
+        "operationId": "GetTypes",
+        "parameters": [
+          {
+            "name": "typeName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }

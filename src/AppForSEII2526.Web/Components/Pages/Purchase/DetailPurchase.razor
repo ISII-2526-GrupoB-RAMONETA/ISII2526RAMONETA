@@ -54,7 +54,7 @@ else
         <tfoot>
             @*colspan is used to state that TWO columns are collapsed*@
         <th scope="row" colspan="2" class="text-end">Total Price</th>
-        <td id="TotalPrice">@purchase.CostofPurchase €</td> @*arreglar*@
+        <td id="TotalPrice">@totalCost €</td> @*arreglar*@
         </tfoot>
 
     </table>
@@ -66,6 +66,7 @@ else
     public int PurchaseID { get; set; }
     private PurchaseDetailDTO purchase;
     private string error = "";
+    private decimal totalCost => (decimal)purchase.PurchaseItems.Sum(item => item.TotalPrice);
 
     [CascadingParameter]
     private Task<AuthenticationState>? authenticationState { get; set; }
