@@ -52,7 +52,7 @@ else
         <thead>
             <tr>
                 <th scope="col">Name</th>
-                <th scope="col">type</th>
+                <th scope="col">Comment</th>
                 <th scope="col">Price</th>
                 <th scope="col">NumberOfDays</th>
             </tr>
@@ -62,7 +62,7 @@ else
             {
                 <tr id="RentalItem_@item.Name">
                     <td>@item.Name</td>
-                    <td>@item.Type</td>
+                    <td>@item.Comment</td>
                     <td>@item.Price €</td>
                     <td>@item.NumberOfDays</td>
                 </tr>
@@ -70,7 +70,7 @@ else
         </tbody>
         <tfoot>
             @*colspan is used to state that TWO columns are collapsed*@
-        <th scope="row" colspan="2" class="text-end">Total Price and Total Number Of Days:  </th>
+        <th scope="row" colspan="2" class="text-end">Total Price and Total Number Of Days: </th>
         <td id="TotalPrice">@booking.TotalPrice €</td>
         <td id="TotalNumberOfDays">@booking.TotalNumberOfDays </td>
         </tfoot>
