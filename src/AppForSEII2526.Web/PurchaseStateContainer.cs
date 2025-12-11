@@ -27,8 +27,7 @@ namespace AppForSEII2526.Web
                     PurchasingPrice = purchaseItem.PurchasingPrice,
                     Color = purchaseItem.Color,
                     Quantity = 1,
-                    Description = purchaseItem.Description,
-                    TotalPrice = purchaseItem.TotalPrice
+                    Description = purchaseItem.Description
                 }
             );
         }
