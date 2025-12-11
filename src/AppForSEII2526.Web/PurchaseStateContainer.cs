@@ -19,17 +19,17 @@ namespace AppForSEII2526.Web
         public void AddCarToPurchase(CarForPurchaseDTO car)
         {
             if (!Purchase.PurchaseItems.Any(pi => pi.CarID == car.Id))
-                //we add it if it is not in the list
-                Purchase.PurchaseItems.Add(new PurchaseItemDTO()
-                {
-                    CarID=car.Id,
-                    Model =car.Model,
-                    PurchasingPrice = car.PurchasingPrice,
-                    Color = car.Color,
-                    Quantity = 1
-                }
+            //we add it if it is not in the list
+            Purchase.PurchaseItems.Add(new PurchaseItemDTO()
+            {
+                CarID=car.Id,
+                Model =car.Model,
+                PurchasingPrice = car.PurchasingPrice,
+                Color = car.Color,
+                Quantity = 1
+            }
             );
-        }
+        }   
 
         //para eliminar un coche del carrito de compras
         public void RemovePurchaseItemToPurchase(PurchaseItemDTO purchaseItem)

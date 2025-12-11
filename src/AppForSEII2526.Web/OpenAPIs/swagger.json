@@ -1127,7 +1127,9 @@
           "PagoMovil",
           "PayPal",
           "Criptomoneda",
-          "Cheque"
+          "Cheque",
+          "GooglePay",
+          "Visa"
         ],
         "type": "string"
       },
