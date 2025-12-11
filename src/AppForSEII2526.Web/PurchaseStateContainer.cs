@@ -26,7 +26,7 @@ namespace AppForSEII2526.Web
                     Model = purchaseItem.Model,
                     PurchasingPrice = purchaseItem.PurchasingPrice,
                     Color = purchaseItem.Color,
-                    Quantity = purchaseItem.Quantity,
+                    Quantity = 1,
                     Description = purchaseItem.Description,
                     TotalPrice = purchaseItem.TotalPrice
                 }
