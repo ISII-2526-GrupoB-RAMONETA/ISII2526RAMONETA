@@ -33,6 +33,7 @@ namespace AppForSEII2526.API.DTOs.PurchasesDTO
 
         public string Color { get; set; }
 
+        [Required]
         public int Quantity { get; set; }
 
         public string Description { get; set; }

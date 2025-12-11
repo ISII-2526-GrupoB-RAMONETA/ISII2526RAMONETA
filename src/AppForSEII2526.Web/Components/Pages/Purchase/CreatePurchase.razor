@@ -120,7 +120,7 @@
     private decimal totalCost => (decimal)purchase.PurchaseItems.Sum(item => item.TotalPrice);
     private void ModifyPurchaseItems()
     {
-        navigation.NavigateTo("/purchases/selectcarforpurchase");
+        navigation.NavigateTo("/purchase/selectcarforpurchase");
     }
 
     private void OpenDialog()
