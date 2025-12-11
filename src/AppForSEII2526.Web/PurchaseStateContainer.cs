@@ -1,10 +1,12 @@
 ﻿using AppForSEII2526.Web.API;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Drawing;
 
 namespace AppForSEII2526.Web
 {
     public class PurchaseStateContainer
     {
-        //creamos una instancia de Purchase cuando se crea una instancia de RentalState Container
+        //creamos una instancia de Purchase cuando se crea una instancia de PurchaseState Container
         public PurchaseForCreateDTO Purchase { get; private set; } = new PurchaseForCreateDTO()
         {
             PurchaseItems = new List<PurchaseItemDTO>()
@@ -14,13 +16,10 @@ namespace AppForSEII2526.Web
 
         private void NotifyStateChanged() => OnChange?.Invoke();
 
-        public void AddCarToPurchase(PurchaseItemDTO purchaseItem)
+        public void AddCarToPurchase(CarForPurchaseDTO car)
         {
-            var existingItem = Purchase.PurchaseItems.FirstOrDefault(pi => pi.CarID == purchaseItem.CarID);
-            //Buscamos si el coche ya está en la lista
-            if (existingItem == null)
-            {
-                //lo agregamos si no está en la lista
+            if (!Purchase.PurchaseItems.Any(pi => pi.CarID == car.Id))
+                //we add it if it is not in the list
                 Purchase.PurchaseItems.Add(new PurchaseItemDTO()
                 {
                     CarID = purchaseItem.CarID,
@@ -31,13 +30,7 @@ namespace AppForSEII2526.Web
                     Description = purchaseItem.Description,
                     TotalPrice = purchaseItem.TotalPrice
                 }
-                );
-            }
-            else
-            {
-                //si ya está en la lista, aumentamos la cantidad
-                existingItem.Quantity += purchaseItem.Quantity;
-            }
+            );
         }
 
         //para eliminar un coche del carrito de compras
