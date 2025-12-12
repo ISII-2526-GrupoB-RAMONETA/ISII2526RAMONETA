@@ -1058,6 +1058,10 @@
           "purchasingPrice": {
             "type": "number",
             "format": "double"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1249,6 +1253,9 @@
         "additionalProperties": false
       },
       "PurchaseItemDTO": {
+        "required": [
+          "quantity"
+        ],
         "type": "object",
         "properties": {
           "carID": {

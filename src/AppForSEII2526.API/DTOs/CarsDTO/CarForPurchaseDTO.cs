@@ -7,7 +7,7 @@ namespace AppForSEII2526.API.DTOs.CarsDTO
     {
         //private Model model;
 
-        public CarForPurchaseDTO(int id, string model, string color, string fueltype, string manufacturer, decimal purchasingPrice)
+        public CarForPurchaseDTO(int id, string model, string color, string fueltype, string manufacturer, decimal purchasingPrice, string description)
         {
             Id = id;
             Model = model;
@@ -15,6 +15,7 @@ namespace AppForSEII2526.API.DTOs.CarsDTO
             Fueltype = fueltype;
             Manufacturer = manufacturer;
             PurchasingPrice = purchasingPrice;
+            Description = description;
         }
 
         public int Id { get; set; }
@@ -28,6 +29,8 @@ namespace AppForSEII2526.API.DTOs.CarsDTO
         public string Manufacturer { get; set; }
 
         public decimal PurchasingPrice { get; set; }
+
+        public string Description { get; set; }
 
         public override bool Equals(object? obj)
         {

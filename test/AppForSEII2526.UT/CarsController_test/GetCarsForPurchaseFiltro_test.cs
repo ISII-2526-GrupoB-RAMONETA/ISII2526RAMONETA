@@ -88,11 +88,11 @@ namespace AppForSEII2526.UT.CarsController_test
             // (La base de datos tiene 5 coches, así que definimos los 5)
             var carDTOs = new List<CarForPurchaseDTO>
             {
-                new CarForPurchaseDTO(1, "Sedan", "Red", "Gasoline", "Toyota", 2500000.00m),
-                new CarForPurchaseDTO(2, "Sedan", "Black", "Hybrid", "Mercedes-Benz", 4800000.00m),
-                new CarForPurchaseDTO(3, "SUV", "Blue", "Diesel", "Toyota", 3600000.00m),
-                new CarForPurchaseDTO(4, "Hatchback", "White", "Gasoline", "Volkswagen", 1900000.00m),
-                new CarForPurchaseDTO(5, "Coupe", "Red", "Gasoline", "Audi", 6200000.00m)
+                new CarForPurchaseDTO(1, "Sedan", "Red", "Gasoline", "Toyota", 2500000.00m,""),
+                new CarForPurchaseDTO(2, "Sedan", "Black", "Hybrid", "Mercedes-Benz", 4800000.00m,""),
+                new CarForPurchaseDTO(3, "SUV", "Blue", "Diesel", "Toyota", 3600000.00m,""),
+                new CarForPurchaseDTO(4, "Hatchback", "White", "Gasoline", "Volkswagen", 1900000.00m,""),
+                new CarForPurchaseDTO(5, "Coupe", "Red", "Gasoline", "Audi", 6200000.00m,"")
             };
 
             // 2. Definimos los resultados esperados para CADA test
