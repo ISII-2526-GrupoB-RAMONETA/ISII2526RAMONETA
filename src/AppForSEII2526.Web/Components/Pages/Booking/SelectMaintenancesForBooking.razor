@@ -83,12 +83,15 @@
             @foreach (BookingItemDTO item in booking.BookingItems)
             {
                 <div class="row">
-                    <button type="button" class="btn btn-light" id="removeMaintenance_@item.Name" @onclick="@(() => RemoveBookingItem(item))">x @item.Name - @item.Price€</button>
+                    <button type="button" class="btn btn-light" id="removeMaintenance_@item.Name" @onclick="@(() => RemoveBookingItem(item))">x @item.Name - @item.Price€ - @item.NumberOfDays Days</button>
                 </div>
             }
             <div class="row">
                 <button type="button" class="btn btn-primary" id="purchaseMaintenanceButton" @onclick=@BookMaintenances>Book maintenances</button>
             </div>
+            <div class="row"
+             <th> Total price: @TotalPriceSelect €</th>
+                </div>
         </div>
 
     </div>
@@ -105,7 +108,15 @@
     private string maintenanceName { get; set; }
     private string maintenanceType { get; set; }
 
+    private decimal TotalPriceSelect
+    {
+        get
+        {
 
+            double price = booking.BookingItems.Sum(ri => ri.Price);
+            return Convert.ToDecimal(price);
+        }
+    }
 
     private BookingForCreateDTO booking => bookingState.Booking;
 
