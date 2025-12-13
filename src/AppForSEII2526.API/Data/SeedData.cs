@@ -93,7 +93,7 @@ namespace AppForSEII2526.API.Data
                 {
 
 
-                    ApplicationUser user = new ApplicationUser("1", "Elena", "Pretel", "elena@uclm.es", "Avenida España, 2","611");
+                    ApplicationUser user = new ApplicationUser("1", "Elena", "Pretel", "elena@uclm.es", "Avenida España, 2","+34 611");
                     user.EmailConfirmed = true;
                     var result = userManager.CreateAsync(user, "Password1234%");
 
@@ -119,7 +119,7 @@ namespace AppForSEII2526.API.Data
                 {
 
 
-                    ApplicationUser user = new ApplicationUser("2", "Pablo", "Ramón", "pablo.ramon@uclm.es", "Val General, 12","622");
+                    ApplicationUser user = new ApplicationUser("2", "Pablo", "Ramón", "pablo.ramon@uclm.es", "Val General, 12","+34 622");
                     user.EmailConfirmed = true;
 
                     var result = userManager.CreateAsync(user, "APassword1234%");
@@ -146,7 +146,7 @@ namespace AppForSEII2526.API.Data
                     //A customer class has been defined because it has different attributes (purchase, rental, etc.)
 
 
-                    ApplicationUser user = new ApplicationUser("3", "Pablo", "Ballestero", "pablo.ballestero@uclm.es", "Paseo Cervantes,8","633");
+                    ApplicationUser user = new ApplicationUser("3", "Pablo", "Ballestero", "pablo.ballestero@uclm.es", "Paseo Cervantes,8","+34 633");
                     user.EmailConfirmed = true;
 
                     var result = userManager.CreateAsync(user, "OtherPass12$");
@@ -169,7 +169,7 @@ namespace AppForSEII2526.API.Data
                 //A customer class has been defined because it has different attributes (purchase, rental, etc.)
 
 
-                ApplicationUser user = new ApplicationUser("4", "Tomás", "González", "tomas.gonzalez@uclm.es", "Blasco Ibáñez,4", "644");
+                ApplicationUser user = new ApplicationUser("4", "Tomás", "González", "tomas.gonzalez@uclm.es", "Blasco Ibáñez,4", "+34 644");
                 user.EmailConfirmed = true;
 
                 var result = userManager.CreateAsync(user, "OtherPass12$");
@@ -209,11 +209,11 @@ namespace AppForSEII2526.API.Data
 
            
 
-            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[Cars] ([CarClass], [Color], [Description], [Manufacturer], [PurchasingPrice], [QuantityForPurchasing], [QuantityForRenting], [RentingPrice], [ReviewItems], [EngDisplacement], [Fueltype], [MaintenanceTypes], [RimSize], [ModelId]) VALUES (N'Standard', N'Red', N'Compact family sedan', N'Toyota', CAST(2500000.00 AS Decimal(10, 2)), 5, 8, CAST(12000.00 AS Decimal(18, 2)), CAST(4.50 AS Decimal(18, 2)), CAST(1.80 AS Decimal(18, 2)), N'Gasoline', N'Oil change, tire rotation', CAST(16.00 AS Decimal(18, 2)), 1)");
-            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[Cars] ([CarClass], [Color], [Description], [Manufacturer], [PurchasingPrice], [QuantityForPurchasing], [QuantityForRenting], [RentingPrice], [ReviewItems], [EngDisplacement], [Fueltype], [MaintenanceTypes], [RimSize], [ModelId]) VALUES (N'Premium', N'Black', N'Luxury business sedan', N'Mercedes-Benz', CAST(4800000.00 AS Decimal(10, 2)), 4, 9, CAST(20000.00 AS Decimal(18, 2)), CAST(4.80 AS Decimal(18, 2)), CAST(2.00 AS Decimal(18, 2)), N'Hybrid', N'Oil change, battery check', CAST(17.00 AS Decimal(18, 2)), 1)");
-            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[Cars] ([CarClass], [Color], [Description], [Manufacturer], [PurchasingPrice], [QuantityForPurchasing], [QuantityForRenting], [RentingPrice], [ReviewItems], [EngDisplacement], [Fueltype], [MaintenanceTypes], [RimSize], [ModelId]) VALUES (N'Standard', N'Blue', N'Family SUV with ample space', N'Toyota', CAST(3600000.00 AS Decimal(10, 2)), 6, 9, CAST(15000.00 AS Decimal(18, 2)), CAST(4.60 AS Decimal(18, 2)), CAST(2.40 AS Decimal(18, 2)), N'Diesel', N'Tire rotation, oil change', CAST(18.00 AS Decimal(18, 2)), 2)");
-            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[Cars] ([CarClass], [Color], [Description], [Manufacturer], [PurchasingPrice], [QuantityForPurchasing], [QuantityForRenting], [RentingPrice], [ReviewItems], [EngDisplacement], [Fueltype], [MaintenanceTypes], [RimSize], [ModelId]) VALUES (N'Compact', N'White', N'Fuel-efficient city hatchback', N'Volkswagen', CAST(1900000.00 AS Decimal(10, 2)), 10, 15, CAST(8000.00 AS Decimal(18, 2)), CAST(4.30 AS Decimal(18, 2)), CAST(1.60 AS Decimal(18, 2)), N'Gasoline', N'Oil change, tire replacement', CAST(15.00 AS Decimal(18, 2)), 3)");
-            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[Cars] ([CarClass], [Color], [Description], [Manufacturer], [PurchasingPrice], [QuantityForPurchasing], [QuantityForRenting], [RentingPrice], [ReviewItems], [EngDisplacement], [Fueltype], [MaintenanceTypes], [RimSize], [ModelId]) VALUES (N'Sport', N'Red', N'High-performance two-door coupe', N'Audi', CAST(6200000.00 AS Decimal(10, 2)), 2, 10, CAST(28000.00 AS Decimal(18, 2)), CAST(4.90 AS Decimal(18, 2)), CAST(3.20 AS Decimal(18, 2)), N'Gasoline', N'Oil change, brake inspection', CAST(19.00 AS Decimal(18, 2)), 4)");
+            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[Cars] ([CarClass], [Color], [Description], [Manufacturer], [PurchasingPrice], [QuantityForPurchasing], [QuantityForRenting], [RentingPrice], [ReviewItems], [EngDisplacement], [Fueltype], [MaintenanceTypes], [RimSize], [ModelId]) VALUES (N'Standard', N'Red', N'Compact family sedan', N'Toyota', CAST(2500000.00 AS Decimal(10, 2)), 5, 8, CAST(120.00 AS Decimal(18, 2)), CAST(4.50 AS Decimal(18, 2)), CAST(1.80 AS Decimal(18, 2)), N'Gasoline', N'Oil change, tire rotation', CAST(16.00 AS Decimal(18, 2)), 1)");
+            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[Cars] ([CarClass], [Color], [Description], [Manufacturer], [PurchasingPrice], [QuantityForPurchasing], [QuantityForRenting], [RentingPrice], [ReviewItems], [EngDisplacement], [Fueltype], [MaintenanceTypes], [RimSize], [ModelId]) VALUES (N'Premium', N'Black', N'Luxury business sedan', N'Mercedes-Benz', CAST(4800000.00 AS Decimal(10, 2)), 4, 9, CAST(200.00 AS Decimal(18, 2)), CAST(4.80 AS Decimal(18, 2)), CAST(2.00 AS Decimal(18, 2)), N'Hybrid', N'Oil change, battery check', CAST(17.00 AS Decimal(18, 2)), 1)");
+            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[Cars] ([CarClass], [Color], [Description], [Manufacturer], [PurchasingPrice], [QuantityForPurchasing], [QuantityForRenting], [RentingPrice], [ReviewItems], [EngDisplacement], [Fueltype], [MaintenanceTypes], [RimSize], [ModelId]) VALUES (N'Standard', N'Blue', N'Family SUV with ample space', N'Toyota', CAST(3600000.00 AS Decimal(10, 2)), 6, 9, CAST(150.00 AS Decimal(18, 2)), CAST(4.60 AS Decimal(18, 2)), CAST(2.40 AS Decimal(18, 2)), N'Diesel', N'Tire rotation, oil change', CAST(18.00 AS Decimal(18, 2)), 2)");
+            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[Cars] ([CarClass], [Color], [Description], [Manufacturer], [PurchasingPrice], [QuantityForPurchasing], [QuantityForRenting], [RentingPrice], [ReviewItems], [EngDisplacement], [Fueltype], [MaintenanceTypes], [RimSize], [ModelId]) VALUES (N'Compact', N'White', N'Fuel-efficient city hatchback', N'Volkswagen', CAST(1900000.00 AS Decimal(10, 2)), 10, 15, CAST(80.00 AS Decimal(18, 2)), CAST(4.30 AS Decimal(18, 2)), CAST(1.60 AS Decimal(18, 2)), N'Gasoline', N'Oil change, tire replacement', CAST(15.00 AS Decimal(18, 2)), 3)");
+            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[Cars] ([CarClass], [Color], [Description], [Manufacturer], [PurchasingPrice], [QuantityForPurchasing], [QuantityForRenting], [RentingPrice], [ReviewItems], [EngDisplacement], [Fueltype], [MaintenanceTypes], [RimSize], [ModelId]) VALUES (N'Sport', N'Red', N'High-performance two-door coupe', N'Audi', CAST(6200000.00 AS Decimal(10, 2)), 2, 10, CAST(280.00 AS Decimal(18, 2)), CAST(4.90 AS Decimal(18, 2)), CAST(3.20 AS Decimal(18, 2)), N'Gasoline', N'Oil change, brake inspection', CAST(19.00 AS Decimal(18, 2)), 4)");
             
             
             dbcontext.SaveChanges();
@@ -233,8 +233,8 @@ namespace AppForSEII2526.API.Data
 
             
             dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (1, 1, 3)");
-            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (1, 6, 2)");
-            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (2, 2, 4)");
+            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (1, 6, 1)");
+            dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (2, 2, 2)");
             dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (3, 3, 1)");
             dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (4, 4, 1)");
             dbcontext.Database.ExecuteSqlRaw("INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Quantity]) VALUES (5, 5, 1)");
