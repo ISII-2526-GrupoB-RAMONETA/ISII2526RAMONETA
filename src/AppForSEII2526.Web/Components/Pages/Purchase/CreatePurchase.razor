@@ -95,7 +95,7 @@
                         <td>@item.Color</td>
                         <td>@item.Description</td>
                         <td>@item.PurchasingPrice</td>
-                        <td>@totalCost</td>
+                        <td>@(item.PurchasingPrice * item.Quantity)</td>
                         <td><InputNumber @bind-Value="item.Quantity" class="form-control" id="@($"quantity_{item.CarID}")" /></td> 
                     </tr>
                 }
@@ -140,6 +140,7 @@
             // Process the data introduced by the user if they are valid
             if (purchase.PurchaseItems.Count > 0)
             {
+                purchase.PurchaseDate = DateTime.Now;
                 try
                 {
                     var purchased = await apiclient.CreatePurchaseAsync(purchase);
