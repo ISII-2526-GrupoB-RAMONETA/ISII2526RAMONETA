@@ -70,7 +70,7 @@ namespace AppForSEII2526.API.Controllers
         public async Task<ActionResult> GetCarsForPurchaseFiltro(string? filtroColor, string? modelo)
         {
             var cars = await _context.Cars.Include(c => c.Model).Where(c => ((c.Color.Contains(filtroColor)) || (filtroColor == null))
-                        && ((c.Model.Name.Equals(modelo)) || (modelo == null))).Select(c => new CarForPurchaseDTO(c.Id, c.Model.Name, c.Color, c.Fueltype, c.Manufacturer, c.PurchasingPrice,c.Description)).ToListAsync();
+                        && ((c.Model.Name.Equals(modelo)) || (modelo == null)) && (c.QuantityForPurchasing-c.PurchaseItems.Sum(pi=>pi.Quantity)>0)).Select(c => new CarForPurchaseDTO(c.Id, c.Model.Name, c.Color, c.Fueltype, c.Manufacturer, c.PurchasingPrice,c.Description)).ToListAsync();
             return Ok(cars);
 
         }
