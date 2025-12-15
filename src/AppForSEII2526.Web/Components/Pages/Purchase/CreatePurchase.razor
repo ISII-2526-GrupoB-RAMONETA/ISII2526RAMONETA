@@ -70,7 +70,7 @@
     <h4>Purchase detail</h4>
     <p>
         <b>Total price:</b> @totalCost €
-        <button class="btn btn-outline-primary" type="submit" @onclick="ModifyPurchaseItems" id="ModifyMovies">
+        <button class="btn btn-outline-primary" type="submit" @onclick="ModifyPurchaseItems" id="ModifyCars">
             Modify cars
         </button>
     </p>
@@ -83,6 +83,8 @@
                     <th>Color</th>
                     <th>Description</th>
                     <th>Price For Purchasing</th>
+                    <th>Total Price</th>
+                    <th>Quantity</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,7 +95,8 @@
                         <td>@item.Color</td>
                         <td>@item.Description</td>
                         <td>@item.PurchasingPrice</td>
-                        <td><InputNumber @bind-Value="item.Quantity" class="form-control" id="@($"quantity_{item.CarID}")" /></td>
+                        <td>@(item.PurchasingPrice * item.Quantity)</td>
+                        <td><InputNumber @bind-Value="item.Quantity" class="form-control" id="@($"quantity_{item.CarID}")" /></td> 
                     </tr>
                 }
             </tbody>
@@ -120,7 +123,7 @@
     private decimal totalCost => (decimal)purchase.PurchaseItems.Sum(item => item.TotalPrice);
     private void ModifyPurchaseItems()
     {
-        navigation.NavigateTo("/purchase/selectcarforpurchase");
+        navigation.NavigateTo("/purchase/selectcarsforpurchase");
     }
 
     private void OpenDialog()
@@ -137,6 +140,7 @@
             // Process the data introduced by the user if they are valid
             if (purchase.PurchaseItems.Count > 0)
             {
+                purchase.PurchaseDate = DateTime.Now;
                 try
                 {
                     var purchased = await apiclient.CreatePurchaseAsync(purchase);
