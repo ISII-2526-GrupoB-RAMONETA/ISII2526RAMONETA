@@ -49,9 +49,9 @@
             <div class="form-floating">
                 @*a dropdown for selecting the payment method*@
                 <InputSelect class="form-select" @bind-Value="@rental.PaymentMethod" id="PaymentMethod">
-                    <option value="@PaymentMethodTypes.PagoMovil"> Visa</option>
-                    <option value="@PaymentMethodTypes.TarjetaCredito"> Google Pay</option>
-                    <option value="@PaymentMethodTypes.TarjetaCredito"> Paypal</option>
+                    <option value="@PaymentMethodTypes.Visa"> Visa</option>
+                    <option value="@PaymentMethodTypes.GooglePay"> Google Pay</option>
+                    <option value="@PaymentMethodTypes.PayPal"> Paypal</option>
                 </InputSelect>
                 <label for="PaymentMethod">Payment Method</label>
             </div>
@@ -69,6 +69,7 @@
 
     <h4>Rental detail</h4>
     <p><b>Date from:</b> @rental.RentalDateFrom.ToString("dd/MM/yyyy") <b>to:</b> @rental.RentalDateTo.ToString("dd/MM/yyyy")</p>
+    <p><b>Rental date:</b> @rental.RentalDate.ToString("dd/MM/yyyy")</p>
     <p>
         <b>Total price:</b> @TotalCost €
         <button class="btn btn-outline-primary" type="submit" @onclick="ModifyRentalItems" id="ModifyCars">
@@ -84,7 +85,7 @@
                     <th>Model</th>
                     <th>Manufacturer</th>
                     <th>Price For Renting</th>
-                    @* <th>Quantity</th> *@
+                    <th>Quantity</th>
                 </tr>
             </thead>
             <tbody>
@@ -195,6 +196,12 @@
             rental.CustomerName = rental.CustomerName == null ? "" : rental.CustomerName;
             rental.CustomerSurname = rental.CustomerSurname == null ? "" : rental.CustomerSurname;
             rental.DeliveryAddress = rental.DeliveryAddress == null ? "" : rental.DeliveryAddress;
+
+            // if (!rental.DeliveryAddress.ToLower().Contains("calle"))
+            // {
+            //     messageError = "Your rental period must be later";
+            //     return;
+            // }
 
         }
     }
