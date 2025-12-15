@@ -30,7 +30,7 @@ else
         </tr>
         <tr>
             <th>Rental Date</th>
-            <td id="RentalDate">@rental.RentalDate.ToString("dd/MM/yyyy hh:mm:ss")</td>
+            <td id="RentalDate">@rental.RentalDate.ToString("dd/MM/yyyy")</td>
         </tr>
         <tr>
             <th>Rental period</th>
@@ -43,19 +43,22 @@ else
     <table class="table" id="RentedCars">
         <thead>
             <tr>
-                <th scope="col">CarId</th>
+                @* <th scope="col">CarId</th> *@
                 <th scope="col">Model</th>
+                <th scope="col">Manufacturer</th>
                 <th scope="col">Price for Renting</th>
-                <th scope="col">Description</th>
+                <th scope="col">Quantity</th>
             </tr>
         </thead>
         <tbody>
             @foreach (RentalItemDTO item in rental.RentalItems)
             {
                 <tr id="RentalItem_@item.CarId">
-                    <td>@item.CarId</td>
+                    @* <td>@item.CarId</td> *@
                     <td>@item.Model</td>
+                    <td>@item.Manufacturer</td>
                     <td>@item.PriceForRenting €</td>
+                    <td>@item.Quantity</td>
                 </tr>
             }
         </tbody>
