@@ -9,21 +9,22 @@ namespace AppForSEII2526.UIT.UC_Purchase
 {
     public class SelectCarsForPurchase_PO : PageObject
     {
-        By inputColor= By.Id("carColor");
-        By inputModel= By.Id("carModel");
-        By btnSearch= By.Id("searchCarsBtn");
-        By tableOfCarsBy= By.Id("carsTable");
+        By inputColor= By.Id("inputColor");
+        By inputModel= By.Id("selectModel");
+        By btnSearch= By.Id("searchCars");
+        By tableOfCarsBy= By.Id("TableOfCars");
         public SelectCarsForPurchase_PO(IWebDriver driver,ITestOutputHelper output) : base(driver, output)
         {
         }
         public void SearchCars(string color,string model)
         {
-            WaitForBeingClickable(inputModel);
-            _driver.FindElement(inputModel).SendKeys(model);
+            WaitForBeingClickable(inputColor);
+            _driver.FindElement(inputColor).SendKeys(color);
             if (model == "") model = "All";
-            SelectElement selectElement = new SelectElement(_driver.FindElement(inputColor));
-            selectElement.SelectByText(color);
+            SelectElement selectElement = new SelectElement(_driver.FindElement(inputModel));
+            selectElement.SelectByText(model);
             _driver.FindElement(btnSearch).Click();
+            Thread.Sleep(1000); //wait for the table to be updated
         }
 
         public bool CheckListOfCars(List<string[]> expectedCars)
