@@ -83,7 +83,6 @@
                     <th>Color</th>
                     <th>Description</th>
                     <th>Price For Purchasing</th>
-                    <th>Total Price</th>
                     <th>Quantity</th>
                 </tr>
             </thead>
@@ -95,11 +94,11 @@
                         <td>@item.Color</td>
                         <td>@item.Description</td>
                         <td>@item.PurchasingPrice</td>
-                        <td>@(item.PurchasingPrice * item.Quantity)</td>
                         <td><InputNumber @bind-Value="item.Quantity" class="form-control" id="@($"quantity_{item.CarID}")" /></td> 
                     </tr>
                 }
             </tbody>
+            
         </table>
     </div>
 </EditForm>
@@ -120,7 +119,8 @@
     private bool DialogIsOpen;
     private object? errors;
     private PurchaseForCreateDTO purchase => purchaseState.Purchase;
-    private decimal totalCost => (decimal)purchase.PurchaseItems.Sum(item => item.TotalPrice);
+    // Asumimos que PurchasingPrice es el precio unitario
+    private decimal totalCost => (decimal)purchase.PurchaseItems.Sum(item => item.PurchasingPrice * item.Quantity);
     private void ModifyPurchaseItems()
     {
         navigation.NavigateTo("/purchase/selectcarsforpurchase");
