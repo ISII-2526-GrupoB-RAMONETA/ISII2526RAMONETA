@@ -13,6 +13,7 @@ namespace AppForSEII2526.UIT.UC_Purchase
         By inputModel= By.Id("selectModel");
         By btnSearch= By.Id("searchCars");
         By tableOfCarsBy= By.Id("TableOfCars");
+        By errorShownBy= By.Id("errorShown");
         public SelectCarsForPurchase_PO(IWebDriver driver,ITestOutputHelper output) : base(driver, output)
         {
         }
@@ -30,6 +31,13 @@ namespace AppForSEII2526.UIT.UC_Purchase
         public bool CheckListOfCars(List<string[]> expectedCars)
         {
             return CheckBodyTable(expectedCars, tableOfCarsBy);
+        }
+
+        public bool CheckMessageError(string errorMessage)
+        {
+            IWebElement actualErrorShown = _driver.FindElement(errorShownBy);
+            _output.WriteLine($"actual Message shown:{actualErrorShown.Text}");
+            return actualErrorShown.Text.Contains(errorMessage);
         }
     }
 }

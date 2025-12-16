@@ -17,6 +17,13 @@ namespace AppForSEII2526.UIT.UC_Purchase
         private const string carManufacturer1 = "Mercedes-Benz";
         private const string carPrice1 = "4800000";
 
+        private const int carId2 = 3;
+        private const string carModel2 = "Sedan";
+        private const string carColor2 = "Red";
+        private const string carFuelType2 = "Gasoline";
+        private const string carManufacturer2 = "Audi";
+        private const string carPrice2 = "6200000";
+
         public UC_PurchaseCars_UIT(ITestOutputHelper output) : base(output)
         {
             selectCarsForPurchase_PO = new SelectCarsForPurchase_PO(_driver, _output);
@@ -36,16 +43,18 @@ namespace AppForSEII2526.UIT.UC_Purchase
             _driver.FindElement(By.Id("CreatePurchase")).Click();
         }
 
-        [Fact]
+        [Theory]
+        [InlineData(carModel1, carColor1, carFuelType1, carManufacturer1,carPrice1, "Black", "")]
+        [InlineData(carModel2, carColor2, carFuelType2, carManufacturer2,carPrice2, "", "Sedan")]
         [Trait("LevelTesting","Funcional Testing")]
-        public void UC1_FA1_UC1_filtering()
+        public void UC1_FA1_UC1_2_3_filtering(string carModel,string carColor,string carFuelType,string carManufacturer,string carPrice,string filterColor,string filterModel)
         {
             //Arrange
             InitialStepsForPurchaseCars();
-            var expectedCars = new List<string[]> { new string[] {carModel1,carColor1,carFuelType1,carManufacturer1,carPrice1 },};
+            var expectedCars = new List<string[]> { new string[] {carModel,carColor,carFuelType,carManufacturer,carPrice },};
 
             //Act
-            selectCarsForPurchase_PO.SearchCars("Black","");
+            selectCarsForPurchase_PO.SearchCars(filterColor,filterModel);
 
             //Assert
             Assert.True(selectCarsForPurchase_PO.CheckListOfCars(expectedCars));
