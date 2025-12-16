@@ -12,6 +12,7 @@ namespace AppForSEII2526.UIT.UC_Purchase
         By inputColor= By.Id("carColor");
         By inputModel= By.Id("carModel");
         By btnSearch= By.Id("searchCarsBtn");
+        By tableOfCarsBy= By.Id("carsTable");
         public SelectCarsForPurchase_PO(IWebDriver driver,ITestOutputHelper output) : base(driver, output)
         {
         }
@@ -23,6 +24,11 @@ namespace AppForSEII2526.UIT.UC_Purchase
             SelectElement selectElement = new SelectElement(_driver.FindElement(inputColor));
             selectElement.SelectByText(color);
             _driver.FindElement(btnSearch).Click();
+        }
+
+        public bool CheckListOfCars(List<string[]> expectedCars)
+        {
+            return CheckBodyTable(expectedCars, tableOfCarsBy);
         }
     }
 }
