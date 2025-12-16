@@ -62,7 +62,7 @@ namespace AppForSEII2526.UIT.UC_Purchase
 
         [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC1_FA2_UC1_4_PurchasingNotAvailable()
+        public void UC1_FA2_UC1_5_PurchasingNotAvailable()
         {
             //Arrange
             InitialStepsForPurchaseCars();
