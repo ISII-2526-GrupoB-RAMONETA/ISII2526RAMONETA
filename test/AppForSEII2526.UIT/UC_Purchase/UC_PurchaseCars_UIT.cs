@@ -12,6 +12,10 @@ namespace AppForSEII2526.UIT.UC_Purchase
         public UC_PurchaseCars_UIT(ITestOutputHelper output) : base(output)
         {
         }
+        private void Precondition_perform_login()
+        {
+            Perform_login("tomas.gonzalez@uclm.es", "OtherPass12$");
+        }
     }
 }
 
