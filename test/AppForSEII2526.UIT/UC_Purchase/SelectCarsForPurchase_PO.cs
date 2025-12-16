@@ -14,6 +14,7 @@ namespace AppForSEII2526.UIT.UC_Purchase
         By btnSearch= By.Id("searchCars");
         By tableOfCarsBy= By.Id("TableOfCars");
         By errorShownBy= By.Id("errorShown");
+        By buttonPurchaseCars= By.Id("purchaseCarButton");
         public SelectCarsForPurchase_PO(IWebDriver driver,ITestOutputHelper output) : base(driver, output)
         {
         }
@@ -38,6 +39,22 @@ namespace AppForSEII2526.UIT.UC_Purchase
             IWebElement actualErrorShown = _driver.FindElement(errorShownBy);
             _output.WriteLine($"actual Message shown:{actualErrorShown.Text}");
             return actualErrorShown.Text.Contains(errorMessage);
+        }
+
+        public void AddCarToPurchasingCart(string id)
+        {
+            WaitForBeingClickable(By.Id("carToPurchase_" + id));
+            _driver.FindElement(By.Id("carToPurchase_" + id)).Click();
+        }
+        public void RemoveCarFromPurchasingCart(string id)
+        {
+            WaitForBeingClickable(By.Id("removeCar_" + id));
+            _driver.FindElement(By.Id("removeCar_" + id)).Click();
+            Thread.Sleep(1000); //wait for the table to be updated
+        }
+        public bool PurchasingNotAvailable()
+        {
+            return _driver.FindElement(buttonPurchaseCars).Displayed == false;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace AppForSEII2526.UIT.UC_Purchase
         private const string carManufacturer1 = "Mercedes-Benz";
         private const string carPrice1 = "4800000";
 
-        private const int carId2 = 3;
+        private const int carId2 = 5;
         private const string carModel2 = "Sedan";
         private const string carColor2 = "Red";
         private const string carFuelType2 = "Gasoline";
@@ -58,6 +58,20 @@ namespace AppForSEII2526.UIT.UC_Purchase
 
             //Assert
             Assert.True(selectCarsForPurchase_PO.CheckListOfCars(expectedCars));
+        }
+
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC1_FA2_UC1_4_PurchasingNotAvailable()
+        {
+            //Arrange
+            InitialStepsForPurchaseCars();
+            //Act
+            selectCarsForPurchase_PO.AddCarToPurchasingCart(carId1.ToString());
+            selectCarsForPurchase_PO.RemoveCarFromPurchasingCart(carId1.ToString());
+            //Assert
+            Assert.True(selectCarsForPurchase_PO.PurchasingNotAvailable());
+
         }
     }
 }
