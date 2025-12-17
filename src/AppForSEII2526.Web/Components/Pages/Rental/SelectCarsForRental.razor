@@ -46,7 +46,7 @@
                 </div>
                 <div class="col">
                     <span class="input-group-text">Rental Date</span>
-                    <InputDate id="RentalDate" @bind-Value="@RentalDate" />
+                    <InputDate id="rentalDate" @bind-Value="@RentalDate" />
                 </div>
                 <div class="col">
                     <button type="button" class="btn btn-primary" @onclick=@SearchCars id="searchCars">Search cars</button>
@@ -58,12 +58,17 @@
                 {
                     <p>Loading cars....</p>
                 }
+                else if (cars.Count == 0)
+                {
+                    <p><em>There are no cars available for being rented.</em></p>
+                }
                 else
                 {
                     <div class="mh-100 table-responsive">
                         <table class="table table-condensed table-hover" id="TableOfCars">
                             <thead>
                                 <tr>
+                                    @* <th>ID</th> *@
                                     <th>Model</th>
                                     <th>Fuel type</th>
                                     <th>Manufacturer</th>
@@ -76,6 +81,7 @@
                                 @foreach (var car in cars)
                                 {
                                     <tr id="CarData_@car.Id">
+                                        @* <td>@car.Id</td> *@
                                         <td>@car.Model</td>
                                         <td>@car.Fueltype</td>
                                         <td>@car.Manufacturer</td>
@@ -105,9 +111,9 @@
             }
             <div class="row">
                 <p>
-                    <b>Total price:</b> @TotalCost €
+                    <button class="btn btn-outline-primary" id="showRentingCart" @onclick="@ToggleRentingCart">Renting Cart: @TotalCost €</button>
                 </p>
-                <button type="button" class="btn btn-primary" id="purchaseCarButton" @onclick=@RentCars>Rent cars</button>
+                <button type="button" class="btn btn-primary" id="rent" @onclick=@RentCars>Rent cars</button>
             </div>
         </div>
 
@@ -121,6 +127,10 @@
     private bool hideRentingCart { get { return rental.RentalItems.Count == 0; } }
     private ICollection<CarForRentalDTO> cars;
     private bool hideErrors { get { return errors.Length == 0; } }
+    private void ToggleRentingCart()
+    {
+        hiddenRentingCart = !hiddenRentingCart;
+    }
     private string errors = "";
     private string carId { get; set; }
     private string carModel { get; set; }
@@ -211,7 +221,7 @@
             return;
         }
 
-        if (rental.RentalDateFrom < DateTime.Today || rental.RentalDateTo < DateTime.Today || rental.RentalDate <=DateTime.Today)
+        if (rental.RentalDateFrom < DateTime.Today || rental.RentalDateTo < DateTime.Today)
         {
             errors = "Your rental period must be later";
             return;

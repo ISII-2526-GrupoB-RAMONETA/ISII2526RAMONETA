@@ -48,10 +48,10 @@
         <div class="col-md">
             <div class="form-floating">
                 @*a dropdown for selecting the payment method*@
-                <InputSelect class="form-select" @bind-Value="@rental.PaymentMethod" id="PaymentMethod">
+                <InputSelect class="form-select" @bind-Value="@rental.PaymentMethod" id="PaymentMethodRental">
                     <option value="@PaymentMethodTypes.Visa"> Visa</option>
-                    <option value="@PaymentMethodTypes.GooglePay"> Google Pay</option>
-                    <option value="@PaymentMethodTypes.PayPal"> Paypal</option>
+                    <option value="@PaymentMethodTypes.GooglePay"> GooglePay</option>
+                    <option value="@PaymentMethodTypes.PayPal"> PayPal</option>
                 </InputSelect>
                 <label for="PaymentMethod">Payment Method</label>
             </div>
@@ -92,11 +92,11 @@
                 @foreach (var item in rental.RentalItems)
                 {
                     <tr id="CarData_@item.CarId">
-                        <td>@item.CarId</td>
                         <td>@item.Model</td>
+                        <td>@item.Manufacturer</td>
                         <td>@item.PriceForRenting</td>
                         <td>
-                            <InputNumber @bind-Value="item.Quantity" class="form-control" id="@($"quantity_{item.CarId}")" />
+                            <InputNumber @bind-Value="item.Quantity" class="form-control" id="@($"quantity_{item.CarId}")" min="1" />
                         </td>
                     </tr>
                 }
