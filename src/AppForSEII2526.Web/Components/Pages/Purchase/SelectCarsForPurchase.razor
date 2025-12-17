@@ -93,6 +93,9 @@
             <div class="row">
                 <button type="button" class="btn btn-primary" id="purchaseCarButton" @onclick=@PurchaseCars>Purchase cars</button>
             </div>
+            <div class="row">
+                <thi> Total price: <span id="totalPrice">@TotalPriceSelect</span> €</thi>
+            </div>
         </div>
 
     </div>
@@ -108,6 +111,15 @@
     private string errors = "";
     private string carModel { get; set; }
     private string carColor { get; set; }
+    private decimal TotalPriceSelect
+    {
+        get
+        {
+
+            double price = purchase.PurchaseItems.Sum(pi => pi.PurchasingPrice);
+            return Convert.ToDecimal(price);
+        }
+    }
 
     private PurchaseForCreateDTO purchase => purchaseState.Purchase;
 
