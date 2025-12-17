@@ -8,18 +8,20 @@ namespace AppForSEII2526.API.DTOs.MaintenancesDTO
         [Required]
         public string CustomerUserName { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Name")]
-        [StringLength(20, ErrorMessage = "Name must have less than 20 characters")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Name must be a string with a minimum length of 2 and a maximum length of 20")]
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Name")]
         public string CustomerName { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Surname")]
-        [StringLength(20, ErrorMessage = "Surname must have less than 50 characters")]
+
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "Surname must be a string with a minimum length of 2 and a maximum length of 30")]
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Surname")]
         public string CustomerSurname { get; set; }
 
-        [DataType(System.ComponentModel.DataAnnotations.DataType.MultilineText)]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "Address must have at least 5 characters")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your address")]
+
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "Address must be a string with a minimum length of 5 and a maximum length of 50")]
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Address")]
         public string Address { get; set; }
+
         [Required]
         public PaymentMethodTypes PaymentMethod { get; set; }
 

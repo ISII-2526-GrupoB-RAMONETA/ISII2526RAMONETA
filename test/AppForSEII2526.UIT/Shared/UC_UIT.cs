@@ -9,9 +9,9 @@ namespace AppForSEII2526.UIT.Shared {
         private bool _pipeline = false;
 
         //establish which browser you would like to use
-        //private string _browser = "Chrome";
+        private string _browser = "Chrome";
         //private string _browser = "Firefox";
-        private string _browser = "Edge";
+        //private string _browser = "Edge";
 
         protected IWebDriver _driver;
         protected readonly ITestOutputHelper _output;
@@ -20,7 +20,7 @@ namespace AppForSEII2526.UIT.Shared {
         public string _URI {
             get {
                 //set url of your web page 
-                return "https://localhost:7083/";
+                return "https://localhost:7081/";
 
             }
         }
@@ -58,7 +58,7 @@ namespace AppForSEII2526.UIT.Shared {
         protected void Perform_login(string email, string password) {
             _driver.Navigate()
                     .GoToUrl(_URI + "Account/Login");
-            // _driver.FindElement(By.Id("Input_Email"))
+            //_driver.FindElement(By.Id("Input_Email"))
             //     .SendKeys("elena.navarro@uclm.es");
             _driver.FindElement(By.Name("Input.Email"))
                 .SendKeys(email);
