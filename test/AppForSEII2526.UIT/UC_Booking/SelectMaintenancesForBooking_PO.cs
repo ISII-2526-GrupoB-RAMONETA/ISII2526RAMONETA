@@ -40,7 +40,7 @@ namespace AppForSEII2526.UIT.UC_Booking
 
         }
 
-        public void AddMaintenanceToBookingCart(string maintenanceName)
+        public void AddMaintenanceToBookingCart(string maintenanceName) //Meter un mantenimiento en concreto
         {
             WaitForBeingClickable(By.Id("maintenanceToBook_"+ maintenanceName));
 
@@ -86,5 +86,19 @@ namespace AppForSEII2526.UIT.UC_Booking
             return currentPrice == expectedPrice;
 
         }
+
+        public void SelectMaintenances(List<string> maintenanceNames) //Meter todos los mantenimientos que se pas
+        {
+            //we wait for till the movies are available to be selected 
+            foreach (var maintenanceName in maintenanceNames)
+            {
+                WaitForBeingVisible(By.Id($"maintenanceToBook_{maintenanceName}"));
+                _driver.FindElement(By.Id($"maintenanceToBook_{maintenanceName}")).Click();
+            }
+        }
+
+
+
+
     }
 }

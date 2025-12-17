@@ -71,7 +71,8 @@ namespace AppForSEII2526.UIT.UC_Booking
             InitialStepsForBookingMaintenances();
 
             //Act
-            selectMaintenancesForBooking_PO.AddMaintenanceToBookingCart(maintenanceName1);
+            selectMaintenancesForBooking_PO.SearchMaintenances("", "");
+            selectMaintenancesForBooking_PO.SelectMaintenances(new List<string> { maintenanceName1 });
             selectMaintenancesForBooking_PO.BookMaintenances();
 
             createBooking.FillBookingInfo(name, surname, address, paymentMethod, phoneNumber);
@@ -151,8 +152,7 @@ namespace AppForSEII2526.UIT.UC_Booking
         [InlineData("", customerSurname, customerAddress, paymentMethod1, customerPhoneNumber, comment, "The field CustomerName must be a string with a minimum length of 2 and a maximum length of 20.")]
         [InlineData(customerName, "", customerAddress, paymentMethod1, customerPhoneNumber, comment, "The field CustomerSurname must be a string with a minimum length of 2 and a maximum length of 30.")]
         [InlineData(customerName, customerSurname, "", paymentMethod1, customerPhoneNumber, comment, "The field Address must be a string with a minimum length of 5 and a maximum length of 50.")]
-        [InlineData(customerName, customerSurname, customerAddress, paymentMethod1, customerPhoneNumber, "", "The Comment field is required")]
-        public void UC3_AF3_UC3_8_9_10_11_12_13_14_15(string name, string surname,
+        public void UC3_AF3_UC3_8_9_10_testingErrorsMandatorydata(string name, string surname,
             string address, string paymentMethod, string phoneNumber, string comment, string expectedMessageError)
         {
             //Arrange
@@ -172,5 +172,42 @@ namespace AppForSEII2526.UIT.UC_Booking
             Assert.True(createBooking.CheckValidationError(expectedMessageError), $"Expected error: {expectedMessageError}");
 
         }
-    }
+
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC3_AF4_UC3_12_ModifyBookingItems()
+        {
+            //Arrange
+            var createBooking = new CreateBooking_PO(_driver, _output);
+            InitialStepsForBookingMaintenances();
+
+            var expectedBookingItemsInitial = new List<string[]>
+            {
+                new string[] { maintenanceName1, maintenancePrice1, maintenanceNumberOfDays1 }
+            };
+            //Act
+
+            selectMaintenancesForBooking_PO.AddMaintenanceToBookingCart(maintenanceName1);
+            selectMaintenancesForBooking_PO.AddMaintenanceToBookingCart(maintenanceName2);
+            selectMaintenancesForBooking_PO.BookMaintenances();
+            
+            createBooking.FillBookingInfo(customerName, customerSurname, customerAddress, paymentMethod1, customerPhoneNumber);
+            createBooking.FillInBookingComent(comment, maintenanceId1);
+            createBooking.PressModifyMaintenances();
+
+            selectMaintenancesForBooking_PO.RemoveMaintenanceFromBookingCart(maintenanceName2);
+            selectMaintenancesForBooking_PO.BookMaintenances();
+
+            //Assert
+
+            Assert.True(createBooking.CheckListOfBookingItems(expectedBookingItemsInitial));
+
+
+        }
+        
+
+
+
+
+        }
 }
