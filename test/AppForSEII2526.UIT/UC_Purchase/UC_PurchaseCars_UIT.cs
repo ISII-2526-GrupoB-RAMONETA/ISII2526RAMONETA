@@ -155,6 +155,8 @@ namespace AppForSEII2526.UIT.UC_Purchase
 
         }
 
+
+        //si ejecutamos esta prueba la primera, dará error porque no habrá stock de este coche que añado y uso para todas las demás pruebas
         [Theory]
         [InlineData("Tomás", "González", "Blasco Ibáñez,4", "Visa")]
         [InlineData("Tomás", "González", "Blasco Ibáñez,4", "Google Pay")]
