@@ -98,7 +98,7 @@ namespace AppForSEII2526.UIT.UC_Purchase
 
         [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC1_11_FA5_ModifySelectedCars()
+        public void UC1_10_FA5_ModifySelectedCars()
         {
             //Arrange
             var createPurchase_PO = new CreatePurchase_PO(_driver, _output);
@@ -139,7 +139,7 @@ namespace AppForSEII2526.UIT.UC_Purchase
 
         [Fact(Skip = "First change the quantifyofpurchasing of the cars to 0 using script dbo.Cars.QuantityForPurchasing0")]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC1_12_AF0_CarsNotAvailableForPurchase()
+        public void UC1_11_AF0_CarsNotAvailableForPurchase()
         {
             //Arrange
 
@@ -147,7 +147,7 @@ namespace AppForSEII2526.UIT.UC_Purchase
             //Act
             InitialStepsForPurchaseCars();
             selectCarsForPurchase_PO.SearchCars("", "");
-
+            Thread.Sleep(1000);
             //Assert
             //this message will be shown if assert fails
             Assert.True(selectCarsForPurchase_PO.CheckMessageError(expectedMessage), $"Car Model {carModel2} with color {carColor2} does not exist");

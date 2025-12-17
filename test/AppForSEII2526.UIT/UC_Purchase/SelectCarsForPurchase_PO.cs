@@ -13,8 +13,9 @@ namespace AppForSEII2526.UIT.UC_Purchase
         By inputModel= By.Id("selectModel");
         By btnSearch= By.Id("searchCars");
         By tableOfCarsBy= By.Id("TableOfCars");
-        By errorShownBy= By.Id("errorShown");
+        By errorShownBy= By.Id("ErrorsShown");
         By buttonPurchaseCars= By.Id("purchaseCarButton");
+
 
         private IWebElement _carColor() => _driver.FindElement(inputColor);
         private IWebElement _carModel() => _driver.FindElement(inputModel);
@@ -62,11 +63,44 @@ namespace AppForSEII2526.UIT.UC_Purchase
             return CheckBodyTable(expectedCars, tableOfCarsBy);
         }
 
-        public bool CheckMessageError(string errorMessage)
+        public bool CheckMessageError(string expectedError)
         {
-            IWebElement actualErrorShown = _driver.FindElement(errorShownBy);
-            _output.WriteLine($"actual Message shown:{actualErrorShown.Text}");
-            return actualErrorShown.Text.Contains(errorMessage);
+            // Usamos una espera explícita para dar tiempo a Blazor a renderizar el texto
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(8));
+
+            try
+            {
+                // 1. Esperamos a que el elemento con ID 'ErrorsShown' aparezca y SEA VISIBLE
+                IWebElement errorElement = wait.Until(d => {
+                    try
+                    {
+                        var element = d.FindElement(errorShownBy);
+                        // Solo devolvemos el elemento si está visible y tiene texto
+                        return (element.Displayed && !string.IsNullOrEmpty(element.Text)) ? element : null;
+                    }
+                    catch (NoSuchElementException)
+                    {
+                        return null; // Si aún no existe, seguimos esperando
+                    }
+                });
+
+                string actualText = errorElement.Text;
+                _output.WriteLine($"actual Message shown: {actualText}");
+
+                // 2. Comparamos usando .Contains() porque tu HTML añade "Errors: "
+                // Usamos .ToLower() para que no falle por mayúsculas
+                return actualText.ToLower().Contains(expectedError.ToLower());
+            }
+            catch (WebDriverTimeoutException)
+            {
+                _output.WriteLine("FALLO: El mensaje de error no apareció o estaba vacío tras 8 segundos.");
+                return false;
+            }
+            catch (WebDriverException ex) when (ex.Message.Contains("invalid session id"))
+            {
+                _output.WriteLine("ERROR CRÍTICO: Se perdió la conexión con el navegador.");
+                return false;
+            }
         }
 
         public void AddCarToPurchasingCart(string id)
