@@ -25,18 +25,21 @@
         <div class="col-md">
             <div class="form-floating mb-3">
                 <InputText @bind-Value="booking.CustomerName" class="form-control" id="Name" />
+                
                 <label for="Name">Name </label>
             </div>
         </div>
         <div class="col-md">
             <div class="form-floating mb-3">
                 <InputText @bind-Value="booking.CustomerSurname" class="form-control" id="Surname" />
+                
                 <label for="Surname">Surname </label>
             </div>
         </div>
         <div class="col-md">
             <div class="form-floating mb-3">
-                <InputText @bind-Value="booking.Address" class="form-control" id="Address" />
+                <InputText @bind-Value="booking.Address" class="form-control" id="AddressCreate" />
+
                 <label for="DeliveryAddress">Delivery Address</label>
             </div>
         </div>
@@ -45,10 +48,10 @@
             <div class="col-md">
                 <div class="form-floating">
                     @*a dropdown for selecting the payment method*@
-                    <InputSelect class="form-select" @bind-Value="@booking.PaymentMethod" id="PaymentMethod">
-                        <option value="@PaymentMethodTypes.TarjetaCredito" default> CreditCard</option>
-                        <option value="@PaymentMethodTypes.PayPal"> PayPal</option>
-                        <option value="@PaymentMethodTypes.Efectivo"> Cash</option>
+                    <InputSelect class="form-select" @bind-Value="@booking.PaymentMethod" id="PaymentMethodCreate">
+                        <option value="@PaymentMethodTypes.TarjetaCredito" default>TarjetaCredito</option>
+                        <option value="@PaymentMethodTypes.PayPal">PayPal</option>
+                        <option value="@PaymentMethodTypes.Efectivo">Efectivo</option>
                     </InputSelect>
                     <label for="PaymentMethod">Payment Method</label>
                 </div>
@@ -57,7 +60,7 @@
 
         <div class="col-md">
             <div class="form-floating mb-3">
-                <InputText @bind-Value="booking.PhoneNumber" class="form-control" id="PhoneNumber" />
+                <InputText @bind-Value="booking.PhoneNumber" class="form-control" id="PhoneNumberCreate" />
                 <label for="PhoneNumber">Phone Number</label>
             </div>
         </div>
@@ -79,8 +82,8 @@
 
     <h4>Booking detail</h4>
     <p>
-        <b> Total price:</b> @TotalPrice €
-        <b> Total number of days:</b> @TotalDays 
+        <b> Total price:</b> <span id="TotalPriceCreate">@TotalPrice €</span>
+        <b> Total number of days:</b> <span id="TotalDaysCreate">@TotalDays </span>
         <button class="btn btn-outline-primary" type="submit" @onclick="ModifyBookingItems" id="ModifyMaintenances">
             Modify maintenances
         </button>
@@ -106,6 +109,7 @@
                         <td>@item.Price</td>
                         <td>@item.NumberOfDays</td>
                         <td><InputText @bind-Value="item.Comment" class="form-control" id="@($"comment_{item.MaintenanceId}")" /></td>
+                        
                     </tr>
                 }
             </tbody>
@@ -159,6 +163,7 @@
 
     private void OpenDialog()
     {
+
         DialogIsOpen = true;
     }
 
@@ -166,6 +171,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+
+
 
         foreach (var item in booking.BookingItems)
         {
@@ -186,9 +193,10 @@
                     booking.CustomerUserName = user.Identity.Name;
                 }
             }
+            booking.Address = booking.Address == null ? "" : booking.Address;
             booking.CustomerName = booking.CustomerName == null ? "" : booking.CustomerName;
             booking.CustomerSurname = booking.CustomerSurname == null ? "" : booking.CustomerSurname;
-            booking.Address = booking.Address == null ? "" : booking.Address;
+            
             booking.PhoneNumber = booking.PhoneNumber == null ? "" : booking.PhoneNumber;
 
         }

@@ -877,9 +877,6 @@
     "schemas": {
       "BookingDetailDTO": {
         "required": [
-          "address",
-          "customerName",
-          "customerSurname",
           "customerUserName",
           "paymentMethod"
         ],
@@ -892,19 +889,21 @@
           },
           "customerName": {
             "maxLength": 20,
-            "minLength": 0,
-            "type": "string"
+            "minLength": 2,
+            "type": "string",
+            "nullable": true
           },
           "customerSurname": {
-            "maxLength": 20,
-            "minLength": 0,
-            "type": "string"
+            "maxLength": 30,
+            "minLength": 2,
+            "type": "string",
+            "nullable": true
           },
           "address": {
             "maxLength": 50,
             "minLength": 5,
             "type": "string",
-            "format": "multiline"
+            "nullable": true
           },
           "paymentMethod": {
             "$ref": "#/components/schemas/PaymentMethodTypes"
@@ -943,9 +942,6 @@
       },
       "BookingForCreateDTO": {
         "required": [
-          "address",
-          "customerName",
-          "customerSurname",
           "customerUserName",
           "paymentMethod"
         ],
@@ -958,19 +954,21 @@
           },
           "customerName": {
             "maxLength": 20,
-            "minLength": 0,
-            "type": "string"
+            "minLength": 2,
+            "type": "string",
+            "nullable": true
           },
           "customerSurname": {
-            "maxLength": 20,
-            "minLength": 0,
-            "type": "string"
+            "maxLength": 30,
+            "minLength": 2,
+            "type": "string",
+            "nullable": true
           },
           "address": {
             "maxLength": 50,
             "minLength": 5,
             "type": "string",
-            "format": "multiline"
+            "nullable": true
           },
           "paymentMethod": {
             "$ref": "#/components/schemas/PaymentMethodTypes"
@@ -1022,7 +1020,8 @@
             "format": "double"
           },
           "comment": {
-            "minLength": 1,
+            "maxLength": 200,
+            "minLength": 2,
             "type": "string"
           },
           "type": {
