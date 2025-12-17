@@ -146,7 +146,7 @@ namespace AppForSEII2526.API.Data
                     //A customer class has been defined because it has different attributes (purchase, rental, etc.)
 
 
-                    ApplicationUser user = new ApplicationUser("3", "Pablo", "Ballestero", "pablo.ballestero@uclm.es", "Paseo Cervantes,8","+34 633");
+                    ApplicationUser user = new ApplicationUser("3", "Pablo", "Ballestero", "pablo.ballestero@uclm.es", "Calle Cervantes,8", "+34 633");
                     user.EmailConfirmed = true;
 
                     var result = userManager.CreateAsync(user, "OtherPass12$");
