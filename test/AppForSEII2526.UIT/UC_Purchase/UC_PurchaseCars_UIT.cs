@@ -27,6 +27,14 @@ namespace AppForSEII2526.UIT.UC_Purchase
         private const string carPrice2 = "6200000";
 
 
+        private const int carId3 = 1;
+        private const string carModel3 = "Coupe";
+        private const string carColor3 = "Red";
+        private const string carFuelType3 = "Gasoline";
+        private const string carManufacturer3 = "Toyota";
+        private const string carPrice3 = "2500000";
+
+
         public UC_PurchaseCars_UIT(ITestOutputHelper output) : base(output)
         {
             selectCarsForPurchase_PO = new SelectCarsForPurchase_PO(_driver, _output);
@@ -180,6 +188,38 @@ namespace AppForSEII2526.UIT.UC_Purchase
             Assert.True(detailpurchase.CheckListOfCars(expectedPurchaseItems),"Error: purchase items are not as expected ");
 
         }
+
+        [Theory]
+        [InlineData("Tomás", "González", "Blasco Ibáñez,4", "Visa")]
+        [Trait("LevelTesting", "FuncionalTesting")]
+        public void cu_examen(string name,string surname,string address,string paymentMethod)
+        {
+            //Arrange
+            var createpurchase = new CreatePurchase_PO(_driver, _output);
+            var detailpurchase = new DetailPurchase_PO(_driver, _output);
+            //Act
+            InitialStepsForPurchaseCars();
+            selectCarsForPurchase_PO.SearchCars("Red", "");
+            selectCarsForPurchase_PO.AddCarToPurchasingCart(carId2.ToString());
+            var inputColor = _driver.FindElement(By.Id("inputColor"));
+            inputColor.Clear();
+            selectCarsForPurchase_PO.SearchCars("", "Coupe");
+            selectCarsForPurchase_PO.AddCarToPurchasingCart(carId1.ToString());
+            selectCarsForPurchase_PO.ModifyPurchasingCart(carId2.ToString());
+            selectCarsForPurchase_PO.PurchaseCars();
+
+            createpurchase.FillInPurchaseInfo(name, surname, address, paymentMethod);
+            createpurchase.FillInPurchaseQuantity(carQuantity1, carId1);
+            createpurchase.PressPurchaseYourCars();
+            createpurchase.PressOkModalDialog();
+
+            //Assert
+            Assert.True(detailpurchase.CheckPurchaseDetail(name + " " + surname, address, DateTime.Now, carPrice1 + " €"), "Error:Detail purchase is not as expected");
+            var expectedPurchaseItems = new List<string[]> { new string[] { carModel1, carPrice1, carColor1, "1" }, };
+            Assert.True(detailpurchase.CheckListOfCars(expectedPurchaseItems), "Error: purchase items are not as expected ");
+
+        }
+        
     }
 }
 
