@@ -144,9 +144,10 @@ namespace AppForSEII2526.UIT.UC_Purchase
             //Arrange
 
             var expectedMessage = "There are no cars available for being purchased";
+            var colorNoExiste = "Morado";
             //Act
             InitialStepsForPurchaseCars();
-            selectCarsForPurchase_PO.SearchCars("", "");
+            selectCarsForPurchase_PO.SearchCars(colorNoExiste, "All");
             Thread.Sleep(1000);
             //Assert
             //this message will be shown if assert fails
