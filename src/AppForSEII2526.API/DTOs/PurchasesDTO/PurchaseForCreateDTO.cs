@@ -50,10 +50,11 @@ namespace AppForSEII2526.API.DTOs.PurchasesDTO
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your UserName")]
         public string UserName { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Address")]
         public string Address { get; set; }
 
 
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please, set your Address")]
         public PaymentMethodTypes PaymentMethod { get; set; }
 
         public IList<PurchaseItemDTO> PurchaseItems { get; set; }

@@ -1165,6 +1165,7 @@
       },
       "PurchaseDetailDTO": {
         "required": [
+          "address",
           "name",
           "paymentMethod",
           "surname",
@@ -1185,8 +1186,8 @@
             "type": "string"
           },
           "address": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "paymentMethod": {
             "$ref": "#/components/schemas/PaymentMethodTypes"
@@ -1211,6 +1212,7 @@
       },
       "PurchaseForCreateDTO": {
         "required": [
+          "address",
           "name",
           "paymentMethod",
           "surname",
@@ -1231,8 +1233,8 @@
             "type": "string"
           },
           "address": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "paymentMethod": {
             "$ref": "#/components/schemas/PaymentMethodTypes"
