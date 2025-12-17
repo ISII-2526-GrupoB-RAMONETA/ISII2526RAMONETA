@@ -35,7 +35,7 @@ namespace AppForSEII2526.UIT.UC_Purchase
             SelectElement selectElement = new SelectElement(_driver.FindElement(inputModel));
             selectElement.SelectByText(model);
             _driver.FindElement(btnSearch).Click();
-            Thread.Sleep(1000); //wait for the table to be updated
+            Thread.Sleep(2000); //wait for the table to be updated
         }
 
         public void SelectCars(List<string> carModels)
@@ -65,40 +65,45 @@ namespace AppForSEII2526.UIT.UC_Purchase
 
         public bool CheckMessageError(string expectedError)
         {
-            // Usamos una espera explícita para dar tiempo a Blazor a renderizar el texto
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(8));
+            // Espera explícita
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
 
             try
             {
-                // 1. Esperamos a que el elemento con ID 'ErrorsShown' aparezca y SEA VISIBLE
-                IWebElement errorElement = wait.Until(d => {
+                return wait.Until(d =>
+                {
                     try
                     {
+                        // Buscamos el elemento. Al usar @if en Razor, si el elemento existe
+                        // es porque el error es real y visible.
                         var element = d.FindElement(errorShownBy);
-                        // Solo devolvemos el elemento si está visible y tiene texto
-                        return (element.Displayed && !string.IsNullOrEmpty(element.Text)) ? element : null;
+
+                        // Debug: Escribe en la consola qué está encontrando (ayuda mucho si falla)
+                        _output.WriteLine($"Texto encontrado en #ErrorsShown: '{element.Text}'");
+
+                        return element.Text.Contains(expectedError, StringComparison.OrdinalIgnoreCase);
                     }
                     catch (NoSuchElementException)
                     {
-                        return null; // Si aún no existe, seguimos esperando
+                        // Si entra aquí es que Blazor aún no ha renderizado el div del error.
+                        // Devuelve false para que el 'wait' siga intentándolo.
+                        return false;
+                    }
+                    catch (StaleElementReferenceException)
+                    {
+                        // Si el DOM se actualizó justo en este milisegundo, reintentamos.
+                        return false;
                     }
                 });
-
-                string actualText = errorElement.Text;
-                _output.WriteLine($"actual Message shown: {actualText}");
-
-                // 2. Comparamos usando .Contains() porque tu HTML añade "Errors: "
-                // Usamos .ToLower() para que no falle por mayúsculas
-                return actualText.ToLower().Contains(expectedError.ToLower());
             }
             catch (WebDriverTimeoutException)
             {
-                _output.WriteLine("FALLO: El mensaje de error no apareció o estaba vacío tras 8 segundos.");
-                return false;
-            }
-            catch (WebDriverException ex) when (ex.Message.Contains("invalid session id"))
-            {
-                _output.WriteLine("ERROR CRÍTICO: Se perdió la conexión con el navegador.");
+                // Si falla, hacemos una captura de pantalla del código fuente actual para ver qué pasaba
+                var pageSource = _driver.PageSource;
+                // Opcional: imprimir parte del source si es muy largo, o buscar si aparece el texto en otro lado
+                bool textExistsAnywhere = pageSource.Contains(expectedError);
+                _output.WriteLine($"TIMEOUT. ¿El texto existía en algún lugar del HTML?: {textExistsAnywhere}");
+
                 return false;
             }
         }

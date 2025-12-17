@@ -38,6 +38,11 @@
                 </div>
             </div>
             <div class="row">
+                <div class="alert alert-danger" id="ErrorsShown" hidden="@hideErrors">
+                    @errors
+                </div>
+            </div>
+            <div class="row">
                 @if (cars == null)
                 {
                     <p>Loading cars....</p>
@@ -150,6 +155,7 @@
         {
             logger.LogError($"{DateTime.Now} Error: {ex}");
             errors = "Error while connecting to the system";
+            cars = new List<CarForPurchaseDTO>();
         }
         StateHasChanged();
     }
