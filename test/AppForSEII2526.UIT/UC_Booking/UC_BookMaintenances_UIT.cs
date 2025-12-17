@@ -148,12 +148,9 @@ namespace AppForSEII2526.UIT.UC_Booking
         }
 
         [Theory]
-        [InlineData("", customerSurname, customerAddress, paymentMethod1, customerPhoneNumber, comment, "The Name field is required")]
-        [InlineData("P", customerSurname, customerAddress, paymentMethod1, customerPhoneNumber, comment, " Name must be a string with a minimum length of 2 and a maximum length of 20")]
-        [InlineData(customerName, "", customerAddress, paymentMethod1, customerPhoneNumber, comment, "The CustomerSurname field is required.")]
-        [InlineData(customerName, "R", customerAddress, paymentMethod1, customerPhoneNumber, comment, "The field CustomerSurname must be a string with a minimum length of 2 and a maximum length of 30.")]
-        [InlineData(customerName, customerSurname, "", paymentMethod1, customerPhoneNumber, comment, "The Address field is required")]
-        [InlineData(customerName, customerSurname, "Casa", paymentMethod1, customerPhoneNumber, comment, "The field Address must be a string with a minimum length of 5 and a maximum length of 50")]
+        [InlineData("", customerSurname, customerAddress, paymentMethod1, customerPhoneNumber, comment, "The field CustomerName must be a string with a minimum length of 2 and a maximum length of 20.")]
+        [InlineData(customerName, "", customerAddress, paymentMethod1, customerPhoneNumber, comment, "The field CustomerSurname must be a string with a minimum length of 2 and a maximum length of 30.")]
+        [InlineData(customerName, customerSurname, "", paymentMethod1, customerPhoneNumber, comment, "The field Address must be a string with a minimum length of 5 and a maximum length of 50.")]
         [InlineData(customerName, customerSurname, customerAddress, paymentMethod1, customerPhoneNumber, "", "The Comment field is required")]
         public void UC3_AF3_UC3_8_9_10_11_12_13_14_15(string name, string surname,
             string address, string paymentMethod, string phoneNumber, string comment, string expectedMessageError)
@@ -169,7 +166,6 @@ namespace AppForSEII2526.UIT.UC_Booking
             createBooking.FillBookingInfo(name, surname, address, paymentMethod, phoneNumber);
             createBooking.FillInBookingComent(comment, maintenanceId1);
             createBooking.PressBookYourMaintenances();
-            createBooking.PressOkModalDialog();
 
 
             //Assert

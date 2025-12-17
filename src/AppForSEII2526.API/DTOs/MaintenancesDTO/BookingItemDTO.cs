@@ -11,8 +11,8 @@ namespace AppForSEII2526.API.DTOs.MaintenancesDTO
 
         public decimal Price { get; set; }
 
-        
-        [StringLength(200, MinimumLength = 5, ErrorMessage = "Comment must be a string with a minimum length of 2 and a maximum length of 200")]
+        [Required]
+        [StringLength(200, MinimumLength = 2, ErrorMessage = "Comment must be a string with a minimum length of 2 and a maximum length of 200")]
         public string Comment { get; set; }
 
         public string Type { get; set; }

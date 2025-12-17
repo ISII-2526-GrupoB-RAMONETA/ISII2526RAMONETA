@@ -998,6 +998,9 @@
         "additionalProperties": false
       },
       "BookingItemDTO": {
+        "required": [
+          "comment"
+        ],
         "type": "object",
         "properties": {
           "maintenanceId": {
@@ -1018,9 +1021,8 @@
           },
           "comment": {
             "maxLength": 200,
-            "minLength": 5,
-            "type": "string",
-            "nullable": true
+            "minLength": 2,
+            "type": "string"
           },
           "type": {
             "type": "string",
