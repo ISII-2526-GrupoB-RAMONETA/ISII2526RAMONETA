@@ -27,11 +27,17 @@ namespace AppForSEII2526.UIT.UC_Booking
             //wait for the webelement to be clickable
             WaitForBeingClickable(inputName);
             _driver.FindElement(inputName).SendKeys(name);
+            
             if (type == "") type = "All";
             SelectElement selectElement = new SelectElement(_driver.FindElement(selectType));
             selectElement.SelectByText(type);
 
             _driver.FindElement(buttonSeachMaintenances).Click();
+        }
+
+        public void LimpiarPrimerInput()
+        {
+            _driver.FindElement(inputName).Clear();
         }
         
         public bool CheckListOfMaintenances(List<string[]> expectedMaintenances)
