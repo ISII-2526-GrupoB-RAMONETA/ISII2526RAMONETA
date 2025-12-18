@@ -24,9 +24,13 @@ namespace AppForSEII2526.UIT.UC_Booking
         {
             WaitForBeingVisible(_nameBy);
             _name().SendKeys(name);
+            ;
             _surname().SendKeys(surname);
+            Thread.Sleep(1000);
             _address().SendKeys(address);
+            Thread.Sleep(1000);
             _phoneNumber().SendKeys(phoneNumber);
+            
 
             //Create select element object
             SelectElement selectElement = new SelectElement(_paymentMethod());
@@ -37,6 +41,7 @@ namespace AppForSEII2526.UIT.UC_Booking
 
         public void FillInBookingComent(string bookingComment, int maintenanceId)
         {
+            Thread.Sleep(1000);
             _driver.FindElement(By.Id("comment_" + maintenanceId)).SendKeys(bookingComment);
         }
 

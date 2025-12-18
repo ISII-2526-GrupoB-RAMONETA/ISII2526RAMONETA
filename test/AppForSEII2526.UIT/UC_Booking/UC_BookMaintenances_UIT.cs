@@ -1,9 +1,10 @@
-﻿using System;
+﻿using AppForSEII2526.UIT.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AppForSEII2526.UIT.Shared;
+using System.Xml.Linq;
 
 namespace AppForSEII2526.UIT.UC_Booking
 {
@@ -18,7 +19,7 @@ namespace AppForSEII2526.UIT.UC_Booking
         private const string maintenanceNumberOfDays1 = "3";
         private const string maintenancePrice1 = "80";
 
-
+        private const int maintenanceId2 = 5;
         private const string maintenanceName2 = "Scale calibration";
         private const string maintenanceType2 = "Calibration";
         private const string maintenanceNumberOfDays2 = "4";
@@ -31,8 +32,10 @@ namespace AppForSEII2526.UIT.UC_Booking
         private const string paymentMethod1 = "Efectivo";
         private const string paymentMethod2 = "TarjetaCredito";
         private const string paymentMethod3 = "PayPal";
-        private const string comment = "Air filter cleaned, dust and debris removed";
+        private const string comment1 = "Air filter cleaned, dust and debris removed";
+        private const string comment2 = "Please fix it";
 
+        private const string filter1 = "filter";
 
         public UC_BookMaintenances_UIT(ITestOutputHelper output) : base(output)
         {
@@ -60,9 +63,9 @@ namespace AppForSEII2526.UIT.UC_Booking
         }
 
         [Theory]
-        [InlineData(customerName, customerSurname, customerAddress, paymentMethod1, customerPhoneNumber, comment)]
-        [InlineData(customerName, customerSurname, customerAddress, paymentMethod2, customerPhoneNumber, comment)]
-        [InlineData(customerName, customerSurname, customerAddress, paymentMethod3, customerPhoneNumber, comment)]
+        [InlineData(customerName, customerSurname, customerAddress, paymentMethod1, customerPhoneNumber, comment1)]
+        [InlineData(customerName, customerSurname, customerAddress, paymentMethod2, customerPhoneNumber, comment1)]
+        [InlineData(customerName, customerSurname, customerAddress, paymentMethod3, customerPhoneNumber, comment1)]
         public void UC3_1_2_3_BasicFlow(string name, string surname, string address, string paymentMethod, string phoneNumber, string comment)
         {
             //Arrange
@@ -142,6 +145,7 @@ namespace AppForSEII2526.UIT.UC_Booking
             //Act
             selectMaintenancesForBooking_PO.AddMaintenanceToBookingCart(maintenanceName1);
             selectMaintenancesForBooking_PO.AddMaintenanceToBookingCart(maintenanceName2);
+            Thread.Sleep(1000);
             selectMaintenancesForBooking_PO.RemoveMaintenanceFromBookingCart(maintenanceName2);
 
             //Assert
@@ -149,9 +153,9 @@ namespace AppForSEII2526.UIT.UC_Booking
         }
 
         [Theory]
-        [InlineData("", customerSurname, customerAddress, paymentMethod1, customerPhoneNumber, comment, "The field CustomerName must be a string with a minimum length of 2 and a maximum length of 20.")]
-        [InlineData(customerName, "", customerAddress, paymentMethod1, customerPhoneNumber, comment, "The field CustomerSurname must be a string with a minimum length of 2 and a maximum length of 30.")]
-        [InlineData(customerName, customerSurname, "", paymentMethod1, customerPhoneNumber, comment, "The field Address must be a string with a minimum length of 5 and a maximum length of 50.")]
+        [InlineData("", customerSurname, customerAddress, paymentMethod1, customerPhoneNumber, comment1, "The field CustomerName must be a string with a minimum length of 2 and a maximum length of 20.")]
+        [InlineData(customerName, "", customerAddress, paymentMethod1, customerPhoneNumber, comment1, "The field CustomerSurname must be a string with a minimum length of 2 and a maximum length of 30.")]
+        [InlineData(customerName, customerSurname, "", paymentMethod1, customerPhoneNumber, comment1, "The field Address must be a string with a minimum length of 5 and a maximum length of 50.")]
         public void UC3_AF3_UC3_8_9_10_testingErrorsMandatorydata(string name, string surname,
             string address, string paymentMethod, string phoneNumber, string comment, string expectedMessageError)
         {
@@ -163,8 +167,10 @@ namespace AppForSEII2526.UIT.UC_Booking
             selectMaintenancesForBooking_PO.AddMaintenanceToBookingCart(maintenanceName1);
             selectMaintenancesForBooking_PO.BookMaintenances();
 
+            Thread.Sleep(1000);
             createBooking.FillBookingInfo(name, surname, address, paymentMethod, phoneNumber);
             createBooking.FillInBookingComent(comment, maintenanceId1);
+            Thread.Sleep(1000);
             createBooking.PressBookYourMaintenances();
 
 
@@ -190,9 +196,10 @@ namespace AppForSEII2526.UIT.UC_Booking
             selectMaintenancesForBooking_PO.AddMaintenanceToBookingCart(maintenanceName1);
             selectMaintenancesForBooking_PO.AddMaintenanceToBookingCart(maintenanceName2);
             selectMaintenancesForBooking_PO.BookMaintenances();
-            
+
+            Thread.Sleep(1000);
             createBooking.FillBookingInfo(customerName, customerSurname, customerAddress, paymentMethod1, customerPhoneNumber);
-            createBooking.FillInBookingComent(comment, maintenanceId1);
+            createBooking.FillInBookingComent(comment1, maintenanceId1);
             createBooking.PressModifyMaintenances();
 
             selectMaintenancesForBooking_PO.RemoveMaintenanceFromBookingCart(maintenanceName2);
@@ -204,10 +211,50 @@ namespace AppForSEII2526.UIT.UC_Booking
 
 
         }
-        
 
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void sprint3ExamenMantenimiento()
+        {
+            //Arrange
+            var createBooking = new CreateBooking_PO(_driver, _output);
+            var detailBooking = new DetailBooking_PO(_driver, _output);
+            InitialStepsForBookingMaintenances();
 
+            //Act
+            selectMaintenancesForBooking_PO.SearchMaintenances(filter1, "");
+            selectMaintenancesForBooking_PO.SelectMaintenances(new List<string> { maintenanceName1 });
+            selectMaintenancesForBooking_PO.LimpiarPrimerInput();
+            selectMaintenancesForBooking_PO.SearchMaintenances("", maintenanceType2);
+            selectMaintenancesForBooking_PO.SelectMaintenances(new List<string> { maintenanceName2 });
 
+            selectMaintenancesForBooking_PO.BookMaintenances();
+            Thread.Sleep(1000);
+            createBooking.PressModifyMaintenances();
 
+            selectMaintenancesForBooking_PO.RemoveMaintenanceFromBookingCart(maintenanceName1);
+            Thread.Sleep(1000);
+            selectMaintenancesForBooking_PO.BookMaintenances();
+
+            createBooking.FillBookingInfo(customerName, customerSurname, customerAddress, paymentMethod1, customerPhoneNumber);
+            createBooking.FillInBookingComent(comment2, maintenanceId2);
+            createBooking.PressBookYourMaintenances();
+            createBooking.PressOkModalDialog();
+
+            //Assert
+            // the expected error is shown in the view
+            Assert.True(detailBooking.CheckBookingDetail(customerName + " " + customerSurname, customerAddress, paymentMethod1, DateTime.Now, customerPhoneNumber,
+                maintenancePrice2, maintenanceNumberOfDays2), "Error: detail booking is not as expected");
+
+            var expectedBookingItems = new List<string[]>
+            {
+                new string[] { maintenanceName2, comment2, maintenancePrice2 + " €",maintenanceNumberOfDays2 },
+            };
+
+            Assert.True(detailBooking.CheckListOfMaintenances(expectedBookingItems), "Error: booking items are not as expected");
         }
+
+
+
+    }
 }
