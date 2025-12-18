@@ -42,7 +42,7 @@ namespace AppForSEII2526.UIT.RentalCars
         {
             WaitForBeingVisible(_carPrecioBy);
 
-
+            _carPrecio().Clear();
             _carPrecio().SendKeys(precioFiltro);
 
             //if no model is selected then all the models are applicable
@@ -56,6 +56,28 @@ namespace AppForSEII2526.UIT.RentalCars
             InputDateInDatePicker(_fromBy, from);
             InputDateInDatePicker(_toBy, to);
             InputDateInDatePicker(_DateBy, rentaldate);
+
+            _searchCarsButton().Click();
+            //we wait for 2 seconds (2000 milliseconds) till the table is reloaded as we have to wait for the API service to be called
+            System.Threading.Thread.Sleep(2000);
+
+        }
+
+
+        public void FilterCars(string precioFiltro, string ModelFiltro)
+        {
+            WaitForBeingVisible(_carPrecioBy);
+
+            _carPrecio().Clear();
+            _carPrecio().SendKeys(precioFiltro);
+
+            //if no model is selected then all the models are applicable
+            if (ModelFiltro == "") ModelFiltro = "All";
+
+            //create select element object 
+            SelectElement selectElement = new SelectElement(_carModel());
+            //select Action from the dropdown menu
+            selectElement.SelectByText(ModelFiltro);
 
             _searchCarsButton().Click();
             //we wait for 2 seconds (2000 milliseconds) till the table is reloaded as we have to wait for the API service to be called

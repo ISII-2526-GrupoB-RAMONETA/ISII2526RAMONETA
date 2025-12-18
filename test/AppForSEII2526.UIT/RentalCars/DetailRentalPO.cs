@@ -17,6 +17,7 @@ namespace AppForSEII2526.UIT.RentalCars
             WaitForBeingVisible(By.Id("TotalPrice"));
             bool result = true;
             result = result && _driver.FindElement(By.Id("NameSurname")).Text.Contains(name);
+            result = result && _driver.FindElement(By.Id("NameSurname")).Text.Contains(surname);
             result = result && _driver.FindElement(By.Id("DeliveryAddress")).Text.Contains(delivery);
             result = result && _driver.FindElement(By.Id("PaymentMethod")).Text.Contains(paymentmethod);
             result = result && _driver.FindElement(By.Id("TotalPrice")).Text.Contains(totalprice);
