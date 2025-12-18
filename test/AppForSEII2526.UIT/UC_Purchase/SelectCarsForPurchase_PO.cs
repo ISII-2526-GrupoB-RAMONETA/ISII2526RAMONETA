@@ -30,6 +30,7 @@ namespace AppForSEII2526.UIT.UC_Purchase
         public void SearchCars(string color,string model)
         {
             WaitForBeingClickable(inputColor);
+            _driver.FindElement(inputColor).Clear();
             _driver.FindElement(inputColor).SendKeys(color);
             if (model == "") model = "All";
             SelectElement selectElement = new SelectElement(_driver.FindElement(inputModel));
