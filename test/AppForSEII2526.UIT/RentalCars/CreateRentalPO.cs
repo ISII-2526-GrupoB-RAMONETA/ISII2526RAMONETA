@@ -42,6 +42,8 @@ namespace AppForSEII2526.UIT.RentalCars
 
         public void FillInRentalDescription(string quantity, int movieId)
         {
+            _driver.FindElement(By.Id("quantity_" + movieId)).Clear();
+            Thread.Sleep(100);
             _driver.FindElement(By.Id("quantity_" + movieId)).SendKeys(quantity);
         }
 

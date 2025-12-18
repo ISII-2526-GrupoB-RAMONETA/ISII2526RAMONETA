@@ -247,15 +247,16 @@ namespace AppForSEII2526.UIT.RentalCars
             listcars.RentCars();
 
             createrental.FillInRentalInfo(name, surname, deliveryAddress, paymentMethod);
-            //createrental.FillInRentalDescription(quantity1, carId1number);
+            createrental.FillInRentalDescription(quantity1, carId1number);
             createrental.PressRentYourCars();
             createrental.PressOkModalDialog();
 
+            var totalprice = int.Parse(quantity) * int.Parse(priceForRenting1);
 
             //Assert
             //the expected error is shown in the view
             Assert.True(detailRental.CheckRentalDetail(name, surname,
-                deliveryAddress, paymentMethod, from, to,rentaldate, priceForRenting1 + " €"),
+                deliveryAddress, paymentMethod, from, to,rentaldate, totalprice.ToString() + " €"),
                 "Error: detail rental is not as expected");
 
             var expectedRentalItems = new List<string[]>
@@ -266,5 +267,65 @@ namespace AppForSEII2526.UIT.RentalCars
 
         }
 
+
+
+        [Theory]
+        [InlineData("Pablo", "Ballestero", "Calle Cervantes,8", "Visa", "1")]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC2__alquilar_examen(string name, string surname, string deliveryAddress, string paymentMethod, string quantity)
+        {
+            //Arrange
+
+            var createrental = new CreateRental_PO(_driver, _output);
+            var detailRental = new DetailRental_PO(_driver, _output);
+
+            var from = DateTime.Today.AddDays(1);
+            var to = DateTime.Today.AddDays(2);
+            var rentaldate = DateTime.Today.AddDays(0);
+
+
+
+            //Act
+            InitialStepsForRentalCars_UIT();
+
+            listcars.FilterCars("", carModel2, from, to, rentaldate);
+            listcars.SelectCars(new List<string> { carId2 });
+
+            listcars.FilterCars("100", "");
+            listcars.SelectCars(new List<string> { carId1 });
+
+            listcars.RentCars();
+
+            Thread.Sleep(100);
+
+            createrental.PressModifyCars();
+            Thread.Sleep(100);
+            //we remove cartitle2 from the rentingcart
+            listcars.ModifyRentingCart(carId2);
+            Thread.Sleep(100);
+            listcars.RentCars();
+
+            createrental.FillInRentalInfo(name, surname, deliveryAddress, paymentMethod);
+            createrental.FillInRentalDescription(quantity, carId1number);
+            createrental.PressRentYourCars();
+            createrental.PressOkModalDialog();
+
+            var totalprice = int.Parse(quantity) * int.Parse(priceForRenting1);
+
+            //Assert
+            //the expected error is shown in the view
+            Assert.True(detailRental.CheckRentalDetail(name, surname,
+                deliveryAddress, paymentMethod, from, to, rentaldate, totalprice.ToString() + " €"),
+                "Error: detail rental is not as expected");
+
+            var expectedRentalItems = new List<string[]>
+                    { new string[] { carModel1, manufacturer1, priceForRenting1 + " €", quantity}, };
+
+            Assert.True(detailRental.CheckListOfCars(expectedRentalItems),
+                "Error: rental items are not as expected");
+
+        }
+
     }
+
 }
